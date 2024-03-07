@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Domain_Models.Seller">
+  <Class Name="Domain_Models.User">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAEAAAgACIAAAAAAEAEAAAAAAAAAAAAEAA=</HashCode>
-      <FileName>Seller.cs</FileName>
+      <HashCode>AAAAAAAAAAAUAAAgACIABAAAAEAEAIAAAAAQAAAAEAA=</HashCode>
+      <FileName>User.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Domain_Models.Item">
     <Position X="5.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAAAEAAAAAAAAIgAAAAAAhAAAACAEAAAAAEAAAgA=</HashCode>
+      <HashCode>AAABAIAIAAAAhEAAAgAAAAAChAAAACAEAAAAAGAAAAA=</HashCode>
       <FileName>Item.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Domain_Models.PC_Games">
+  <Class Name="Domain_Models.PC_Game">
     <Position X="2.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ABAAAAAEAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PC_Games.cs</FileName>
     </TypeIdentifier>
   </Class>

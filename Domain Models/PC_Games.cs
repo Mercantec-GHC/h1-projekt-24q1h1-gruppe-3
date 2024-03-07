@@ -5,9 +5,10 @@ using System.Text;
 
 namespace Domain_Models
 {
-    public class PC_Games : Item
+    public class PC_Game : Item
     {
-        public int year;
-        public class List<> pictures = new ;
+        public int yearDeployed;
+        public List<string> pictures;
+        public string operatingSystem;
     }
 }
