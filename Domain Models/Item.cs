@@ -7,7 +7,7 @@ namespace Domain_Models
 {
     public abstract class Item
     {
-        private int ID;
+        private int itemID;
         public string gameName;
         public int price;
         public bool orderStatus;
