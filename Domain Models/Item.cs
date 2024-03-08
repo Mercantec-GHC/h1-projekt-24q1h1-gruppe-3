@@ -18,6 +18,14 @@ namespace Domain_Models
         public string manufacture;
         public bool addToFaverite;
 
+        private User userID;
+
+        public Item(User userID)
+        {
+            this.userID = userID;
+        }
+
+
 		void SetItem() { }
         void AddItem() { }
         void RemoveItem() { }
