@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Domain_Models.User">
-    <Position X="7.5" Y="0.5" Width="1.5" />
+    <Position X="8.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAUAAAgCCIABAAAAEAEAIAAAAAQAAAAEAA=</HashCode>
       <FileName>User.cs</FileName>
@@ -10,15 +10,16 @@
   <Class Name="Domain_Models.Item">
     <Position X="5.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAIAIAACABEAAAgAAAAAChAAAACAEAAAAAGAAAAA=</HashCode>
+      <HashCode>AAABAIAIAACABEAACgAAAAAChAAAACAEAAAAAGAAAAA=</HashCode>
       <FileName>Item.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Domain_Models.PC_Game">
+  <Class Name="Domain_Models.PS_Game">
     <Position X="2.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAAAAEAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PC_Games.cs</FileName>
+      <HashCode>AAAAAAAEAAAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>PS_Games.cs</FileName>
+      <NewMemberFileName>PC_Games.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
