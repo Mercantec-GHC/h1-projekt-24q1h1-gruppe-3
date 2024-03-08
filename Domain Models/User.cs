@@ -17,7 +17,7 @@ namespace Domain_Models
         private List<string> favorites;
         private int ItemsViewed;
 
-        bool LoginAction()
+		bool LoginAction()
         { return true; }
         bool LogoutAction()
         { return false; }
