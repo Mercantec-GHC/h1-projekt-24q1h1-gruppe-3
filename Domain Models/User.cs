@@ -8,6 +8,7 @@ namespace Domain_Models
     public class User
     {
         public string name;
+        public int userID;
         private string phoneNumber;
         private string email;
         private string Location;
