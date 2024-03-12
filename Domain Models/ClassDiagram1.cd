@@ -15,11 +15,25 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Domain_Models.PS_Game">
-    <Position X="2.75" Y="1.5" Width="1.5" />
+    <Position X="3.25" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
       <FileName>PS_Games.cs</FileName>
       <NewMemberFileName>PC_Games.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain_Models.PC_Game" Collapsed="true">
+    <Position X="7.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAEAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PC_Games.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain_Models.XBOX_Game" Collapsed="true">
+    <Position X="5.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAEAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>XBOX_Games.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
