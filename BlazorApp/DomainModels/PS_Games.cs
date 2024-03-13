@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Domain_Models
+namespace DomainModels
 {
     public class PS_Game : Item
     {
