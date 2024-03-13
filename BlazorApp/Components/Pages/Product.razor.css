@@ -1,0 +1,20 @@
+﻿body {
+}
+
+.sale {
+    display: flex;
+    align-items: center;
+
+}
+
+.sale img {
+    width: 50rem;
+    height: 50rem;
+    margin-right: 10px;
+}
+
+
+
+.sale p {
+    margin: 0;
+}
