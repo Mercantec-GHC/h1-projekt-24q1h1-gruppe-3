@@ -28,6 +28,16 @@ namespace Domain_Models
 
 
 
+<<<<<<< Updated upstream
+=======
+   /* User user1 = new User
+    {
+        name = "John Doe",
+        userID = 1,
+        yearCreated = new DateTime(2020, 1, 1),
+        itemsSold = 5
+    };*/
+>>>>>>> Stashed changes
 
 
 }

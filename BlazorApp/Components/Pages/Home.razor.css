@@ -1,0 +1,57 @@
+﻿body {
+}
+
+.top-section {
+    position: relative;
+    height: 625px;
+    align-items: center;
+}
+
+.col {
+    border: 1px solid #ccc;
+}
+
+.button-container-top-section {
+    position: relative;
+    top: 23%;
+    left: 15%;
+}
+
+.image-top-section {
+    float: right;
+    border: 1px solid #ccc;
+    
+}
+
+.header-middle-section {
+    text-align: center;
+}
+
+.text-middle-section {
+    text-align: center;
+}
+
+.card-container-middle-section {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.card-middle-section {
+    width: 33%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.button-container-middle-section {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.button-middle-section {
+    margin-right: 10px;
+    margin-left: 10px;
+}
