@@ -17,6 +17,7 @@ namespace DomainModels
         public string genre;
         public string manufacture;
         public bool addToFaverite;
+        public string description;
         //private User userID;
 
 

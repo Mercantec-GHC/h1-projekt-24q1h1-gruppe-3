@@ -28,13 +28,6 @@ namespace Domain_Models
 
 
 
-    User user1 = new User
-    {
-        name = "John Doe",
-        userID = 1,
-        yearCreated = new DateTime(2020, 1, 1),
-        itemsSold = 5
-    };
 
 
 }

@@ -13,22 +13,7 @@ namespace Domain_Models
     }
 
 
-    PC_Game pcGame1 = new PC_Game
-    {
-        itemID = 101,
-        gameName = "Game 1",
-        price = 599,
-        orderStatus = true,
-        condition = "New",
-        created = new DateTime(2021, 1, 1),
-        updated = new DateTime(2021, 1, 1),
-        genre = "Action",
-        manufacture = "GameCo",
-        addToFaverite = false,
-        yearDeployed = 2020,
-        pictures = new List<string> { "picture1.jpg", "picture2.jpg" },
-        operatingSystem = "Windows 10"
-    };
+
 
 
 }

@@ -1,20 +1,33 @@
 ﻿body {
 }
 
-.sale {
-    display: flex;
-    align-items: center;
-
+.col {
+    border-style: solid;
+    border-color: black;
+    box-shadow: 5px 5px ;
 }
 
-.sale img {
-    width: 50rem;
-    height: 50rem;
-    margin-right: 10px;
+.col .gameTitle {
+    text-align: left;
 }
 
+.col .genre {
+    text-align: left;
+    margin-bottom: 10px;
+}
 
+.col .description {
+    text-align: left;
+}
 
-.sale p {
-    margin: 0;
+.col .priceTag {
+    text-align: left;
+}
+
+.col .btn {
+    float: left;
+    height: 4rem;
+    width: 10rem;
+    font-size: 1.2rem;
+    margin-top: 0.2rem;
 }

@@ -1,17 +1,64 @@
-﻿@page "/product"
+﻿@page "/product/{itemID}"
+@inject List<Item> allDummyData
 
-<h1>Skyrim</h1>
 
-<div class="sale">
-    <img src="/picture/skyrim.png" />
-    <p>
-        The Elder Scrolls V: Skyrim er et action-RPG-spil, der foregår i en åben verden. Spilleren styrer en karakter, som de kan skræddersy, og udforsker den store verden af ​​Skyrim, kæmper mod fjender, fuldfører missioner og opdager hemmeligheder i landet.
-    </p>
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <img src="/picture/skyrim.png" class="img-thumbnail" alt="...">
+        </div>
+        <div class="col">
+            <h1 class="gameTitle" >@gameToShow.gameName</h1>
+            <h5 class="genre">Genre: <b>@gameToShow.genre</b> </h5>
+            <h5 class="description">Description:</h5>
+            <p class="description">@gameToShow.description</p>
+        </div>
+        <div class="col">
+            <p>
+                <h3 class="priceTag">Price: <b>@gameToShow.price € </b></h3>
+                <button type="button" class="btn btn-primary"<b>Contact seller</b></button>
+            </p>
+
+        </div>
+
+
+    </div>
+    <div class="row 1">
+        <div class="col">
+            1 of 3
+        </div>
+        <div class="col">
+            2 of 3
+        </div>
+        <div class="col">
+            3of 3
+        </div>
+    </div>
 </div>
 
 
 
 
 
+@* <div class="sale">
+    <img src="/picture/skyrim.png" />
+    <p>
+        The Elder Scrolls V: Skyrim er et action-RPG-spil, der foregår i en åben verden. Spilleren styrer en karakter, som de kan skræddersy, og udforsker den store verden af ​​Skyrim, kæmper mod fjender, fuldfører missioner og opdager hemmeligheder i landet.
+    </p>
+</div>
+ *@
+
+
+
+
 @code {
+    public Item gameToShow;
+    [Parameter]
+    public string itemID { get; set; }
+
+    protected override void OnInitialized()
+    {
+        gameToShow = allDummyData[Int32.Parse(itemID)];
+    }
 }
