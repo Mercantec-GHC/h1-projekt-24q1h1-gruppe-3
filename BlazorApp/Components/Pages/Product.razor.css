@@ -1,15 +1,27 @@
 ﻿body {
 }
 
-.col {
-    border-style: solid;
-    border-color: black;
-    box-shadow: 5px 5px ;
+.container .row:first-child {
+    box-shadow: 5px 5px;
+    background-color: whitesmoke;
 }
 
-.col .gameTitle {
-    text-align: left;
+.container .row:nth-child(2) {
+    background-color: whitesmoke;
+    margin-top: 1rem;
+    box-shadow: 5px 5px;
 }
+
+    .col .gameTitle {
+        text-align: left;
+        word-break: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 2vw;
+        max-width: 50rem;
+    }
+
 
 .col .genre {
     text-align: left;
@@ -30,4 +42,31 @@
     width: 10rem;
     font-size: 1.2rem;
     margin-top: 0.2rem;
+}
+
+
+.container .row:nth-child(2) {
+    background-color: whitesmoke;
+    margin-top: 1rem;
+    box-shadow: 5px 5px;
+}
+
+.col .sellerDetailsContainer {
+    text-align: left;
+}
+
+.col .sellerDetails{
+    margin-bottom
+}
+
+.col .name{
+    margin-bottom: 0px;
+}
+
+.col .location {
+    margin-bottom: 0px;
+}
+
+.col .itemsold {
+    margin-bottom: 0px;
 }

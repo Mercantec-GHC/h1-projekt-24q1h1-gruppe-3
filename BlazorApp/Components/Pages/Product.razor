@@ -1,5 +1,6 @@
 ﻿@page "/product/{itemID}"
 @inject List<Item> allDummyData
+@inject List<User> allDummyUsers
 
 
 
@@ -15,16 +16,12 @@
             <p class="description">@gameToShow.description</p>
         </div>
         <div class="col">
-            <p>
                 <h3 class="priceTag">Price: <b>@gameToShow.price € </b></h3>
                 <button type="button" class="btn btn-primary"<b>Contact seller</b></button>
-            </p>
-
         </div>
 
-
     </div>
-    <div class="row 1">
+    <div class="row">
         <div class="col">
             1 of 3
         </div>
@@ -32,7 +29,14 @@
             2 of 3
         </div>
         <div class="col">
-            3of 3
+            <div class="sellerDetailsContainer"
+                <h5 class="sellerDetails">Seller Details:</h5>
+                <p class="name"><b>Name: </b>@userToShow.name</p>
+                <p class="location"><b>Loaction: </b>@userToShow.Location</p>
+                <p class="itemsold"><b>Items sold: </b>@userToShow.itemsSold</p>
+                <p class="itemviewed"><b>Item viewed: </b>@userToShow.ItemsViewed</p>
+            </div>
+
         </div>
     </div>
 </div>
@@ -53,12 +57,14 @@
 
 
 @code {
+    public User userToShow;
     public Item gameToShow;
     [Parameter]
     public string itemID { get; set; }
 
     protected override void OnInitialized()
     {
+        userToShow = allDummyUsers[Int32.Parse(itemID)];
         gameToShow = allDummyData[Int32.Parse(itemID)];
     }
 }

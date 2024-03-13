@@ -312,5 +312,39 @@ namespace DomainModels
 
             return allDummyData;
         }
+        public List<User> GenerateDummyUsers()
+        {
+            List<User> allDummyUsers = new List<User>();
+
+            allDummyUsers.Add(new User
+            {
+                name = "John Doe",
+                userID = 1,
+                phoneNumber = "123-456-7890",
+                email = "john.doe@example.com",
+                Location = "New York, NY",
+                yearCreated = new DateTime(2020, 1, 1),
+                itemsSold = 10,
+                favorites = new List<string> { "Books", "Movies" },
+                ItemsViewed = 50
+            });
+
+            allDummyUsers.Add(new User
+            {
+                name = "Jane Smith",
+                userID = 2,
+                phoneNumber = "098-765-4321",
+                email = "jane.smith@example.com",
+                Location = "Los Angeles, CA",
+                yearCreated = new DateTime(2019, 6, 15),
+                itemsSold = 15,
+                favorites = new List<string> { "Music", "Art" },
+                ItemsViewed = 75
+            });
+
+            // Add more users as needed
+
+            return allDummyUsers;
+        }
     }
 }
