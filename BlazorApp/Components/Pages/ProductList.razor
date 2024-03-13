@@ -1,16 +1,36 @@
 ﻿@page "/productlist"
 @inject List<Item> allDummyData
 
-
 <h3>ProductList</h3>
 
-<p>@gameToShow[0].gameName</p>
+<h5>Total products: @gamesToShow.Count</h5>
+
+
+<div class="container">
+    @foreach(var games in gamesToShow)
+    {
+        <div class="row" style="margin-bottom: 0.2rem">
+            <div class="col-1">
+                <img src="/Picture/skyrim.png" class="img-fluid game-image" alt="Game Image" />
+            </div>
+            <div class="col-9">
+                <p class="game-title">@games.gameName</p>
+                <p class="game-created">Created: @games.created</p>
+                <p class="game-genre">Genre: @games.genre</p>
+                <p class="game-description">@games.description</p>
+            </div>
+            <div class="col-2">
+                <p class="game-price text-right">Price: <b>@games.price €</b></p>
+            </div>
+        </div>
+    }
+</div>
 
 @code {
-	public List<Item> gameToShow;
+    public List<Item> gamesToShow;
 
-	protected override void OnInitialized()
-	{
-		gameToShow = allDummyData;
-	}
+    protected override void OnInitialized()
+    {
+        gamesToShow = allDummyData;
+    }
 }
