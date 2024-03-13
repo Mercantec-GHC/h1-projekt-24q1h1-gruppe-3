@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DomainModels
 {
-    public abstract class Item : User
+    public abstract class Item //: User
     {
         public int itemID;
         public string gameName;
@@ -17,7 +17,7 @@ namespace DomainModels
         public string genre;
         public string manufacture;
         public bool addToFaverite;
-        private User userID;
+        //private User userID;
 
 
 		void SetItem() { }
