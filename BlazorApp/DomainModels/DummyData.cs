@@ -1,4 +1,4 @@
-﻿using Domain_Models;
+﻿using DomainModels;
 
 namespace DomainModels
 {

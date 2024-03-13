@@ -1,5 +1,16 @@
-﻿<h3>ProductList</h3>
+﻿@page "/productlist"
+@inject List<Item> allDummyData
+
+
+<h3>ProductList</h3>
+
+<p>@gameToShow[0].gameName</p>
 
 @code {
+	public List<Item> gameToShow;
 
+	protected override void OnInitialized()
+	{
+		gameToShow = allDummyData;
+	}
 }
