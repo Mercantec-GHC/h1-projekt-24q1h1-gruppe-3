@@ -1,16 +1,40 @@
 ﻿@page "/productlist"
 @inject List<Item> allDummyData
 
-
 <h3>ProductList</h3>
 
-<p>@gameToShow[0].gameName</p>
+<h5>Total products: @gamesToShow.Count</h5>
+
+
+<div class="container">
+    @foreach(var games in gamesToShow)
+    {
+        <div class="row" style="margin-bottom: 0.2rem">
+            <div class="col-1">
+
+                <img src="/Picture/skyrim.png" class="img-fluid game-image" alt="Game Image" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-heart-fill heart-icon" viewBox="0 0 20 20">
+<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                </svg>
+            </div>
+            <div class="col-9">
+                <p class="game-title">@games.gameName</p>
+                <p class="game-created"><b>Created:</b> @games.created</p>
+                <p class="game-genre"><b>Genre:</b> @games.genre</p>
+                <p class="game-description">@games.description</p>
+            </div>
+            <div class="col-2">
+                <p class="game-price text-right">Price: <b>@games.price €</b></p>
+            </div>
+        </div>
+    }
+</div>
 
 @code {
-	public List<Item> gameToShow;
+    public List<Item> gamesToShow;
 
-	protected override void OnInitialized()
-	{
-		gameToShow = allDummyData;
-	}
+    protected override void OnInitialized()
+    {
+        gamesToShow = allDummyData;
+    }
 }
