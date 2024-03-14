@@ -7,17 +7,17 @@ namespace DomainModels
 {
     public class User
     {
-        public string name;
-        public int userID;
-        private string phoneNumber;
-        private string email;
-        private string Location;
-        public DateTime yearCreated;
-        public int itemsSold;
-        private List<string> favorites;
-        private int ItemsViewed;
+        public string name { get; set; }
+        public int userID { get; set; }
+        public string phoneNumber { get; set; }
+        public string email { get; set; }
+        public string Location { get; set; }
+        public DateTime yearCreated { get; set; }
+        public int itemsSold { get; set; }
+        public List<string> favorites { get; set; }
+        public int ItemsViewed { get; set; }
 
-		bool LoginAction()
+        bool LoginAction()
         { return true; }
         bool LogoutAction()
         { return false; }
