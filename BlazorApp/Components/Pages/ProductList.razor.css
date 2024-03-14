@@ -1,0 +1,81 @@
+﻿article#bodybackground {
+    background-color: gray !important;
+}
+
+
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh; /* Dette sikrer, at containeren fylder mindst hele skærmehøjden */
+
+}
+
+.container .row {
+    background-color: #b3b3b3;
+    box-shadow: 4px 3.5px;
+    margin-top: 0.7rem;
+    padding: 0;
+}
+
+.col-1 {
+    position: relative; /* Nødvendigt for at positionere hjerte-ikonet korrekt */
+}
+
+.heart-icon {
+    position: absolute;
+    top: -0.3rem; /* Placerer ikonet længere op i højre hjørne */
+    left: 0.-rem; /* Placerer ikonet længere til højre i højre hjørne */
+    fill: red; /* Giver ikonet en rød farve */
+    stroke: black; /* Giver kanten en sort farve */
+    stroke-width: 1; /* Sætter bredden på kanten */
+    width: 2rem; /* Juster størrelsen efter behov */
+    height: 3rem; /* Juster størrelsen efter behov */
+    filter: drop-shadow(-2px -3px 10px rgba(5, 5, 5, 10));
+}
+
+
+
+
+.text-right {
+    text-align: right;
+}
+
+.game-image {
+    width: 100%;
+    height: auto;
+}
+
+.game-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin:0;
+    padding:0;
+}
+.game-created{
+    font-size: 1rem;
+    margin:0;
+    color: black;
+}
+
+.game-price {
+    font-size: 1rem;
+    text-align: center;
+}
+
+
+
+.game-genre {
+    margin:0;
+    color: black;
+}
+
+.game-description {
+    margin:0.3rem;
+}
+
+
+
