@@ -1,14 +1,20 @@
 ﻿body {
 }
 
-.top-section {
+.section {
     position: relative;
     height: 625px;
     align-items: center;
+    border-bottom: 1px solid #ff0000;
 }
 
 .col {
-    border: 1px solid #ccc;
+    border: 1px solid #ff0000;
+    padding: 20px;
+}
+
+.header-top-section {
+    margin-top: 45%;
 }
 
 .button-container-top-section {
@@ -18,16 +24,12 @@
 }
 
 .image-top-section {
-    float: right;
-    border: 1px solid #ccc;
-    
+    object-fit: cover;
+    height: auto;
+    width: 100%;
 }
 
-.header-middle-section {
-    text-align: center;
-}
-
-.text-middle-section {
+.text {
     text-align: center;
 }
 
@@ -40,7 +42,7 @@
 .card-middle-section {
     width: 33%;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #ff0000;
     border-radius: 10px;
     text-align: center;
 }
@@ -54,4 +56,18 @@
 .button-middle-section {
     margin-right: 10px;
     margin-left: 10px;
+}
+
+.card-container-bottom-section {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.card-bottom-section {
+    width: 25%;
+    padding: 20px;
+    border: 1px solid #ff0000;
+    border-radius: 10px;
+    text-align: center;
 }
