@@ -1,51 +1,35 @@
 ﻿@page "/productlist"
 @inject List<Item> allDummyData
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
 
 <div class="ProductListTop">
     <h3 class="ProductListTitle">ProductList</h3>
-
-    <div class="basket">
-        <button class="custom-basket-button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5" />
-                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
-            </svg>
-        </button>
-    </div>
-
 </div>
 
-
-
-
-
-<h5>Total products: @gamesToShow.Count</h5>
-
+<h5 class="productsCount">Total products: @gamesToShow.Count</h5>
 
 <div class="container">
-    @foreach(var games in gamesToShow)
+    @foreach (var game in gamesToShow)
     {
-        <div class="row" style="margin-bottom: 0.2rem">
+        <div class="row" style="margin-bottom: 0.2rem; cursor: pointer;" @onclick="() => NavigateToProduct(game.itemID - 1)">
             <div class="col-1">
-
                 <img src="/Picture/skyrim.png" class="img-fluid game-image" alt="Game Image" />
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-heart-fill heart-icon" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" fill="black" transform="scale(1.1)" />
-                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" fill="red" transform="scale(0.8) translate(3,3)" />
-                </svg>
-
+                <button @onclick="() => HandleClick(game)">
+                        <img class="favoriteStar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACu0lEQVR4nO2ZS2sTURTHr28FRUSoC4ViMHPOxLYqRUVcuPEruNKFKPgV+gHEKoiCC4WCILhoaXzW+t50Ydvk3MRdVXBRF924sCAIvmrzl5m0SYa8JnHuZEbyh7OcM7//OfdO7rlRqquuujImCB9zQsVV0PwCws9VHIUsD0K4AM1ALnlExU3Q9NSFd4MmVZwEbR8qVb8U1mEVF0F4wgvPgPBjFQdBUgerq+8aKDj7QkVd0PSwCr5kgh6oKAti74fwcn0DXEDGGlBRFTSn68KXY1xFUcimUg2rX+7CMvLUr6ImCI35qP7qXhhVURIySdtX9Su7oLmvM7AziR7krOMQOgvhSyvr/pNv+HI4z6TdHE4uJ+dMoicYyDf9O4pnGToF4SEIj0B4GsJf2wBtNX5A07tiYegKNF+Atk9CJxPNwYWGoWkxBMg2gxYdxvoGPu7bBOEnnQflevESs3u2NO7CXGojND2KACw8IfQMU72b/e2B/OAGCN+P0NKZdFaHL/iSibRaB6G7nYfncaegLcF7TGi+08FlM4qpE+vbgi+ZgFoDoZsdWDa3AbX2n+A9JjTfCK/yPBIYvMeE0PUQDNxy3hUovMeI5osGK3/VGHjbJ0//G3YsFPiiAb5noAPpMA18MGDgfTjwznlJ01LwBmip5V/btq9NTG3ibPKAeQPaOmPuK0SnQzBAlw0aGDZvwOS8IDxh3oDmeZ9AC8Vx0I0Fn8/Mm4WfS22tee/p/Zp8cefoismpOCQ5Ruhzkw4UME3bzBnI20cbrN9v7hCeT2xvUoChhpcDOYN/hiBrn68B/ss9PWb6dvnOI7xz5cbhe40OnjNnoPI0KvTbndiy1t62880md7vHdOGfFQauBUtd+UKh1yt7II2MnQws71u71+2i5j/Q9CqovNUvcpeKuetxZKwB5x2m8nfV1f+ov0WA2bF0AkOGAAAAAElFTkSuQmCC">
+                </button>
             </div>
             <div class="col-8">
-                <p class="game-title">@games.gameName</p>
-                <p class="game-created"><b>Created:</b> @games.created</p>
-                <p class="game-genre"><b>Genre:</b> @games.genre</p>
-                <p class="game-manufacture"><b>Manufacture:</b> @games.manufacture</p>
-                <p class="game-description">@games.description</p>
+                <p class="game-title">@game.gameName</p>
+                <p class="game-created"><b>Created:</b> @game.created</p>
+                <p class="game-genre"><b>Genre:</b> @game.genre</p>
+                <p class="game-manufacture"><b>Manufacture:</b> @game.manufacture</p>
+                <p class="game-description">@game.description</p>
             </div>
             <div class="col-2">
-                <p class="game-price text-right">Price: <b>@games.price €</b></p>
-                <p class="game-condition"><b>Condition:</b> @games.condition</p>
-                <button class="game-visit">Visit</button>
+                <p class="game-price text-right">Price: <b>@game.price €</b></p>
+                <p class="game-condition"><b>Condition:</b> @game.condition</p>
             </div>
         </div>
     }
@@ -53,9 +37,42 @@
 
 @code {
     public List<Item> gamesToShow;
+    public List<Item> favoriteGames = new List<Item>(); // Liste til at gemme favoritter
 
     protected override void OnInitialized()
     {
         gamesToShow = allDummyData;
     }
+
+    private async Task AddToFavorites(Item game)
+    {
+        // Tjek om spillet allerede er i favoritter
+        if (!favoriteGames.Contains(game))
+        {
+            favoriteGames.Add(game);
+            // Vis en alert med beskeden
+            await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er tilføjet til favoritter");
+        }
+        else
+        {
+            // Hvis spillet allerede er i favoritter, kan du vise en besked eller håndtere det på en anden måde
+            await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er allerede tilføjet til favoritter");
+        }
+    }
+
+    // New method to handle the click event
+    private async Task HandleClick(Item game)
+    {
+        await AddToFavorites(game);
+    }
+
+    private void NavigateToProduct(int itemId)
+    {
+        // Brug NavigationManager til at navigere til den ønskede side
+        NavigationManager.NavigateTo($"./product/{itemId}");
+    }
+}
+
+
+
 }
