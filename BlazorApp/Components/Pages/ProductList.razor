@@ -1,6 +1,8 @@
 ﻿@page "/productlist"
 @inject List<Item> allDummyData
 @inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
 
 <div class="ProductListTop">
     <h3 class="ProductListTitle">ProductList</h3>
@@ -12,27 +14,98 @@
     <Listing Games="gamesToShow" OnAddToFavorites="AddToFavorites"></Listing>
 </div>
 
+<div class="pageCount">
+    <button @onclick="() => UpdatePage(currentPage -1)" disabled="@(currentPage == 1)">Forrige</button>
+    <p>@currentPage - @totalPages</p>
+    <button @onclick="() => UpdatePage(currentPage + 1)" disabled="@(currentPage == Math.Ceiling((double)allDummyData.Count / itemsPerPage))">Næste</button>
+
+</div>
+
 @code {
     public List<Item> gamesToShow;
     public List<Item> favoriteGames = new List<Item>(); // Liste til at gemme favoritter
+    private int currentPage = 1;
+    private const int itemsPerPage = 5;
+    private int totalPages;
+
 
     protected override void OnInitialized()
     {
-        gamesToShow = allDummyData;
+        // Parse URL to get current page number
+        var uri = new Uri(NavigationManager.Uri);
+        var queryString = uri.Query;
+        var parameters = ParseQueryString(queryString);
+        if (parameters.TryGetValue("page", out var pageValue) && int.TryParse(pageValue, out var page))
+        {
+            currentPage = page;
+        }
+
+        // Calculate items to show based on current page
+        gamesToShow = allDummyData.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+        // Calculate total pages
+        totalPages = (int)Math.Ceiling((double)allDummyData.Count / itemsPerPage);
     }
+
+    private void UpdatePage(int page)
+    {
+        currentPage = page;
+        gamesToShow = allDummyData.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+        totalPages = (int)Math.Ceiling((double)allDummyData.Count / itemsPerPage);
+
+        // Get the current URL and parse its query string
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        var queryString = uri.Query;
+        var parameters = ParseQueryString(queryString);
+
+        // Remove any existing "page" parameters
+        parameters.Remove("page=2");
+
+        // Add the new "page" parameter
+        parameters["page"] = currentPage.ToString();
+
+        // Construct the new query string, ensuring only one "page" parameter
+        var newQueryString = string.Join("&", parameters.Select(p => $"{p.Key}={p.Value}"));
+
+        // If the new query string starts with "&", remove the first "&"
+        if (newQueryString.StartsWith("&"))
+        {
+            newQueryString = newQueryString.Substring(1);
+        }
+
+        // Navigate to the new URL with the updated query string
+        NavigationManager.NavigateTo(uri.GetLeftPart(UriPartial.Path) + "?" + newQueryString, forceLoad: true);
+
+    }
+
+
+
+
+    private Dictionary<string, string> ParseQueryString(string queryString)
+    {
+        // Parse query string into key-value pairs
+        var parameters = new Dictionary<string, string>();
+        var pairs = queryString.Split('&');
+        foreach (var pair in pairs)
+        {
+            var keyValue = pair.Split('=');
+            if (keyValue.Length == 2)
+            {
+                parameters[keyValue[0]] = keyValue[1];
+            }
+        }
+        return parameters;
+    }
+
 
     private async Task AddToFavorites(Item game)
     {
-        // Tjek om spillet allerede er i favoritter
         if (!favoriteGames.Contains(game))
         {
             favoriteGames.Add(game);
-            // Vis en alert med beskeden
             await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er tilføjet til favoritter");
         }
         else
         {
-            // Hvis spillet allerede er i favoritter, kan du vise en besked eller håndtere det på en anden måde
             await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er allerede tilføjet til favoritter");
         }
     }

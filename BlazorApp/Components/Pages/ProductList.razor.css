@@ -17,3 +17,27 @@
     justify-content: center;
     min-height: 100vh;
 }
+
+.pageCount {
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.pageCount p {
+    margin: 1rem;
+}
+
+
+/* Media query for mindre skærme */
+@media (max-width: 768px) {
+    .ProductListTop {
+        flex-direction: column;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+}

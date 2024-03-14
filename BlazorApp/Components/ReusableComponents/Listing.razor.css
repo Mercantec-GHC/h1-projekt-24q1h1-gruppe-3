@@ -1,23 +1,34 @@
 ﻿.container .row {
     background-color: #b3b3b3;
     box-shadow: 4px 3.5px;
-    margin-top: 0.7rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.2rem;
     padding: 0;
+    border-radius: 10px;
+}
+
+.row:hover {
+    transform: scale(1.01);
+    transition: transform 0.3s ease-in-out;
 }
 
 .col-1 {
     position: relative;
     min-width: auto;
     min-width: 7rem;
-    margin: 0.3rem 0 0.3rem 0;
+    margin: 0.3rem 0 0rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem;
 }
 
-    .col-1 button {
-        background-color: #b3b3b3; /* Matcher baggrundsfarven i .col-1 */
-        border: none; /* Fjerner eventuelle rammer */
-        padding: 0; /* Fjerner padding, hvis det er nødvendigt */
-        margin: 0;
-    }
+.col-1 button {
+    background-color: #b3b3b3;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
 
 .favoriteStar {
     position: absolute;
@@ -33,6 +44,15 @@
     text-align: right;
 }
 
+.image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 0.2rem 0.2rem 0.2rem;
+}
+
 .game-image {
     width: 100%;
     height: auto;
@@ -46,14 +66,26 @@
 }
 
 .game-created {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    margin: 0;
+    color: black;
+}
+
+.game-genre {
+    font-size: 0.7rem;
     margin: 0;
     color: black;
 }
 
 .game-manufacture {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     margin: 0;
+    color: black;
+}
+
+.game-description {
+    font-size: 0.7rem;
+    margin: 0.2rem 0 0 0;
     color: black;
 }
 
@@ -61,27 +93,42 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
+    padding:0.3rem 0 0.3rem 0;
+    margin: 0;
 }
+
 
 .game-price {
     font-size: 1rem;
-    text-align: center;
+
+    margin: 0 0 0.2rem 0;
 }
 
 .game-condition {
     font-size: 0.8rem;
-    text-align: center;
-    margin: 0;
 }
 
-.game-genre {
-    margin: 0;
-    font-size: 0.8rem;
-    color: black;
+.game-image:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease-in-out;
 }
 
-.game-description {
-    margin: 0.2rem 0 0.1rem 0;
-    font-size: 0.9rem;
+/* Media query for mindre skærme */
+@media (max-width: 768px) {
+    .col-1 {
+        min-width: 5rem;
+    }
+
+    .game-title {
+        font-size: 0.9rem;
+    }
+
+    .game-created, .game-genre, .game-manufacture, .game-description {
+        font-size: 0.6rem;
+    }
+
+    .game-price, .game-condition {
+        font-size: 0.7rem;
+    }
 }
