@@ -21,6 +21,24 @@
     padding: 0;
 }
 
+.col-1 {
+    position: relative; /* Nødvendigt for at positionere hjerte-ikonet korrekt */
+}
+
+.heart-icon {
+    position: absolute;
+    top: -0.3rem; /* Placerer ikonet længere op i højre hjørne */
+    left: 0.-rem; /* Placerer ikonet længere til højre i højre hjørne */
+    fill: red; /* Giver ikonet en rød farve */
+    stroke: black; /* Giver kanten en sort farve */
+    stroke-width: 1; /* Sætter bredden på kanten */
+    width: 2rem; /* Juster størrelsen efter behov */
+    height: 3rem; /* Juster størrelsen efter behov */
+    filter: drop-shadow(-2px -3px 10px rgba(5, 5, 5, 10));
+}
+
+
+
 
 .text-right {
     text-align: right;
@@ -40,7 +58,7 @@
 .game-created{
     font-size: 1rem;
     margin:0;
-    color: gray;
+    color: black;
 }
 
 .game-price {
@@ -48,9 +66,11 @@
     text-align: center;
 }
 
+
+
 .game-genre {
     margin:0;
-    color: lightgray;
+    color: black;
 }
 
 .game-description {
