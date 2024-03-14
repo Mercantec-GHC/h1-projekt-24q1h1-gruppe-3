@@ -18,17 +18,33 @@
 
 .heart-icon {
     position: absolute;
-    top: 0.1rem; /* Placerer ikonet længere op i højre hjørne */
-    left: 8rem; /* Placerer ikonet længere til højre i højre hjørne */
-    fill: red; /* Giver ikonet en rød farve */
-    stroke: black; /* Giver kanten en sort farve */
-    stroke-width: 1; /* Sætter bredden på kanten */
-    stroke-linejoin: round; /* Forbedrer forbindelsen mellem linjer */
-    stroke-linecap: round; /* Forbedrer afslutningen af linjer */
-    width: 2rem; /* Juster størrelsen efter behov */
-    height: 3rem; /* Juster størrelsen efter behov */
-    filter: drop-shadow(-2px -3px 10px rgba(5, 5, 5, 10));
+    top: 2rem;
+    left: 1rem;
+    fill: red;
+    width: 2rem;
+    height: 3rem;
+    /* Add a transition for smooth movement */
+    transition: transform 0.3s ease;
 }
+
+/* Example media query for smaller screens */
+@media (max-width: 768px) {
+    .heart-icon {
+        /* Adjust the position for smaller screens */
+        transform: translateY(150%); /* Moves the heart icon down by 150% of its height */
+    }
+}
+
+
+/* Example media query for larger screens */
+@media (min-width: 1200px) {
+    .heart-icon {
+        /* Adjust the position for larger screens */
+        transform: translate(0, 150%); /* Moves the heart icon further down */
+    }
+}
+
+
 
 .col .gameTitle {
     text-align: left;
@@ -55,6 +71,7 @@
 }
 
 .col .btn {
+    position: relative;
     float: left;
     height: 4rem;
     width: 10rem;
@@ -87,4 +104,24 @@
 
 .col .itemsold {
     margin-bottom: 0px;
+}
+
+.col .details {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.col .conditionDetails {
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+.col .genreDetails {
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+.col .manufactureDetails {
+    text-align: left;
+    margin-bottom: 10px;
 }
