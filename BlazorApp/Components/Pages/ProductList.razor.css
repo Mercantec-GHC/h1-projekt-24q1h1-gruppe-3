@@ -1,8 +1,13 @@
-﻿article#bodybackground {
-    background-color: gray !important;
+﻿.ProductListTop {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-
+.productsCount {
+    color: white;
+}
 
 .container {
     margin-left: auto;
@@ -10,35 +15,40 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 100vh; /* Dette sikrer, at containeren fylder mindst hele skærmehøjden */
-
+    min-height: 100vh;
 }
 
-.container .row {
-    background-color: #b3b3b3;
-    box-shadow: 4px 3.5px;
-    margin-top: 0.7rem;
-    padding: 0;
-}
+    .container .row {
+        background-color: #b3b3b3;
+        box-shadow: 4px 3.5px;
+        margin-top: 0.7rem;
+        padding: 0;
+    }
 
 .col-1 {
-    position: relative; /* Nødvendigt for at positionere hjerte-ikonet korrekt */
+    position: relative;
+    min-width: auto;
+    min-width: 7rem;
+    margin: 0.3rem 0 0.3rem 0;
 }
 
-.heart-icon {
+.col-1 button {
+    background-color: #b3b3b3; /* Matcher baggrundsfarven i .col-1 */
+    border: none; /* Fjerner eventuelle rammer */
+    padding: 0; /* Fjerner padding, hvis det er nødvendigt */
+    margin:0;
+}
+
+
+.favoriteStar {
     position: absolute;
-    top: -0.3rem; /* Placerer ikonet længere op i højre hjørne */
-    left: 0.-rem; /* Placerer ikonet længere til højre i højre hjørne */
-    fill: red; /* Giver ikonet en rød farve */
-    stroke: black; /* Giver kanten en sort farve */
-    stroke-width: 1; /* Sætter bredden på kanten */
-    width: 2rem; /* Juster størrelsen efter behov */
-    height: 3rem; /* Juster størrelsen efter behov */
-    filter: drop-shadow(-2px -3px 10px rgba(5, 5, 5, 10));
+    top: 0;
+    left: 0;
+    filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.5));
+    width: 30px;
+    height: 30px;
+    transform: translate(0rem, 0rem);
 }
-
-
-
 
 .text-right {
     text-align: right;
@@ -50,15 +60,29 @@
 }
 
 .game-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin:0;
-    padding:0;
-}
-.game-created{
     font-size: 1rem;
-    margin:0;
+    font-weight: bold;
+    margin: 0.3rem 0 0 0;
+    padding: 0;
+}
+
+.game-created {
+    font-size: 0.8rem;
+    margin: 0;
     color: black;
+}
+
+.game-manufacture {
+    font-size: 0.8rem;
+    margin: 0;
+    color: black;
+}
+
+.col-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 .game-price {
@@ -66,16 +90,19 @@
     text-align: center;
 }
 
-
+.game-condition {
+    font-size: 0.8rem;
+    text-align: center;
+    margin: 0;
+}
 
 .game-genre {
-    margin:0;
+    margin: 0;
+    font-size: 0.8rem;
     color: black;
 }
 
 .game-description {
-    margin:0.3rem;
+    margin: 0.2rem 0 0.1rem 0;
+    font-size: 0.9rem;
 }
-
-
-
