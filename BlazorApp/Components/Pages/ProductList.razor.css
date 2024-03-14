@@ -2,6 +2,11 @@
     background-color: gray !important;
 }
 
+.ProductListTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Sørger for, at elementerne er centreret vertikalt */
+}
 
 
 .container {
@@ -10,8 +15,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 100vh; /* Dette sikrer, at containeren fylder mindst hele skærmehøjden */
-
+    min-height: 100vh;
 }
 
 .container .row {
@@ -22,22 +26,21 @@
 }
 
 .col-1 {
-    position: relative; /* Nødvendigt for at positionere hjerte-ikonet korrekt */
+    position: relative;
+    min-width: auto;
+    min-width: 7rem;
+    margin: 0.3rem 0 0.3rem 0;
 }
 
 .heart-icon {
     position: absolute;
-    top: -0.3rem; /* Placerer ikonet længere op i højre hjørne */
-    left: 0.-rem; /* Placerer ikonet længere til højre i højre hjørne */
-    fill: red; /* Giver ikonet en rød farve */
-    stroke: black; /* Giver kanten en sort farve */
-    stroke-width: 1; /* Sætter bredden på kanten */
-    width: 2rem; /* Juster størrelsen efter behov */
-    height: 3rem; /* Juster størrelsen efter behov */
-    filter: drop-shadow(-2px -3px 10px rgba(5, 5, 5, 10));
+    text-align: left;
+    top: 0;
+    left:0;
+    width: 2rem;
+    height: 3rem;
+
 }
-
-
 
 
 .text-right {
@@ -50,32 +53,87 @@
 }
 
 .game-title {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: bold;
-    margin:0;
-    padding:0;
+    margin: 0.3rem 0 0 0;
+    padding: 0;
 }
 .game-created{
-    font-size: 1rem;
+    font-size: 0.8rem;
     margin:0;
     color: black;
 }
+.game-manufacture{
+    font-size: 0.8rem;
+    margin: 0;
+    color: black;
+}
+
+.col-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Justerer elementerne til venstre */
+    justify-content: center; /* Centrerer elementerne vertikalt */
+}
+
+
+
 
 .game-price {
     font-size: 1rem;
     text-align: center;
 }
 
+.game-condition {
+    font-size: 0.8rem;
+    text-align: center;
+    margin: 0;
+}
 
+.game-visit {
+    background-color: dodgerblue;
+    position: relative;
+    text-align: center;
+    visibility: visible;
+    margin: 0.2rem 0 0 0;
+}
 
 .game-genre {
     margin:0;
+    font-size: 0.8rem;
     color: black;
 }
 
 .game-description {
-    margin:0.3rem;
+    margin: 0.2rem 0 0.1rem 0;
+    font-size: 0.9rem;
 }
+
+
+.basket {
+    color: white; /* Juster farven efter behov */
+    text-align: right;
+}
+
+.custom-basket-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.custom-basket-button:hover {
+    color: lightgray; /* Darker shade of Bootstrap's primary color */
+}
+
+
 
 
 

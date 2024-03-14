@@ -1,7 +1,23 @@
 ﻿@page "/productlist"
 @inject List<Item> allDummyData
 
-<h3>ProductList</h3>
+<div class="ProductListTop">
+    <h3 class="ProductListTitle">ProductList</h3>
+
+    <div class="basket">
+        <button class="custom-basket-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bag-plus" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5" />
+                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
+            </svg>
+        </button>
+    </div>
+
+</div>
+
+
+
+
 
 <h5>Total products: @gamesToShow.Count</h5>
 
@@ -14,17 +30,22 @@
 
                 <img src="/Picture/skyrim.png" class="img-fluid game-image" alt="Game Image" />
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-heart-fill heart-icon" viewBox="0 0 20 20">
-<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" fill="black" transform="scale(1.1)" />
+                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" fill="red" transform="scale(0.8) translate(3,3)" />
                 </svg>
+
             </div>
-            <div class="col-9">
+            <div class="col-8">
                 <p class="game-title">@games.gameName</p>
                 <p class="game-created"><b>Created:</b> @games.created</p>
                 <p class="game-genre"><b>Genre:</b> @games.genre</p>
+                <p class="game-manufacture"><b>Manufacture:</b> @games.manufacture</p>
                 <p class="game-description">@games.description</p>
             </div>
             <div class="col-2">
                 <p class="game-price text-right">Price: <b>@games.price €</b></p>
+                <p class="game-condition"><b>Condition:</b> @games.condition</p>
+                <button class="game-visit">Visit</button>
             </div>
         </div>
     }
