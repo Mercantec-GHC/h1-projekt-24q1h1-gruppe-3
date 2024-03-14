@@ -10,7 +10,7 @@ namespace BlazorApp
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddSingleton<List<Item>>(sp => new DummyData().GenereteDummyItems());
-
+            builder.Services.AddSingleton<List<User>>(sp => new DummyData().GenerateDummyUsers());
 
             // Add services to the container.
             builder.Services.AddRazorComponents()
