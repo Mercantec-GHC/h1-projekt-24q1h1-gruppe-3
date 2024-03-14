@@ -1,13 +1,14 @@
 ﻿@page "/product/{itemID}"
 @inject List<Item> allDummyData
 @inject List<User> allDummyUsers
-<PageTitle> @gameToShow.gameName</PageTitle>
+<PageTitle>Gamers lounge: @gameToShow.gameName</PageTitle>
 
 
 <div class="container text-center">
     <div class="row">
         <div class="col">
-            <img src="/picture/skyrim.png" class="img-thumbnail" alt="...">
+            <GallerySlider></GallerySlider>
+            @* <img src="/picture/skyrim.png" class="img-thumbnail" alt="..."> *@
 
         </div>
         <div class="col">
@@ -18,14 +19,11 @@
         </div>
         <div class="col">
                 <h3 class="priceTag">Price: <b>@gameToShow.price € </b></h3>
-                <button type="button" class="btn btn-primary"<b>Contact seller</b></button>
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" fill="currentColor" class="bi bi-heart-fill heart-icon" viewBox="0 0 20 20">
-                    <!-- Større sorte hjerte (baggrund) -->
-                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" fill="black" transform="scale(1.1)" />
-                    <!-- Rødt hjerte (forgrund) flyttet lidt mere til højre og ned -->
-                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" fill="red" transform="scale(0.8) translate(3,3)" />
-                </svg>
+                <button type="button" class="btn btn-dark"<b>Contact seller</b></button>
+                <img class="favoriteStar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACu0lEQVR4nO2ZS2sTURTHr28FRUSoC4ViMHPOxLYqRUVcuPEruNKFKPgV+gHEKoiCC4WCILhoaXzW+t50Ydvk3MRdVXBRF924sCAIvmrzl5m0SYa8JnHuZEbyh7OcM7//OfdO7rlRqquuujImCB9zQsVV0PwCws9VHIUsD0K4AM1ALnlExU3Q9NSFd4MmVZwEbR8qVb8U1mEVF0F4wgvPgPBjFQdBUgerq+8aKDj7QkVd0PSwCr5kgh6oKAti74fwcn0DXEDGGlBRFTSn68KXY1xFUcimUg2rX+7CMvLUr6ImCI35qP7qXhhVURIySdtX9Su7oLmvM7AziR7krOMQOgvhSyvr/pNv+HI4z6TdHE4uJ+dMoicYyDf9O4pnGToF4SEIj0B4GsJf2wBtNX5A07tiYegKNF+Atk9CJxPNwYWGoWkxBMg2gxYdxvoGPu7bBOEnnQflevESs3u2NO7CXGojND2KACw8IfQMU72b/e2B/OAGCN+P0NKZdFaHL/iSibRaB6G7nYfncaegLcF7TGi+08FlM4qpE+vbgi+ZgFoDoZsdWDa3AbX2n+A9JjTfCK/yPBIYvMeE0PUQDNxy3hUovMeI5osGK3/VGHjbJ0//G3YsFPiiAb5noAPpMA18MGDgfTjwznlJ01LwBmip5V/btq9NTG3ibPKAeQPaOmPuK0SnQzBAlw0aGDZvwOS8IDxh3oDmeZ9AC8Vx0I0Fn8/Mm4WfS22tee/p/Zp8cefoismpOCQ5Ruhzkw4UME3bzBnI20cbrN9v7hCeT2xvUoChhpcDOYN/hiBrn68B/ss9PWb6dvnOI7xz5cbhe40OnjNnoPI0KvTbndiy1t62880md7vHdOGfFQauBUtd+UKh1yt7II2MnQws71u71+2i5j/Q9CqovNUvcpeKuetxZKwB5x2m8nfV1f+ov0WA2bF0AkOGAAAAAElFTkSuQmCC">
+            <h5 class="favoriteStarText"><b>Favorite this item!</b></h5>
         </div>
+
 
     </div>
     <div class="row">
@@ -41,31 +39,10 @@
             2 of 3
         </div>
         <div class="col">
-            <div class="sellerDetailsContainer"
-                <h5 class="sellerDetails">Seller Details:</h5>
-                <p class="name"><b>Name: </b>@userToShow.name</p>
-                <p class="location"><b>Loaction: </b>@userToShow.Location</p>
-                <p class="itemsold"><b>Items sold: </b>@userToShow.itemsSold</p>
-                <p class="itemviewed"><b>Item viewed: </b>@userToShow.ItemsViewed</p>
-            </div>
-
+            <SellerDetails user="userToShow"></SellerDetails>
         </div>
     </div>
 </div>
-
-
-
-
-
-@* <div class="sale">
-    <img src="/picture/skyrim.png" />
-    <p>
-        The Elder Scrolls V: Skyrim er et action-RPG-spil, der foregår i en åben verden. Spilleren styrer en karakter, som de kan skræddersy, og udforsker den store verden af ​​Skyrim, kæmper mod fjender, fuldfører missioner og opdager hemmeligheder i landet.
-    </p>
-</div>
- *@
-
-
 
 
 @code {

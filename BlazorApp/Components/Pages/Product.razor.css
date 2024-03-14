@@ -3,48 +3,21 @@
 
 .container .row:first-child {
     box-shadow: 5px 5px;
-    background-color: whitesmoke;
-}
-
-.container .row:nth-child(2) {
-    background-color: whitesmoke;
-    margin-top: 1rem;
-    box-shadow: 5px 5px;
+    background-color: #b3b3b3;
 }
 
 .col {
     position: relative;
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    text-align: center; /* Ensure text is centered */
 }
 
-.heart-icon {
-    position: absolute;
-    top: 2rem;
-    left: 1rem;
-    fill: red;
-    width: 2rem;
-    height: 3rem;
-    /* Add a transition for smooth movement */
-    transition: transform 0.3s ease;
+.img-thumbnail {
+   padding: 0;
 }
-
-/* Example media query for smaller screens */
-@media (max-width: 768px) {
-    .heart-icon {
-        /* Adjust the position for smaller screens */
-        transform: translateY(150%); /* Moves the heart icon down by 150% of its height */
-    }
-}
-
-
-/* Example media query for larger screens */
-@media (min-width: 1200px) {
-    .heart-icon {
-        /* Adjust the position for larger screens */
-        transform: translate(0, 150%); /* Moves the heart icon further down */
-    }
-}
-
-
 
 .col .gameTitle {
     text-align: left;
@@ -70,7 +43,7 @@
     text-align: left;
 }
 
-.col .btn {
+.col .btn-dark {
     position: relative;
     float: left;
     height: 4rem;
@@ -79,31 +52,31 @@
     margin-top: 0.2rem;
 }
 
+.favoriteStar {
+    position: relative;
+    margin-top: 1.0%;
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.5));
+}
+
+.favoriteStarText {
+    position: relative;
+    margin-top: 1.0%;
+    text-align: center; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    width: 100%; 
+    padding: 0 10px; 
+}
+
+.col .btn-dark:hover {
+    opacity: 70%;
+}
+
 
 .container .row:nth-child(2) {
-    background-color: whitesmoke;
+    background-color: #b3b3b3;
     margin-top: 1rem;
     box-shadow: 5px 5px;
-}
-
-.col .sellerDetailsContainer {
-    text-align: left;
-}
-
-.col .sellerDetails{
-    margin-bottom
-}
-
-.col .name{
-    margin-bottom: 0px;
-}
-
-.col .location {
-    margin-bottom: 0px;
-}
-
-.col .itemsold {
-    margin-bottom: 0px;
 }
 
 .col .details {
