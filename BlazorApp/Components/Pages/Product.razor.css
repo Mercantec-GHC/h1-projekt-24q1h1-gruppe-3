@@ -3,31 +3,20 @@
 
 .container .row:first-child {
     box-shadow: 5px 5px;
-    background-color: whitesmoke;
-}
-
-.container .row:nth-child(2) {
-    background-color: whitesmoke;
-    margin-top: 1rem;
-    box-shadow: 5px 5px;
+    background-color: #b3b3b3;
 }
 
 .col {
     position: relative;
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    text-align: center; /* Ensure text is centered */
 }
 
-.heart-icon {
-    position: absolute;
-    top: 0.1rem; /* Placerer ikonet længere op i højre hjørne */
-    left: 8rem; /* Placerer ikonet længere til højre i højre hjørne */
-    fill: red; /* Giver ikonet en rød farve */
-    stroke: black; /* Giver kanten en sort farve */
-    stroke-width: 1; /* Sætter bredden på kanten */
-    stroke-linejoin: round; /* Forbedrer forbindelsen mellem linjer */
-    stroke-linecap: round; /* Forbedrer afslutningen af linjer */
-    width: 2rem; /* Juster størrelsen efter behov */
-    height: 3rem; /* Juster størrelsen efter behov */
-    filter: drop-shadow(-2px -3px 10px rgba(5, 5, 5, 10));
+.img-thumbnail {
+   padding: 0;
 }
 
 .col .gameTitle {
@@ -54,7 +43,8 @@
     text-align: left;
 }
 
-.col .btn {
+.col .btn-dark {
+    position: relative;
     float: left;
     height: 4rem;
     width: 10rem;
@@ -62,29 +52,49 @@
     margin-top: 0.2rem;
 }
 
+.favoriteStar {
+    position: relative;
+    margin-top: 1.0%;
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.5));
+}
+
+.favoriteStarText {
+    position: relative;
+    margin-top: 1.0%;
+    text-align: center; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    width: 100%; 
+    padding: 0 10px; 
+}
+
+.col .btn-dark:hover {
+    opacity: 70%;
+}
+
 
 .container .row:nth-child(2) {
-    background-color: whitesmoke;
+    background-color: #b3b3b3;
     margin-top: 1rem;
     box-shadow: 5px 5px;
 }
 
-.col .sellerDetailsContainer {
+.col .details {
     text-align: left;
+    margin-bottom: 10px;
 }
 
-.col .sellerDetails{
-    margin-bottom
-}
-
-.col .name{
+.col .conditionDetails {
+    text-align: left;
     margin-bottom: 0px;
 }
 
-.col .location {
+.col .genreDetails {
+    text-align: left;
     margin-bottom: 0px;
 }
 
-.col .itemsold {
-    margin-bottom: 0px;
+.col .manufactureDetails {
+    text-align: left;
+    margin-bottom: 10px;
 }

@@ -1,0 +1,13 @@
+﻿<div class="sellerDetailsContainer"
+                <h5 class="sellerDetails"><b>Seller Details:</b></h5>
+                <p class="name"><b>Name: </b>@user.name</p>
+                <p class="location"><b>Loaction: </b>@user.Location</p>
+                <p class="itemsold"><b>Items sold: </b>@user.itemsSold</p>
+                <p class="itemviewed"><b>Item viewed: </b>@user.ItemsViewed</p>
+</div>
+
+
+@code {
+    [Parameter]
+    public User user { get; set; }
+}
