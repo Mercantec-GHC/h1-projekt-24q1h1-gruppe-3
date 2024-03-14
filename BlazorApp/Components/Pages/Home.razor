@@ -1,39 +1,30 @@
 ﻿@page "/"
 @using DomainModels
+@inject List<Item> allDummyData
 <PageTitle>Home</PageTitle>
 
-@* <div class="top-section">
-	<div class="card-top-section">
-		<div class="card-body">
-			<h1 class="header-top-section">Buy and Sell Used<br>Video Games</h1>
-			<p class="text-top-section">Discover a wide selection of pre-owned video games and consoles.<br>Start buying or selling today!</p>
-		</div>
-	</div>
-	<img src="" alt="Temporary picture." class="image-top-section" />
-	<div class="button-container-top-section">
-		<button> <a href="">Start</a></button>
-		<button> <a href="">Learn More</a></button>
-	</div>
-</div> *@
-<div class="top-section">
+<div class="section">
 	<div class="container text-center">
 		<div class="row">
 			<div class="col">
-				<h2>Buy and Sell Used Video Games</h2>
+				<h2 class="header-top-section">Buy and Sell Used Video Games</h2>
 				<p>Discover a wide selection of pre-owned video games and console. Start buying or selling today.</p>
+				<button> <a href="">Start</a></button>
+				<button> <a href="">Learn More</a></button>
 			</div>
 			<div class="col">
-				<img src="" alt="Temporary picture." class="image-top-section" />
+				<img src="./Picture/Temp_Picture.jpg" alt="" class="image-top-section" />
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class="middle-section">
-	<h2 class="header-middle-section">Find Your Favorite Games at Great Prices</h2>
-	<p class="text-middle-section">
+<div class="section">
+	<h2 class="text">Find Your Favorite Games at Great Prices</h2>
+	<p class="text">
 		Our platform offers a wide selection af used video games, ensuring you can find your favorite<br>
-		titles at affordable prices. With secure payment options and user rating, you can buy with<br>confidence.</p>
+		titles at affordable prices. With secure payment options and user rating, you can buy with<br>confidence.
+	</p>
 
 	<div class="card-container-middle-section">
 
@@ -64,3 +55,27 @@
 		<button class="button-middle-section"><a href="">Sign Up</a></button>
 	</div>
 </div>
+
+<div class="section">
+	<div class="card-container-bottom-section">
+		<h2 class="text">Featured</h2>
+		<p class="text">Explore our current list of trending games.</p>
+		<div class="card-bottom-section">
+			<div class="card-body">
+				<img src="./Picture/Temp_Picture.jpg" class="image-top-section" />
+				<h3 class="game-name">@gameToShow[0].gameName</h3>
+				<p class="game-genre">@gameToShow[0].genre</p>
+				<p class="game-price">$ @gameToShow[0].price</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+@code {
+	public List<Item> gameToShow;
+
+	protected override void OnInitialized()
+	{
+		gameToShow = allDummyData;
+	}
+	}
