@@ -1,6 +1,8 @@
 ﻿@page "/"
 @using DomainModels
 @inject List<Item> allDummyData
+@inject NavigationManager NavigationManager
+
 <PageTitle>Home</PageTitle>
 
 <div class="section">
@@ -13,7 +15,7 @@
 				<button> <a href="">Learn More</a></button>
 			</div>
 			<div class="col">
-				<img src="./Picture/Temp_Picture.jpg" alt="" class="image-top-section" />
+				<img src="./Picture/Temp_Picture.jpg" alt="" class="image" />
 			</div>
 		</div>
 	</div>
@@ -26,7 +28,7 @@
 		titles at affordable prices. With secure payment options and user rating, you can buy with<br>confidence.
 	</p>
 
-	<div class="card-container-middle-section">
+	<div class="card-container">
 
 		<div class="card-middle-section">
 			<div class="card-body">
@@ -57,17 +59,21 @@
 </div>
 
 <div class="section">
-	<div class="card-container-bottom-section">
-		<h2 class="text">Featured</h2>
-		<p class="text">Explore our current list of trending games.</p>
+	<h2 class="text">Featured</h2>
+	<p class="text">Explore our current list of trending games.</p>
+
+	<div class="card-container">
+		@for (var i = 0; i < 4; i++)
+		{
 		<div class="card-bottom-section">
-			<div class="card-body">
-				<img src="./Picture/Temp_Picture.jpg" class="image-top-section" />
-				<h3 class="game-name">@gameToShow[0].gameName</h3>
-				<p class="game-genre">@gameToShow[0].genre</p>
-				<p class="game-price">$ @gameToShow[0].price</p>
+			<div class="card-body-bottom" @onclick="@( () => HandleCardClick(gameToShow[i].itemID) )">
+				<img src="./Picture/Temp_Picture.jpg" class="image" />
+				<h4 class="game-name">@gameToShow[i].gameName</h4>
+				<p class="game-genre">@gameToShow[i].genre</p>
+				<p class="game-price">€ @gameToShow[i].price</p>
 			</div>
 		</div>
+		}
 	</div>
 </div>
 
@@ -78,4 +84,9 @@
 	{
 		gameToShow = allDummyData;
 	}
+
+	private void HandleCardClick(int gameID)
+	{
+		NavigationManager.NavigateTo($"/product/{gameID}");
 	}
+}
