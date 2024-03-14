@@ -12,15 +12,33 @@
     box-shadow: 5px 5px;
 }
 
-    .col .gameTitle {
-        text-align: left;
-        word-break: break-word;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        font-size: 2vw;
-        max-width: 50rem;
-    }
+.col {
+    position: relative;
+}
+
+.heart-icon {
+    position: absolute;
+    top: 0.1rem; /* Placerer ikonet længere op i højre hjørne */
+    left: 8rem; /* Placerer ikonet længere til højre i højre hjørne */
+    fill: red; /* Giver ikonet en rød farve */
+    stroke: black; /* Giver kanten en sort farve */
+    stroke-width: 1; /* Sætter bredden på kanten */
+    stroke-linejoin: round; /* Forbedrer forbindelsen mellem linjer */
+    stroke-linecap: round; /* Forbedrer afslutningen af linjer */
+    width: 2rem; /* Juster størrelsen efter behov */
+    height: 3rem; /* Juster størrelsen efter behov */
+    filter: drop-shadow(-2px -3px 10px rgba(5, 5, 5, 10));
+}
+
+.col .gameTitle {
+    text-align: left;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 2vw;
+    max-width: 50rem;
+}
 
 
 .col .genre {
