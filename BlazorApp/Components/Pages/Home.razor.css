@@ -1,27 +1,33 @@
 ﻿.section {
     position: relative;
-    height: 850px;
     align-items: center;
-    border-bottom: 1px solid #ff0000;
     padding: 2%;
 }
 
-.colum {
+.left-colum {
+    justify-content: center;
+    background: #b3b3b3;
     flex: 1;
     border-radius: 10px;
 }
 
-.left-colum{
-    padding: 2%;
-    background-color: #b3b3b3;
-}
-
 .right-colum {
-    padding: 2%;
+    flex: 1;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
 }
 
 .header-top-section {
     margin-top: 40%;
+}
+
+.colum-image {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
 }
 
 .image {
