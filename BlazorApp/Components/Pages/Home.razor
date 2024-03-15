@@ -65,12 +65,12 @@
 
 	<div class="card-container">
 		<div class="card-bottom-section">
-			<div class="card-body-bottom" @onclick="@( () => HandleCardClick(pcGameToShow[0].itemID) )">
+			<div class="card-body-bottom" @onclick="@( () => HandleCardClick(gameToShow[0].itemID) )">
 				<h4>PC</h4>
 				<img src="./Picture/Temp_Picture.jpg" class="image" />
-				<h4 class="game-name">@pcGameToShow[0].gameName</h4>
-				<p class="game-genre">@pcGameToShow[0].genre</p>
-				<p class="game-price">€ @pcGameToShow[0].price</p>
+				<h4 class="game-name">@gameToShow[0].gameName</h4>
+				<p class="game-genre">@gameToShow[0].genre</p>
+				<p class="game-price">€ @gameToShow[0].price</p>
 			</div>
 		</div>
 		<div class="card-bottom-section">
