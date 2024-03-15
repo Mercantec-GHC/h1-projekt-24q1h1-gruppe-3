@@ -59,32 +59,32 @@
 }
 
 .game-title {
-    font-size: 1rem;
+    font-size: 1.3rem;
     font-weight: bold;
     margin: 0.3rem 0 0 0;
     padding: 0;
 }
 
 .game-created {
-    font-size: 0.7rem;
+    font-size: 1rem;
     margin: 0;
     color: black;
 }
 
 .game-genre {
-    font-size: 0.7rem;
+    font-size: 1rem;
     margin: 0;
     color: black;
 }
 
 .game-manufacture {
-    font-size: 0.7rem;
+    font-size: 1rem;
     margin: 0;
     color: black;
 }
 
 .game-description {
-    font-size: 0.7rem;
+    font-size: 1.2rem;
     margin: 0.2rem 0 0 0;
     color: black;
 }
@@ -92,21 +92,26 @@
 .col-2 {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding:0.3rem 0 0.3rem 0;
+    align-items: flex-start; /* Justerer indholdet til venstre langs krydseraksen */
+    justify-content: flex-start; /* Justerer indholdet til venstre langs hovedaksen */
+    padding: 0.3rem 0 0.3rem 0;
     margin: 0;
 }
 
 
-.game-price {
-    font-size: 1rem;
+.col-2 > * {
+    margin-left: auto;
 
-    margin: 0 0 0.2rem 0;
+}
+
+
+
+.game-price {
+    font-size: 1.5rem;
 }
 
 .game-condition {
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 
 .game-image:hover {

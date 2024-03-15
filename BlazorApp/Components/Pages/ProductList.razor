@@ -3,6 +3,12 @@
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
+<head>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Andre head-elementer her, som titel, CSS-link, etc. -->
+</head>
+
+<PageTitle>Gamers Lounge: Product List</PageTitle>
 
 <div class="ProductListTop">
     <h3 class="ProductListTitle">ProductList</h3>
@@ -15,11 +21,15 @@
 </div>
 
 <div class="pageCount">
-    <button @onclick="() => UpdatePage(currentPage -1)" disabled="@(currentPage == 1)">Forrige</button>
+    <button class="pageButton" @onclick="() => UpdatePage(currentPage -1)" disabled="@(currentPage == 1)">
+        <span class="arrow leftArrow">&lt;</span>
+    </button>
     <p>@currentPage - @totalPages</p>
-    <button @onclick="() => UpdatePage(currentPage + 1)" disabled="@(currentPage == Math.Ceiling((double)allDummyData.Count / itemsPerPage))">Næste</button>
-
+    <button class="pageButton" @onclick="() => UpdatePage(currentPage + 1)" disabled="@(currentPage == totalPages)">
+        <span class="arrow rightArrow">&gt;</span>
+    </button>
 </div>
+
 
 @code {
     public List<Item> gamesToShow;
@@ -48,6 +58,12 @@
 
     private void UpdatePage(int page)
     {
+        // Sørg for, at siden ikke går i minus
+        if (page < 1)
+        {
+            page = 1;
+        }
+
         currentPage = page;
         gamesToShow = allDummyData.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
         totalPages = (int)Math.Ceiling((double)allDummyData.Count / itemsPerPage);
@@ -74,8 +90,8 @@
 
         // Navigate to the new URL with the updated query string
         NavigationManager.NavigateTo(uri.GetLeftPart(UriPartial.Path) + "?" + newQueryString, forceLoad: true);
-
     }
+
 
 
 
