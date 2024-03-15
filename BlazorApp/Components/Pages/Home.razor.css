@@ -1,6 +1,6 @@
 ﻿.section {
     position: relative;
-    height: 625px;
+    height: 850px;
     align-items: center;
     border-bottom: 1px solid #ff0000;
     padding: 2%;
@@ -74,9 +74,9 @@
     opacity: 70%;
 }
 
-    .btn-dark {
-        border: 1px solid #b3b3b3;
-    }
+.btn-dark {
+    border: 1px solid #b3b3b3;
+}
 
 .btn-dark:hover {
     opacity: 70%;
