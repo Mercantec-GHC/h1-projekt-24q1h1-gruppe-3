@@ -3,7 +3,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: transparent;
+    background-clip: content-box;
 }
+
+.searchBtn {
+    background-color: transparent; /* Fjerner baggrunden fra knappen */
+    border: none; /* Fjerner knappens standardramme */
+    padding: 0; /* Fjerner eventuel padding */
+    cursor: pointer; /* Sørger for, at cursoren ændrer sig til en peger, når den er over knappen */
+}
+
+.searchBtn svg {
+    fill: white; /* Sørger for, at SVG-ikonet bruger den samme farve som tekst i knappen */
+}
+
 
 .productsCount {
     color: white;

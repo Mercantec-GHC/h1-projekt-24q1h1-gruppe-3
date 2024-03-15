@@ -1,0 +1,23 @@
+﻿@inject List<Item> allDummyData
+
+@if (showSearch)
+{
+    <input type="text" @bind-value="searchText" @oninput="ValueChanged" placeholder="Search games..." />
+}
+
+@code {
+    [Parameter]
+    public List<Item> gamesToShow { get; set; }
+    [Parameter]
+    public EventCallback<string> OnSearch { get; set; }
+    [Parameter]
+    public bool showSearch { get; set; }
+    [Parameter]
+    public string searchText { get; set; } // Sørg for, at dette er en parameter
+
+    private async Task ValueChanged(ChangeEventArgs e)
+    {
+        searchText = e.Value.ToString();
+        await OnSearch.InvokeAsync(searchText);
+    }
+}
