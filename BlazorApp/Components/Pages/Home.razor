@@ -8,13 +8,13 @@
 <div class="section">
 	<div class="container text-center">
 		<div class="row">
-			<div class="col">
+			<div class="colum left-colum">
 				<h2 class="header-top-section">Buy and Sell Used Video Games</h2>
 				<p>Discover a wide selection of pre-owned video games and console. Start buying or selling today.</p>
-				<button> <a href="">Start</a></button>
-				<button> <a href="">Learn More</a></button>
+				<a href="" class="btn btn-dark">Start</a>
+				<a href="" class="btn btn-dark">Learn More</a>
 			</div>
-			<div class="col">
+			<div class="col right-colum">
 				<img src="./Picture/Temp_Picture.jpg" alt="" class="image" />
 			</div>
 		</div>
@@ -24,8 +24,8 @@
 <div class="section">
 	<h2 class="text">Find Your Favorite Games at Great Prices</h2>
 	<p class="text">
-		Our platform offers a wide selection af used video games, ensuring you can find your favorite<br>
-		titles at affordable prices. With secure payment options and user rating, you can buy with<br>confidence.
+		Our platform offers a wide selection af used video games, ensuring you can find your favorite
+		titles at affordable prices. With secure payment options and user rating, you can buy with confidence.
 	</p>
 
 	<div class="card-container">
@@ -53,8 +53,9 @@
 		</div>
 	</div>
 	<div class="button-container-middle-section">
-		<button class="button-middle-section"><a href="">Learn More</a></button>
-		<button class="button-middle-section"><a href="">Sign Up</a></button>
+		<a href="" class="btn btn-dark">Learn More</a>
+		&nbsp; @*Gives a standard space between the anchors*@
+		<a href="" class="btn btn-dark">Sign Up</a>
 	</div>
 </div>
 
@@ -63,30 +64,92 @@
 	<p class="text">Explore our current list of trending games.</p>
 
 	<div class="card-container">
-		@for (var i = 0; i < 4; i++)
-		{
 		<div class="card-bottom-section">
-			<div class="card-body-bottom" @onclick="@( () => HandleCardClick(gameToShow[i].itemID) )">
+			<div class="card-body-bottom" @onclick="@( () => HandleCardClick(pcGameToShow[0].itemID) )">
+				<h4>PC</h4>
 				<img src="./Picture/Temp_Picture.jpg" class="image" />
-				<h4 class="game-name">@gameToShow[i].gameName</h4>
-				<p class="game-genre">@gameToShow[i].genre</p>
-				<p class="game-price">€ @gameToShow[i].price</p>
+				<h4 class="game-name">@pcGameToShow[0].gameName</h4>
+				<p class="game-genre">@pcGameToShow[0].genre</p>
+				<p class="game-price">€ @pcGameToShow[0].price</p>
 			</div>
 		</div>
-		}
+		<div class="card-bottom-section">
+			<div class="card-body-bottom" @onclick="@( () => HandleCardClick((gameToShow[1].itemID-1)) )">
+				<h4>PS</h4>
+				<img src="./Picture/Temp_Picture.jpg" class="image" />
+				<h4 class="game-name">@gameToShow[1].gameName</h4>
+				<p class="game-genre">@gameToShow[1].genre</p>
+				<p class="game-price">€ @gameToShow[1].price</p>
+			</div>
+		</div>
+		<div class="card-bottom-section">
+			<div class="card-body-bottom" @onclick="@( () => HandleCardClick((gameToShow[2].itemID-1)) )">
+				<h4>XBOX</h4>
+				<img src="./Picture/Temp_Picture.jpg" class="image" />
+				<h4 class="game-name">@gameToShow[2].gameName</h4>
+				<p class="game-genre">@gameToShow[2].genre</p>
+				<p class="game-price">€ @gameToShow[2].price</p>
+			</div>
+		</div>
 	</div>
 </div>
 
 @code {
 	public List<Item> gameToShow;
+	public List<PC_Game> pcGameToShow;
+	public List<XBOX_Game> xboxGameToShow;
+	public List<PS_Game> psGameToShow;
 
 	protected override void OnInitialized()
 	{
 		gameToShow = allDummyData;
+		//pcGameToShow = FiltreToPC_Games(allDummyData);
 	}
 
 	private void HandleCardClick(int gameID)
 	{
 		NavigationManager.NavigateTo($"/product/{gameID}");
+	}
+
+	public List<PC_Game> FiltreToPC_Games(List<Item> data)
+	{
+		List<PC_Game> pcGameToShow = new List<PC_Game>();
+
+		foreach (var game in data)
+		{
+			if (game is PC_Game pcGame)
+			{
+				pcGameToShow.Add(pcGame);
+			}
+		}
+		return pcGameToShow;
+	}
+
+	public List<XBOX_Game> FiltreToXBOX_Games(List<Item> data)
+	{
+		List<XBOX_Game> xboxGameToShow = new List<XBOX_Game>();
+
+		foreach (var game in data)
+		{
+			if (game is XBOX_Game xboxGame)
+			{
+				xboxGameToShow.Add(xboxGame);
+			}
+		}
+		return xboxGameToShow;
+	}
+
+	public List<PS_Game> FiltreToPS_Games(List<Item> data)
+	{
+		List<PS_Game> psGameToShow = new List<PS_Game>();
+
+		foreach (var game in data)
+		{
+			if (game is PS_Game psGame)
+			{
+				psGameToShow.Add(psGame);
+			}
+		}
+		return psGameToShow;
 	}
 }

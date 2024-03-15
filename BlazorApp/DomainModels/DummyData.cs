@@ -26,7 +26,7 @@ namespace DomainModels
             {
                 itemID = 2,
                 gameName = "The Elder Scrolls V: Skyrim",
-                price = 100,
+                price = 102,
                 orderStatus = true,
                 condition = "New",
                 created = DateTime.Now,
@@ -306,11 +306,27 @@ namespace DomainModels
                 description = "Swing through the streets of New York City as Spider-Man and battle iconic villains in this open-world adventure."
             });
 
+			allDummyData.Add(new XBOX_Game
+			{
+				itemID = 17,
+				gameName = "Halo Infinite",
+				price = 70,
+				orderStatus = true,
+				condition = "New",
+				created = DateTime.Now.AddDays(-30),
+				updated = DateTime.Now.AddDays(-15),
+				genre = "First-Person Shooter",
+				manufacture = "343 Industries",
+				addToFaverite = false,
+				description = "The next chapter in the legendary Halo series, featuring an epic campaign and multiplayer experience."
+			});
 
 
 
 
-            return allDummyData;
+
+
+			return allDummyData;
         }
         public List<User> GenerateDummyUsers()
         {
