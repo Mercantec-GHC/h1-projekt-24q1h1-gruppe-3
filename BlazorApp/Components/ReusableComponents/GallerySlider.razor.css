@@ -1,17 +1,24 @@
 ﻿.carousel {
     margin-top: 5%;
+    margin-bottom: 2%;
 }
 
 .btns {
     width: 100%;
+    margin-bottom: 2%;
 }
 
-#prevbtn {
-    top: 10%;
-    margin-top: 5%;
-    margin-bottom: 5%;
+.prevbtn {
+    cursor: pointer;
 }
 
-#nxtbtn {
-    margin-left:6%
+.nxtbtn {
+    margin-left: 6%;
+    cursor: pointer;
 }
+
+.bi:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease-in-out;
+}
+
