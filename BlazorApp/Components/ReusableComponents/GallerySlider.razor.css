@@ -1,0 +1,17 @@
+﻿.carousel {
+    margin-top: 5%;
+}
+
+.btns {
+    width: 100%;
+}
+
+#prevbtn {
+    top: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#nxtbtn {
+    margin-left:6%
+}

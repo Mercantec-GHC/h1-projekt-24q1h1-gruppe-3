@@ -6,8 +6,37 @@
                 <p class="itemviewed"><b>Item viewed: </b>@user.ItemsViewed</p>
 </div>
 
+@{
+    var showClass = IsPopupVisible ? "show" : "hide";
+}
+
+<div class="popup @showClass">
+    <div class="popup-content">
+        <h2>Kontakt sælger</h2>
+        <p>Her kan du indtaste din forespørgsel til sælgeren.</p>
+        <button @onclick="Close">Luk</button>
+    </div>
+</div>
+
+<div class="popup-overlay @showClass"></div>
+
+
+
 
 @code {
     [Parameter]
     public User user { get; set; }
+
+
+    [Parameter]
+    public bool IsPopupVisible { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsVisibleChanged { get; set; }
+
+    private void Close()
+    {
+        IsPopupVisible = false;
+        IsVisibleChanged.InvokeAsync(IsPopupVisible);
+    }
 }

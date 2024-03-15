@@ -15,17 +15,13 @@
     text-align: center; /* Ensure text is centered */
 }
 
-.img-thumbnail {
-   padding: 0;
-}
-
 .col .gameTitle {
     text-align: left;
     word-break: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 2vw;
+
     max-width: 50rem;
 }
 
