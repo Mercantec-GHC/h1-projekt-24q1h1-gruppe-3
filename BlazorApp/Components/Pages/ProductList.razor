@@ -11,68 +11,102 @@
 <h5 class="productsCount">Total products: @gamesToShow.Count</h5>
 
 <div class="container">
-    @foreach (var game in gamesToShow)
-    {
-        <div class="row" style="margin-bottom: 0.2rem; cursor: pointer;" @onclick="() => NavigateToProduct(game.itemID - 1)">
-            <div class="col-1">
-                <img src="/Picture/skyrim.png" class="img-fluid game-image" alt="Game Image" />
-                <button @onclick="() => HandleClick(game)">
-                        <img class="favoriteStar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACu0lEQVR4nO2ZS2sTURTHr28FRUSoC4ViMHPOxLYqRUVcuPEruNKFKPgV+gHEKoiCC4WCILhoaXzW+t50Ydvk3MRdVXBRF924sCAIvmrzl5m0SYa8JnHuZEbyh7OcM7//OfdO7rlRqquuujImCB9zQsVV0PwCws9VHIUsD0K4AM1ALnlExU3Q9NSFd4MmVZwEbR8qVb8U1mEVF0F4wgvPgPBjFQdBUgerq+8aKDj7QkVd0PSwCr5kgh6oKAti74fwcn0DXEDGGlBRFTSn68KXY1xFUcimUg2rX+7CMvLUr6ImCI35qP7qXhhVURIySdtX9Su7oLmvM7AziR7krOMQOgvhSyvr/pNv+HI4z6TdHE4uJ+dMoicYyDf9O4pnGToF4SEIj0B4GsJf2wBtNX5A07tiYegKNF+Atk9CJxPNwYWGoWkxBMg2gxYdxvoGPu7bBOEnnQflevESs3u2NO7CXGojND2KACw8IfQMU72b/e2B/OAGCN+P0NKZdFaHL/iSibRaB6G7nYfncaegLcF7TGi+08FlM4qpE+vbgi+ZgFoDoZsdWDa3AbX2n+A9JjTfCK/yPBIYvMeE0PUQDNxy3hUovMeI5osGK3/VGHjbJ0//G3YsFPiiAb5noAPpMA18MGDgfTjwznlJ01LwBmip5V/btq9NTG3ibPKAeQPaOmPuK0SnQzBAlw0aGDZvwOS8IDxh3oDmeZ9AC8Vx0I0Fn8/Mm4WfS22tee/p/Zp8cefoismpOCQ5Ruhzkw4UME3bzBnI20cbrN9v7hCeT2xvUoChhpcDOYN/hiBrn68B/ss9PWb6dvnOI7xz5cbhe40OnjNnoPI0KvTbndiy1t62880md7vHdOGfFQauBUtd+UKh1yt7II2MnQws71u71+2i5j/Q9CqovNUvcpeKuetxZKwB5x2m8nfV1f+ov0WA2bF0AkOGAAAAAElFTkSuQmCC">
-                </button>
-            </div>
-            <div class="col-8">
-                <p class="game-title">@game.gameName</p>
-                <p class="game-created"><b>Created:</b> @game.created</p>
-                <p class="game-genre"><b>Genre:</b> @game.genre</p>
-                <p class="game-manufacture"><b>Manufacture:</b> @game.manufacture</p>
-                <p class="game-description">@game.description</p>
-            </div>
-            <div class="col-2">
-                <p class="game-price text-right">Price: <b>@game.price €</b></p>
-                <p class="game-condition"><b>Condition:</b> @game.condition</p>
-            </div>
-        </div>
-    }
+    <Listing Games="gamesToShow" OnAddToFavorites="AddToFavorites"></Listing>
+</div>
+
+<div class="pageCount">
+    <button @onclick="() => UpdatePage(currentPage -1)" disabled="@(currentPage == 1)">Forrige</button>
+    <p>@currentPage - @totalPages</p>
+    <button @onclick="() => UpdatePage(currentPage + 1)" disabled="@(currentPage == Math.Ceiling((double)allDummyData.Count / itemsPerPage))">Næste</button>
+
 </div>
 
 @code {
     public List<Item> gamesToShow;
     public List<Item> favoriteGames = new List<Item>(); // Liste til at gemme favoritter
+    private int currentPage = 1;
+    private const int itemsPerPage = 5;
+    private int totalPages;
+
 
     protected override void OnInitialized()
     {
-        gamesToShow = allDummyData;
+        // Parse URL to get current page number
+        var uri = new Uri(NavigationManager.Uri);
+        var queryString = uri.Query;
+        var parameters = ParseQueryString(queryString);
+        if (parameters.TryGetValue("page", out var pageValue) && int.TryParse(pageValue, out var page))
+        {
+            currentPage = page;
+        }
+
+        // Calculate items to show based on current page
+        gamesToShow = allDummyData.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+        // Calculate total pages
+        totalPages = (int)Math.Ceiling((double)allDummyData.Count / itemsPerPage);
     }
+
+    private void UpdatePage(int page)
+    {
+        currentPage = page;
+        gamesToShow = allDummyData.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+        totalPages = (int)Math.Ceiling((double)allDummyData.Count / itemsPerPage);
+
+        // Get the current URL and parse its query string
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        var queryString = uri.Query;
+        var parameters = ParseQueryString(queryString);
+
+        // Remove any existing "page" parameters
+        parameters.Remove("page=2");
+
+        // Add the new "page" parameter
+        parameters["page"] = currentPage.ToString();
+
+        // Construct the new query string, ensuring only one "page" parameter
+        var newQueryString = string.Join("&", parameters.Select(p => $"{p.Key}={p.Value}"));
+
+        // If the new query string starts with "&", remove the first "&"
+        if (newQueryString.StartsWith("&"))
+        {
+            newQueryString = newQueryString.Substring(1);
+        }
+
+        // Navigate to the new URL with the updated query string
+        NavigationManager.NavigateTo(uri.GetLeftPart(UriPartial.Path) + "?" + newQueryString, forceLoad: true);
+
+    }
+
+
+
+
+    private Dictionary<string, string> ParseQueryString(string queryString)
+    {
+        // Parse query string into key-value pairs
+        var parameters = new Dictionary<string, string>();
+        var pairs = queryString.Split('&');
+        foreach (var pair in pairs)
+        {
+            var keyValue = pair.Split('=');
+            if (keyValue.Length == 2)
+            {
+                parameters[keyValue[0]] = keyValue[1];
+            }
+        }
+        return parameters;
+    }
+
 
     private async Task AddToFavorites(Item game)
     {
-        // Tjek om spillet allerede er i favoritter
         if (!favoriteGames.Contains(game))
         {
             favoriteGames.Add(game);
-            // Vis en alert med beskeden
             await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er tilføjet til favoritter");
         }
         else
         {
-            // Hvis spillet allerede er i favoritter, kan du vise en besked eller håndtere det på en anden måde
             await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er allerede tilføjet til favoritter");
         }
     }
-
-    // New method to handle the click event
-    private async Task HandleClick(Item game)
-    {
-        await AddToFavorites(game);
-    }
-
-    private void NavigateToProduct(int itemId)
-    {
-        // Brug NavigationManager til at navigere til den ønskede side
-        NavigationManager.NavigateTo($"./product/{itemId}");
-    }
-}
-
-
-
 }
