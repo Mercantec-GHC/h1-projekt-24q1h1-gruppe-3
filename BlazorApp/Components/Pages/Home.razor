@@ -96,9 +96,9 @@
 
 @code {
 	public List<Item> gameToShow;
-	public List<PC_Game> pcGameToShow;
-	public List<XBOX_Game> xboxGameToShow;
-	public List<PS_Game> psGameToShow;
+	public List<PC_Game> pcGames;
+	public List<XBOX_Game> xboxGames;
+	public List<PS_Game> psGames;
 
 	protected override void OnInitialized()
 	{
@@ -113,43 +113,43 @@
 
 	public List<PC_Game> FiltreToPC_Games(List<Item> data)
 	{
-		List<PC_Game> pcGameToShow = new List<PC_Game>();
+		List<PC_Game> pcGames = new List<PC_Game>();
 
 		foreach (var game in data)
 		{
 			if (game is PC_Game pcGame)
 			{
-				pcGameToShow.Add(pcGame);
+				pcGames.Add(pcGame);
 			}
 		}
-		return pcGameToShow;
+		return pcGames;
 	}
 
 	public List<XBOX_Game> FiltreToXBOX_Games(List<Item> data)
 	{
-		List<XBOX_Game> xboxGameToShow = new List<XBOX_Game>();
+		List<XBOX_Game> xboxGames = new List<XBOX_Game>();
 
 		foreach (var game in data)
 		{
 			if (game is XBOX_Game xboxGame)
 			{
-				xboxGameToShow.Add(xboxGame);
+				xboxGames.Add(xboxGame);
 			}
 		}
-		return xboxGameToShow;
+		return xboxGames;
 	}
 
 	public List<PS_Game> FiltreToPS_Games(List<Item> data)
 	{
-		List<PS_Game> psGameToShow = new List<PS_Game>();
+		List<PS_Game> psGames = new List<PS_Game>();
 
 		foreach (var game in data)
 		{
 			if (game is PS_Game psGame)
 			{
-				psGameToShow.Add(psGame);
+				psGames.Add(psGame);
 			}
 		}
-		return psGameToShow;
+		return psGames;
 	}
 }
