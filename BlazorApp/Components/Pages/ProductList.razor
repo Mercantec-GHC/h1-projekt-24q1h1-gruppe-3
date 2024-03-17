@@ -17,8 +17,13 @@
 
 <h5 class="productsCount">Total products: @allDummyData.Count</h5>
 
+<button class="viewToggleBtn" @onclick="ToggleView">
+    Skift visning
+</button>
+
+
 <div class="container">
-    <Listing Games="gamesToShow" OnAddToFavorites="AddToFavorites"></Listing>
+    <Listing Games="gamesToShow" OnAddToFavorites="AddToFavorites" ShowAsCards="@showAsCards"></Listing>
 </div>
 
 <div class="pageCount">
@@ -159,5 +164,14 @@
             .ToList();
     }
 }
+
+
+    public bool showAsCards = false;
+
+    public void ToggleView()
+    {
+        showAsCards = !showAsCards;
+    }
+
 
 }
