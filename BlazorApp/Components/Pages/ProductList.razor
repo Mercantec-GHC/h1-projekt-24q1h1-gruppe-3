@@ -3,21 +3,27 @@
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
-<head>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <!-- Andre head-elementer her, som titel, CSS-link, etc. -->
-</head>
-
 <PageTitle>Gamers Lounge: Product List</PageTitle>
 
 <div class="ProductListTop">
     <h3 class="ProductListTitle">ProductList</h3>
+    <button class="searchBtn" @onclick="ToggleSearch">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+        </svg>
+    </button>
+    <Search OnSearch="HandleSearch" showSearch="@showSearch" searchText="@searchText"></Search>
 </div>
 
-<h5 class="productsCount">Total products: @gamesToShow.Count</h5>
+<h5 class="productsCount">Total products: @allDummyData.Count</h5>
+
+<button class="viewToggleBtn" @onclick="ToggleView">
+    Skift visning
+</button>
+
 
 <div class="container">
-    <Listing Games="gamesToShow" OnAddToFavorites="AddToFavorites"></Listing>
+    <Listing Games="gamesToShow" OnAddToFavorites="AddToFavorites" ShowAsCards="@showAsCards"></Listing>
 </div>
 
 <div class="pageCount">
@@ -30,13 +36,20 @@
     </button>
 </div>
 
-
 @code {
     public List<Item> gamesToShow;
     public List<Item> favoriteGames = new List<Item>(); // Liste til at gemme favoritter
     private int currentPage = 1;
     private const int itemsPerPage = 5;
     private int totalPages;
+
+    public bool showSearch = false;
+    public string searchText = "";
+
+    public void ToggleSearch()
+    {
+        showSearch = !showSearch;
+    }
 
 
     protected override void OnInitialized()
@@ -56,6 +69,8 @@
         totalPages = (int)Math.Ceiling((double)allDummyData.Count / itemsPerPage);
     }
 
+    private bool isUpdatingPage = false;
+
     private void UpdatePage(int page)
     {
         // Sørg for, at siden ikke går i minus
@@ -63,6 +78,14 @@
         {
             page = 1;
         }
+
+        // Sørg for, at vi ikke behandler flere sideopdateringer samtidig
+        if (isUpdatingPage)
+        {
+            return;
+        }
+
+        isUpdatingPage = true;
 
         currentPage = page;
         gamesToShow = allDummyData.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
@@ -90,11 +113,10 @@
 
         // Navigate to the new URL with the updated query string
         NavigationManager.NavigateTo(uri.GetLeftPart(UriPartial.Path) + "?" + newQueryString, forceLoad: true);
+
+        // Reset isUpdatingPage til false efter sideopdateringen er fuldført
+        isUpdatingPage = false;
     }
-
-
-
-
 
     private Dictionary<string, string> ParseQueryString(string queryString)
     {
@@ -112,7 +134,6 @@
         return parameters;
     }
 
-
     private async Task AddToFavorites(Item game)
     {
         if (!favoriteGames.Contains(game))
@@ -125,4 +146,32 @@
             await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er allerede tilføjet til favoritter");
         }
     }
+
+    private void HandleSearch(string searchText)
+{
+    if (string.IsNullOrWhiteSpace(searchText))
+    {
+        // Hvis søgefeltet er tomt, vis alle spillene igen
+        gamesToShow = allDummyData.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+        totalPages = (int)Math.Ceiling((double)allDummyData.Count / itemsPerPage);
+    }
+    else
+    {
+        // Filtrer spillene baseret på, om de indeholder søgeteksten i gameTitle, uanset case
+        gamesToShow = allDummyData
+            .Where(game => game.gameName.ToLower().Contains(searchText.ToLower()))
+            .OrderBy(game => game.gameName)
+            .ToList();
+    }
+}
+
+
+    public bool showAsCards = false;
+
+    public void ToggleView()
+    {
+        showAsCards = !showAsCards;
+    }
+
+
 }
