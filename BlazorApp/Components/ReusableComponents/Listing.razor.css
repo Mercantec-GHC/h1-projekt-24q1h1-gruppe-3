@@ -92,8 +92,8 @@
 .col-2 {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Justerer indholdet til venstre langs krydseraksen */
-    justify-content: flex-start; /* Justerer indholdet til venstre langs hovedaksen */
+    align-items: flex-start;
+    justify-content: flex-start; 
     padding: 0.3rem 0 0.3rem 0;
     margin: 0;
 }
@@ -137,3 +137,121 @@
         font-size: 0.7rem;
     }
 }
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: calc(33.33% - 10px);
+    margin: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: #b3b3b3;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    height: 400px;
+    width: 100%;
+    overflow: auto;
+    
+}
+.card:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+    overflow: hidden;
+    height: 100%;
+
+}
+
+
+
+.card-favoriteStar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.5));
+    width: 30px;
+    height: 30px;
+    transform: translate(0rem, 0rem);
+}
+
+
+.card-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 0.2rem 0.2rem 0.2rem;
+}
+
+.card-game-image {
+    width:auto;
+    height: 80%;
+}
+
+.card-game-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 0.3rem 0 0 0;
+    padding: 0;
+}
+
+.card-game-created {
+    font-size: 1rem;
+    margin: 0;
+    color: black;
+}
+
+.card-game-genre {
+    font-size: 1rem;
+    margin: 0;
+    color: black;
+}
+
+.card-game-manufacture {
+    font-size: 1rem;
+    margin: 0;
+    color: black;
+}
+
+.card-game-description {
+    font-size: 1.2rem;
+    margin: 0.2rem 0 0 0;
+    color: black;
+}
+
+
+.card-game-price {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.5rem;
+    padding: 10px;
+}
+
+.card-game-condition {
+    font-size: 1rem;
+}
+
+.card-game-image:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease-in-out;
+}
+

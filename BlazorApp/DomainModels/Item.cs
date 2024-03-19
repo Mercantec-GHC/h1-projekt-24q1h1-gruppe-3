@@ -7,17 +7,17 @@ namespace DomainModels
 {
     public abstract class Item //: User
     {
-        public int itemID;
-        public string gameName;
-        public int price;
-        public bool orderStatus;
-        public string condition;
-        public DateTime created;
-        public DateTime updated;
-        public string genre;
-        public string manufacture;
-        public bool addToFaverite;
-        public string description;
+        public int itemID { get; set; }
+        public string? gameName { get; set; }
+        public int price { get; set; }
+        public bool orderStatus { get; set; }
+        public string condition { get; set; }
+        public DateTime created { get; set; }
+        public DateTime updated { get; set; }
+        public string genre { get; set; }
+        public string manufacture { get; set; }
+        public bool addToFaverite { get; set; }
+        public string description { get; set; }
         //private User userID;
 
 
