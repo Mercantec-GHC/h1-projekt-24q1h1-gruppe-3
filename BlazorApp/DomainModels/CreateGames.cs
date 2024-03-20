@@ -8,7 +8,8 @@ namespace DomainModels
 {
     public class GameDataService
     {
-        public void InsertDummyDataIntoDB(List<Item> AllGames)
+
+        public void InsertDummyDataIntoDB(List<PC_Game> AllPCGames, List<PS_Game> AllPSGames, List<XBOX_Game> AllXBOXGames)
         {
             string connectionString = "Host=ep-bitter-salad-a2i17tas.eu-central-1.aws.neon.tech;Database=GamersLounge;Username=GamersLounge_owner;Password=XJYz1P7LupEn";
 
@@ -17,33 +18,44 @@ namespace DomainModels
             using (var cmd = new NpgsqlCommand())
             {
                 cmd.Connection = connection;
-                foreach (var game in AllGames)
+                foreach (var game in AllPCGames)
                 {
-                    if (game is Item Item)
+                    if (game is PC_Game pc_game)
                     {
-                        string createdDate = Item.created != DateTime.MinValue ? DateTimeToString(Item.created) : "NULL";
-                        string updatedDate = Item.updated != DateTime.MinValue ? DateTimeToString(Item.updated) : "NULL";
+                        string createdDate = pc_game.created != DateTime.MinValue ? DateTimeToString(pc_game.created) : "NULL";
+                        string updatedDate = pc_game.updated != DateTime.MinValue ? DateTimeToString(pc_game.updated) : "NULL";
 
                         //string insertCommand = $@"INSERT INTO Item(itemID, gameName, price, orderStatus, condition, created, updated, genre, manufacture, addToFaverite, description, operatingSystem, yearDeployed)
                         //                                  VALUES('{Item.itemID}', '{Item.gameName}', '{Item.price}', '{Item.orderStatus}', '{Item.condition}', '{Item.created}','{Item.updated}','{Item.genre}','{Item.manufacture}','{Item.addToFaverite}','{Item.description}', '{Item.operatingSystem}', '{Item.yearDeployed}')";
-                        string insertCommand = $@"INSERT INTO item(addtofavorite, condition, created, gamename, genre, itemid, manufacture, price, updated, userid, orderstatus)
-                                                          VALUES('{Item.addToFaverite}', '{Item.condition}', {createdDate}, '{Item.gameName}', '{Item.genre}', '{Item.itemID}', '{Item.manufacture}','{Item.price}',{updatedDate},'{Item.itemID}','{Item.orderStatus}')";
+                        string insertCommand = $@"INSERT INTO pc_games(addtofavorite, condition, created, gamename, genre, itemid, manufacture, price, updated, userid, orderstatus)
+                                                          VALUES('{pc_game.addToFaverite}', '{pc_game.condition}', {createdDate}, '{pc_game.gameName}', '{pc_game.genre}', '{pc_game.itemID}', '{pc_game.manufacture}','{pc_game.price}',{updatedDate},'{pc_game.itemID}','{pc_game.orderStatus}')";
 
                         cmd.CommandText = insertCommand;
                         cmd.ExecuteNonQuery();
                     }
-                    else if (game is PS_Game ps_Game)
+                }
+                foreach (var game in AllPSGames) {
+                    if (game is PS_Game ps_Game)
                     {
-                        string insertCommand = $@"INSERT INTO PS_Games(itemID, gameName, price, orderStatus, condition, created, updated, genre, manufacture, addToFaverite, description, psModel, yearDeployed)
-                                                          VALUES('{ps_Game.itemID}', '{ps_Game.gameName}', '{ps_Game.price}', '{ps_Game.orderStatus}', '{ps_Game.condition}', '{ps_Game.created}','{ps_Game.updated}','{ps_Game.genre}','{ps_Game.manufacture}','{ps_Game.addToFaverite}', '{ps_Game.description}', '{ps_Game.psModel}', '{ps_Game.yearDeployed}')";
+                        string createdDate = ps_Game.created != DateTime.MinValue ? DateTimeToString(ps_Game.created) : "NULL";
+                        string updatedDate = ps_Game.updated != DateTime.MinValue ? DateTimeToString(ps_Game.updated) : "NULL";
+
+                        string insertCommand = $@"INSERT INTO ps_games(addtofavorite, condition, created, gamename, genre, itemid, manufacture, price, updated, userid, orderstatus)
+                                                          VALUES('{ps_Game.addToFaverite}', '{ps_Game.condition}', {createdDate}, '{ps_Game.gameName}', '{ps_Game.genre}', '{ps_Game.itemID}', '{ps_Game.manufacture}','{ps_Game.price}',{updatedDate},'{ps_Game.itemID}','{ps_Game.orderStatus}')";
 
                         cmd.CommandText = insertCommand;
                         cmd.ExecuteNonQuery();
                     }
-                    else if (game is XBOX_Game xbox_Game)
+                }
+                foreach (var game in AllXBOXGames)
+                {
+                    if (game is XBOX_Game xbox_Game)
                     {
-                        string insertCommand = $@"INSERT INTO PS_Games(itemID, gameName, price, orderStatus, condition, created, updated, genre, manufacture, addToFaverite, description, xboxModel, yearDeployed)
-                                                          VALUES('{xbox_Game.itemID}', '{xbox_Game.gameName}', '{xbox_Game.price}', '{xbox_Game.orderStatus}', '{xbox_Game.condition}', '{xbox_Game.created}','{xbox_Game.updated}','{xbox_Game.genre}','{xbox_Game.manufacture}','{xbox_Game.addToFaverite}', '{xbox_Game.description}', '{xbox_Game.xboxModel}', '{xbox_Game.yearDeployed}')";
+                        string createdDate = xbox_Game.created != DateTime.MinValue ? DateTimeToString(xbox_Game.created) : "NULL";
+                        string updatedDate = xbox_Game.updated != DateTime.MinValue ? DateTimeToString(xbox_Game.updated) : "NULL";
+
+                        string insertCommand = $@"INSERT INTO xbox_games(addtofavorite, condition, created, gamename, genre, itemid, manufacture, price, updated, userid, orderstatus)
+                                                          VALUES('{xbox_Game.addToFaverite}', '{xbox_Game.condition}', {createdDate}, '{xbox_Game.gameName}', '{xbox_Game.genre}', '{xbox_Game.itemID}', '{xbox_Game.manufacture}','{xbox_Game.price}',{updatedDate},'{xbox_Game.itemID}','{xbox_Game.orderStatus}')";
 
                         cmd.CommandText = insertCommand;
                         cmd.ExecuteNonQuery();
@@ -58,30 +70,41 @@ namespace DomainModels
 
         public class CreateGames
         {
-            public List<Item> GenereteDummyItems()
+            public List<PC_Game> GeneretePCDummyGames()
             {
-                List<Item> allDummyData = new List<Item>();
+                List<PC_Game> allPCDummyData = new List<PC_Game>();
 
                 // Generating 40 dummy Item instances
                 for (int i = 1; i <= 40; i++)
                 {
-                    allDummyData.Add(new PC_Game(i, $"Game {i}", 100 + i, true, "New", DateTime.Now, DateTime.Now, "Action-RPG", $"Manufacturer {i}", false, $"Description for Game {i}", "Windows", DateTime.Now));
+                    allPCDummyData.Add(new PC_Game(i, $"Game {i}", 100 + i, true, "New", DateTime.Now, DateTime.Now, "Action-RPG", $"Manufacturer {i}", false, $"Description for Game {i}"));
                 }
+                return allPCDummyData;
+            }
 
+            public List<PS_Game> GeneretePSDummyGames() {
+
+                List<PS_Game> allPSDummyData = new List<PS_Game>();
                 // Generating 40 dummy PS_Game instances
                 for (int i = 41; i <= 80; i++)
                 {
-                    allDummyData.Add(new PS_Game(i, $"Game {i}", 100 + i, true, "New", DateTime.Now, DateTime.Now, "Action-Adventure", $"Manufacturer {i}", false, $"Description for Game {i}", "PS4", DateTime.Now));
+                    allPSDummyData.Add(new PS_Game(i, $"Game {i}", 100 + i, true, "New", DateTime.Now, DateTime.Now, "Action-Adventure", $"Manufacturer {i}", false, $"Description for Game {i}"));
                 }
+                return allPSDummyData;
+            }
 
+            public List<XBOX_Game> GenereteXBOXDummyGames()
+            {
+                List<XBOX_Game> allXBOXDummyData = new List<XBOX_Game>();
                 // Generating 40 dummy XBOX_Game instances
                 for (int i = 81; i <= 120; i++)
                 {
-                    allDummyData.Add(new XBOX_Game(i, $"Game {i}", 100 + i, true, "New", DateTime.Now, DateTime.Now, "First-Person Shooter", $"Manufacturer {i}", false, $"Description for Game {i}", "Xbox Series X", DateTime.Now));
+                    allXBOXDummyData.Add(new XBOX_Game(i, $"Game {i}", 100 + i, true, "New", DateTime.Now, DateTime.Now, "First-Person Shooter", $"Manufacturer {i}", false, $"Description for Game {i}"));
                 }
-
-                return allDummyData;
+                return allXBOXDummyData;
             }
+
+            
 
 
 

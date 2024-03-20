@@ -68,27 +68,27 @@
 			<div class="card-body-bottom" @onclick="@( () => HandleCardClick(gameToShow[0].itemID) )">
 				<h4>PC</h4>
 				<img src="./Picture/Temp_Picture.jpg" class="image" />
-				<h4 class="game-name">@gameToShow[0].gameName</h4>
+				@* <h4 class="game-name">@gameToShow[0].gameName</h4>
 				<p class="game-genre">@gameToShow[0].genre</p>
-				<p class="game-price">€ @gameToShow[0].price</p>
+				<p class="game-price">€ @gameToShow[0].price</p> *@
 			</div>
 		</div>
 		<div class="card-bottom-section">
 			<div class="card-body-bottom" @onclick="@( () => HandleCardClick((gameToShow[1].itemID-1)) )">
 				<h4>PS</h4>
 				<img src="./Picture/Temp_Picture.jpg" class="image" />
-				<h4 class="game-name">@gameToShow[1].gameName</h4>
+				@* <h4 class="game-name">@gameToShow[1].gameName</h4>
 				<p class="game-genre">@gameToShow[1].genre</p>
-				<p class="game-price">€ @gameToShow[1].price</p>
+				<p class="game-price">€ @gameToShow[1].price</p> *@
 			</div>
 		</div>
 		<div class="card-bottom-section">
 			<div class="card-body-bottom" @onclick="@( () => HandleCardClick((gameToShow[2].itemID-1)) )">
 				<h4>XBOX</h4>
 				<img src="./Picture/Temp_Picture.jpg" class="image" />
-				<h4 class="game-name">@gameToShow[2].gameName</h4>
+@* 				<h4 class="game-name">@gameToShow[2].gameName</h4>
 				<p class="game-genre">@gameToShow[2].genre</p>
-				<p class="game-price">€ @gameToShow[2].price</p>
+				<p class="game-price">€ @gameToShow[2].price</p> *@
 			</div>
 		</div>
 	</div>
@@ -111,45 +111,45 @@
 		NavigationManager.NavigateTo($"/product/{gameID}");
 	}
 
-	public List<PC_Game> FiltreToPC_Games(List<Item> data)
-	{
-		List<PC_Game> pcGames = new List<PC_Game>();
+	// public List<PC_Game> FiltreToPC_Games(List<PC_Game> data)
+	// {
+	// 	List<PC_Game> pcGames = new List<PC_Game>();
 
-		foreach (var game in data)
-		{
-			if (game is PC_Game pcGame)
-			{
-				pcGames.Add(pcGame);
-			}
-		}
-		return pcGames;
-	}
+	// 	foreach (var game in data)
+	// 	{
+	// 		if (game is PC_Game pcGame)
+	// 		{
+	// 			pcGames.Add(pcGame);
+	// 		}
+	// 	}
+	// 	return pcGames;
+	// }
 
-	public List<XBOX_Game> FiltreToXBOX_Games(List<Item> data)
-	{
-		List<XBOX_Game> xboxGames = new List<XBOX_Game>();
+	// public List<XBOX_Game> FiltreToXBOX_Games(List<Item> data)
+	// {
+	// 	List<XBOX_Game> xboxGames = new List<XBOX_Game>();
 
-		foreach (var game in data)
-		{
-			if (game is XBOX_Game xboxGame)
-			{
-				xboxGames.Add(xboxGame);
-			}
-		}
-		return xboxGames;
-	}
+	// 	foreach (var game in data)
+	// 	{
+	// 		if (game is XBOX_Game xboxGame)
+	// 		{
+	// 			xboxGames.Add(xboxGame);
+	// 		}
+	// 	}
+	// 	return xboxGames;
+	// }
 
-	public List<PS_Game> FiltreToPS_Games(List<Item> data)
-	{
-		List<PS_Game> psGames = new List<PS_Game>();
+	// public List<PS_Game> FiltreToPS_Games(List<Item> data)
+	// {
+	// 	List<PS_Game> psGames = new List<PS_Game>();
 
-		foreach (var game in data)
-		{
-			if (game is PS_Game psGame)
-			{
-				psGames.Add(psGame);
-			}
-		}
-		return psGames;
-	}
+	// 	foreach (var game in data)
+	// 	{
+	// 		if (game is PS_Game psGame)
+	// 		{
+	// 			psGames.Add(psGame);
+	// 		}
+	// 	}
+	// 	return psGames;
+	// }
 }
