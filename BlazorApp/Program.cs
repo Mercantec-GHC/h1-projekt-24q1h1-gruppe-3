@@ -1,5 +1,7 @@
 using BlazorApp.Components;
 using DomainModels;
+using Microsoft.Extensions.Configuration;
+using static DomainModels.GameDataService;
 
 namespace BlazorApp
 {
@@ -9,8 +11,13 @@ namespace BlazorApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddSingleton<List<Item>>(sp => new DummyData().GenereteDummyItems());
-            builder.Services.AddSingleton<List<User>>(sp => new DummyData().GenerateDummyUsers());
+            IConfiguration Configuration = builder.Configuration;
+            var connectionString = Configuration.GetConnectionString("Defaultconnection") ?? Environment.GetEnvironmentVariable("DefaultConnection");
+            var createGames = new CreateGames();
+            builder.Services.AddSingleton<List<Item>>(sp => createGames.GenereteDummyItems());
+            builder.Services.AddSingleton<List<User>>(sp => createGames.GenerateDummyUsers());
+                
+
 
             // Add services to the container.
             builder.Services.AddRazorComponents()
