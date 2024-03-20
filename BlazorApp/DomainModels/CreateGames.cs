@@ -26,8 +26,8 @@ namespace DomainModels
 
                         //string insertCommand = $@"INSERT INTO Item(itemID, gameName, price, orderStatus, condition, created, updated, genre, manufacture, addToFaverite, description, operatingSystem, yearDeployed)
                         //                                  VALUES('{Item.itemID}', '{Item.gameName}', '{Item.price}', '{Item.orderStatus}', '{Item.condition}', '{Item.created}','{Item.updated}','{Item.genre}','{Item.manufacture}','{Item.addToFaverite}','{Item.description}', '{Item.operatingSystem}', '{Item.yearDeployed}')";
-                        string insertCommand = $@"INSERT INTO item(addToFavorite, condition, created, gameName, genre, itemID, manufacture, price, updated, userID, orderStatus)
-                                                          VALUES('{Item.itemID}', '{Item.gameName}', {createdDate}, '{Item.price}', '{Item.orderStatus}', '{Item.condition}', {updatedDate},'{Item.genre}','{Item.manufacture}','{Item.addToFaverite}','{Item.description}')";
+                        string insertCommand = $@"INSERT INTO item(addtofavorite, condition, created, gamename, genre, itemid, manufacture, price, updated, userid, orderstatus)
+                                                          VALUES('{Item.addToFaverite}', '{Item.condition}', {createdDate}, '{Item.gameName}', '{Item.genre}', '{Item.itemID}', '{Item.manufacture}','{Item.price}',{updatedDate},'{Item.itemID}','{Item.orderStatus}')";
 
                         cmd.CommandText = insertCommand;
                         cmd.ExecuteNonQuery();
