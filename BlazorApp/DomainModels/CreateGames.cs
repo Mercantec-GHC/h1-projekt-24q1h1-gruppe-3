@@ -2,6 +2,7 @@
 using System;
 using Npgsql;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 
 namespace DomainModels
 {
@@ -9,7 +10,8 @@ namespace DomainModels
     {
         public void InsertDummyDataIntoDB(List<Item> AllGames)
         {
-            string connectionString = "";
+            string connectionString = "Host=ep-bitter-salad-a2i17tas.eu-central-1.aws.neon.tech;Database=GamersLounge;Username=GamersLounge_owner;Password=XJYz1P7LupEn";
+
             using var connection = new NpgsqlConnection(connectionString);
             connection.Open();
             using (var cmd = new NpgsqlCommand())
@@ -17,10 +19,15 @@ namespace DomainModels
                 cmd.Connection = connection;
                 foreach (var game in AllGames)
                 {
-                    if (game is PC_Game pc_Game)
+                    if (game is Item Item)
                     {
-                        string insertCommand = $@"INSERT INTO PC_Games(itemID, gameName, price, orderStatus, condition, created, updated, genre, manufacture, addToFaverite, description, operatingSystem, yearDeployed)
-                                                          VALUES('{pc_Game.itemID}', '{pc_Game.gameName}', '{pc_Game.price}', '{pc_Game.orderStatus}', '{pc_Game.condition}', '{pc_Game.created}','{pc_Game.updated}','{pc_Game.genre}','{pc_Game.manufacture}','{pc_Game.addToFaverite}','{pc_Game.description}', '{pc_Game.operatingSystem}', '{pc_Game.yearDeployed}')";
+                        string createdDate = Item.created != DateTime.MinValue ? DateTimeToString(Item.created) : "NULL";
+                        string updatedDate = Item.updated != DateTime.MinValue ? DateTimeToString(Item.updated) : "NULL";
+
+                        //string insertCommand = $@"INSERT INTO Item(itemID, gameName, price, orderStatus, condition, created, updated, genre, manufacture, addToFaverite, description, operatingSystem, yearDeployed)
+                        //                                  VALUES('{Item.itemID}', '{Item.gameName}', '{Item.price}', '{Item.orderStatus}', '{Item.condition}', '{Item.created}','{Item.updated}','{Item.genre}','{Item.manufacture}','{Item.addToFaverite}','{Item.description}', '{Item.operatingSystem}', '{Item.yearDeployed}')";
+                        string insertCommand = $@"INSERT INTO item(addToFavorite, condition, created, gameName, genre, itemID, manufacture, price, updated, userID, orderStatus)
+                                                          VALUES('{Item.itemID}', '{Item.gameName}', {createdDate}, '{Item.price}', '{Item.orderStatus}', '{Item.condition}', {updatedDate},'{Item.genre}','{Item.manufacture}','{Item.addToFaverite}','{Item.description}')";
 
                         cmd.CommandText = insertCommand;
                         cmd.ExecuteNonQuery();
@@ -44,6 +51,10 @@ namespace DomainModels
                 }
             }
         }
+        private string DateTimeToString(DateTime dateTime)
+        {
+            return $"'{dateTime.ToString("yyyy-MM-dd HH:mm:ss")}'";
+        }
 
         public class CreateGames
         {
@@ -51,7 +62,7 @@ namespace DomainModels
             {
                 List<Item> allDummyData = new List<Item>();
 
-                // Generating 40 dummy PC_Game instances
+                // Generating 40 dummy Item instances
                 for (int i = 1; i <= 40; i++)
                 {
                     allDummyData.Add(new PC_Game(i, $"Game {i}", 100 + i, true, "New", DateTime.Now, DateTime.Now, "Action-RPG", $"Manufacturer {i}", false, $"Description for Game {i}", "Windows", DateTime.Now));
@@ -79,7 +90,7 @@ namespace DomainModels
             //    public List<Item> GenereteDummyItems()
             //    {
             //        List<Item> allDummyData = new List<Item>();
-            //        allDummyData.Add(new PC_Game
+            //        allDummyData.Add(new Item
             //        {
             //            itemID = 1,
             //            gameName = "The Elder Scrolls V: Skyrim",
@@ -110,7 +121,7 @@ namespace DomainModels
 
             //        });
 
-            //        allDummyData.Add(new PC_Game
+            //        allDummyData.Add(new Item
             //        {
             //            itemID = 3,
             //            gameName = "Game 3",
@@ -140,7 +151,7 @@ namespace DomainModels
             //            description = "Embark on a journey through a lush post-apocalyptic world inhabited by robotic creatures."
             //        });
 
-            //        allDummyData.Add(new PC_Game
+            //        allDummyData.Add(new Item
             //        {
             //            itemID = 5,
             //            gameName = "The Witcher 3: Wild Hunt",
@@ -170,7 +181,7 @@ namespace DomainModels
             //            description = "Experience the end of the Wild West era as outlaw Arthur Morgan in this epic tale of loyalty and survival."
             //        });
 
-            //        allDummyData.Add(new PC_Game
+            //        allDummyData.Add(new Item
             //        {
             //            itemID = 7,
             //            gameName = "Cyberpunk 2077",
@@ -199,7 +210,7 @@ namespace DomainModels
             //            addToFaverite = false,
             //            description = "Step into the shoes of Jin Sakai, a samurai warrior on a quest to protect Tsushima Island from Mongol invaders."
             //        });
-            //        allDummyData.Add(new PC_Game
+            //        allDummyData.Add(new Item
             //        {
             //            itemID = 9,
             //            gameName = "Mass Effect 2",
@@ -229,7 +240,7 @@ namespace DomainModels
             //            description = "Join Nathan Drake on his final adventure as he searches for a legendary pirate treasure."
             //        });
 
-            //        allDummyData.Add(new PC_Game
+            //        allDummyData.Add(new Item
             //        {
             //            itemID = 11,
             //            gameName = "Dark Souls III",
@@ -259,7 +270,7 @@ namespace DomainModels
             //            description = "Venture into the Gothic city of Yharnam and battle nightmarish creatures in this action-packed RPG."
             //        });
 
-            //        allDummyData.Add(new PC_Game
+            //        allDummyData.Add(new Item
             //        {
             //            itemID = 13,
             //            gameName = "Divinity: Original Sin 2",
@@ -289,7 +300,7 @@ namespace DomainModels
             //            description = "Join Kratos and his son Atreus on a breathtaking journey through the realms of Norse mythology."
             //        });
 
-            //        allDummyData.Add(new PC_Game
+            //        allDummyData.Add(new Item
             //        {
             //            itemID = 15,
             //            gameName = "Borderlands 3",
@@ -319,7 +330,7 @@ namespace DomainModels
             //            description = "Lead a group of high school students as they balance their daily lives with battling supernatural forces."
             //        });
 
-            //        allDummyData.Add(new PC_Game
+            //        allDummyData.Add(new Item
             //        {
             //            itemID = 17,
             //            gameName = "Doom Eternal",
@@ -349,7 +360,7 @@ namespace DomainModels
             //            description = "Experience the emotional journey of Ellie in a post-apocalyptic world filled with danger and moral dilemmas."
             //        });
 
-            //        allDummyData.Add(new PC_Game
+            //        allDummyData.Add(new Item
             //        {
             //            itemID = 19,
             //            gameName = "Star Wars Jedi: Fallen Order",

@@ -13,10 +13,17 @@ namespace BlazorApp
 
             IConfiguration Configuration = builder.Configuration;
             var connectionString = Configuration.GetConnectionString("Defaultconnection") ?? Environment.GetEnvironmentVariable("DefaultConnection");
+
+            // Generer dummy-data
             var createGames = new CreateGames();
-            builder.Services.AddSingleton<List<Item>>(sp => createGames.GenereteDummyItems());
-            builder.Services.AddSingleton<List<User>>(sp => createGames.GenerateDummyUsers());
-                
+            var allGames = createGames.GenereteDummyItems(); // Anta at denne metoden eksisterer og returnerer en liste av Item objekter
+
+            // Opprett en instans av GameDataService
+            var gameDataService = new GameDataService();
+
+            // Sett inn dummy-data i databasen ved hjelp av GameDataService instansen
+            gameDataService.InsertDummyDataIntoDB(allGames);
+
 
 
             // Add services to the container.
