@@ -56,11 +56,6 @@
     border-radius: 10px;
 }
 
-.logo {
-   max-width: 50px;
-   max-height: 50px;
-}
-
 .button-container-middle-section {
     display: flex;
     justify-content: center;
@@ -81,9 +76,8 @@
     position: relative;
 }
 
-.card-bottom-section:hover {
-    transform: scale(1.01);
-    transition: transform 0.3s ease-in-out;
+.card-body-bottom:hover {
+    opacity: 70%;
 }
 
 .btn-dark {

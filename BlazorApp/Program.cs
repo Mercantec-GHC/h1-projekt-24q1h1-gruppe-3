@@ -16,15 +16,13 @@ namespace BlazorApp
 
             // Generer dummy-data
             var createGames = new CreateGames();
-            var allPCGames = createGames.GeneretePCDummyGames();
-            var allPSGames = createGames.GeneretePSDummyGames();// Anta at denne metoden eksisterer og returnerer en liste av Item objekter
-            var allXBOXGames = createGames.GenereteXBOXDummyGames();// Anta at denne metoden eksisterer og returnerer en liste av Item objekter
+            var allGames = GameDataService.CreateGames.GenereteDummyItems(); // Anta at denne metoden eksisterer og returnerer en liste av Item objekter
 
             // Opprett en instans av GameDataService
             var gameDataService = new GameDataService();
 
             // Sett inn dummy-data i databasen ved hjelp av GameDataService instansen
-            //gameDataService.InsertDummyDataIntoDB(allPCGames, allPSGames, allXBOXGames);
+            gameDataService.InsertDummyDataIntoDB(allGames);
 
 
 
