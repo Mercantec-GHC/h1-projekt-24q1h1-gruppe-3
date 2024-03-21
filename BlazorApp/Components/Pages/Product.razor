@@ -1,5 +1,5 @@
 ﻿@page "/product/{itemID}"
-@* @inject List<PC_Game> allPCGames *@
+@inject List<Item> allGames
 @* @inject List<User> allDummyUsers *@
 @using DomainModels
 @using global::DomainModels
@@ -56,10 +56,9 @@
 
 
 @code {
-    List<All_Games> allGames = new CreateGames().GenereteallDummyGames();
     [Parameter]
     public string ItemID { get; set; }
-    public All_Games gameToShow;
+    public Item gameToShow;
 
     protected override void OnInitialized()
     {
