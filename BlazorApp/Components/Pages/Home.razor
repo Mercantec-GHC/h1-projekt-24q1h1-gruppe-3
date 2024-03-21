@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using DomainModels
-@*@inject List<Item> allDummyData*@
+@using Service
+@inject List<PC_Game> allPCGames
 @inject NavigationManager NavigationManager
 
 <PageTitle>Gamers Lounge</PageTitle>
@@ -65,45 +66,45 @@
 
 	<div class="card-container">
 		<div class="card-bottom-section">
-			<div class="card-body-bottom" @onclick="@( () => HandleCardClick(gameToShow[0].itemID) )">
+			<div class="card-body-bottom" @onclick="@( () => HandleCardClick(pcGames[1].itemID) )">
 				<h4>PC</h4>
 				<img src="./Picture/Temp_Picture.jpg" class="image" />
-				@* <h4 class="game-name">@gameToShow[0].gameName</h4>
-				<p class="game-genre">@gameToShow[0].genre</p>
-				<p class="game-price">€ @gameToShow[0].price</p> *@
+				<h4 class="game-name">@pcGames[1].gameName</h4>
+				<p class="game-genre">@pcGames[1].genre</p>
+				<p class="game-price">€ @pcGames[1].price</p>
 			</div>
 		</div>
-		<div class="card-bottom-section">
+		@* <div class="card-bottom-section">
 			<div class="card-body-bottom" @onclick="@( () => HandleCardClick((gameToShow[1].itemID-1)) )">
 				<h4>PS</h4>
 				<img src="./Picture/Temp_Picture.jpg" class="image" />
-				@* <h4 class="game-name">@gameToShow[1].gameName</h4>
+				 <h4 class="game-name">@gameToShow[1].gameName</h4>
 				<p class="game-genre">@gameToShow[1].genre</p>
-				<p class="game-price">€ @gameToShow[1].price</p> *@
+				<p class="game-price">€ @gameToShow[1].price</p>
 			</div>
 		</div>
 		<div class="card-bottom-section">
 			<div class="card-body-bottom" @onclick="@( () => HandleCardClick((gameToShow[2].itemID-1)) )">
 				<h4>XBOX</h4>
 				<img src="./Picture/Temp_Picture.jpg" class="image" />
-@* 				<h4 class="game-name">@gameToShow[2].gameName</h4>
+				<h4 class="game-name">@gameToShow[2].gameName</h4>
 				<p class="game-genre">@gameToShow[2].genre</p>
-				<p class="game-price">€ @gameToShow[2].price</p> *@
+				<p class="game-price">€ @gameToShow[2].price</p>
 			</div>
-		</div>
+		</div>  *@
 	</div>
 </div>
 
 @code {
-	public List<Item> gameToShow;
-	public List<PC_Game> pcGames;
+	public List<Item> gamesToShow;
+	public List<DomainModels.PC_Game> pcGames;
 	public List<XBOX_Game> xboxGames;
 	public List<PS_Game> psGames;
 
 	protected override void OnInitialized()
 	{
-		gameToShow = null;//allDummyData;
-		//pcGameToShow = FiltreToPC_Games(allDummyData);
+		pcGames = allPCGames;
+		gamesToShow = null;
 	}
 
 	private void HandleCardClick(int gameID)
