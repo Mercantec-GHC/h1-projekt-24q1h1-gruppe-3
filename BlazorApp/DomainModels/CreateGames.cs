@@ -29,8 +29,13 @@ namespace DomainModels
                         //                                  VALUES('{Item.itemID}', '{Item.gameName}', '{Item.price}', '{Item.orderStatus}', '{Item.condition}', '{Item.created}','{Item.updated}','{Item.genre}','{Item.manufacture}','{Item.addToFaverite}','{Item.description}', '{Item.operatingSystem}', '{Item.yearDeployed}')";
                         string insertCommand = $@"INSERT INTO pc_games(addtofavorite, condition, created, gamename, genre, itemid, manufacture, price, updated, userid, orderstatus, description)
                                                           VALUES('{pc_game.addToFaverite}', '{pc_game.condition}', {createdDate}, '{pc_game.gameName}', '{pc_game.genre}', '{pc_game.itemID}', '{pc_game.manufacture}','{pc_game.price}',{updatedDate},'{pc_game.itemID}','{pc_game.orderStatus}','{pc_game.description}')";
+                        string insertCommand1 = $@"INSERT INTO all_games(addtofavorite, condition, created, gamename, genre, itemid, manufacture, price, updated, userid, orderstatus, description)
+                                                          VALUES('{pc_game.addToFaverite}', '{pc_game.condition}', {createdDate}, '{pc_game.gameName}', '{pc_game.genre}', '{pc_game.itemID}', '{pc_game.manufacture}','{pc_game.price}',{updatedDate},'{pc_game.itemID}','{pc_game.orderStatus}','{pc_game.description}')";
 
                         cmd.CommandText = insertCommand;
+						cmd.ExecuteNonQuery();
+
+						cmd.CommandText = insertCommand1;
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -43,10 +48,14 @@ namespace DomainModels
 
                         string insertCommand = $@"INSERT INTO ps_games(addtofavorite, condition, created, gamename, genre, itemid, manufacture, price, updated, userid, orderstatus, description)
                                                           VALUES('{ps_Game.addToFaverite}', '{ps_Game.condition}', {createdDate}, '{ps_Game.gameName}', '{ps_Game.genre}', '{ps_Game.itemID}','{ps_Game.manufacture}','{ps_Game.price}',{updatedDate},'{ps_Game.itemID}','{ps_Game.orderStatus}','{ps_Game.description}')";
+                        string insertCommand1 = $@"INSERT INTO all_games(addtofavorite, condition, created, gamename, genre, itemid, manufacture, price, updated, userid, orderstatus, description)
+                                                          VALUES('{ps_Game.addToFaverite}', '{ps_Game.condition}', {createdDate}, '{ps_Game.gameName}', '{ps_Game.genre}', '{ps_Game.itemID}','{ps_Game.manufacture}','{ps_Game.price}',{updatedDate},'{ps_Game.itemID}','{ps_Game.orderStatus}','{ps_Game.description}')";
 
                         cmd.CommandText = insertCommand;
                         cmd.ExecuteNonQuery();
-                    }
+						cmd.CommandText = insertCommand1;
+						cmd.ExecuteNonQuery();
+					}
                 }
                 foreach (var game in AllXBOXGames)
                 {
@@ -57,9 +66,14 @@ namespace DomainModels
 
                         string insertCommand = $@"INSERT INTO xbox_games(addtofavorite, condition, created, gamename, genre, itemid, manufacture, price, updated, userid, orderstatus, description)
                                                           VALUES('{xbox_Game.addToFaverite}', '{xbox_Game.condition}', {createdDate}, '{xbox_Game.gameName}', '{xbox_Game.genre}', '{xbox_Game.itemID}', '{xbox_Game.manufacture}','{xbox_Game.price}',{updatedDate},'{xbox_Game.itemID}','{xbox_Game.orderStatus}','{xbox_Game.description}')";
+                        string insertCommand1 = $@"INSERT INTO all_games(addtofavorite, condition, created, gamename, genre, itemid, manufacture, price, updated, userid, orderstatus, description)
+                                                          VALUES('{xbox_Game.addToFaverite}', '{xbox_Game.condition}', {createdDate}, '{xbox_Game.gameName}', '{xbox_Game.genre}', '{xbox_Game.itemID}', '{xbox_Game.manufacture}','{xbox_Game.price}',{updatedDate},'{xbox_Game.itemID}','{xbox_Game.orderStatus}','{xbox_Game.description}')";
 
                         cmd.CommandText = insertCommand;
+						cmd.ExecuteNonQuery();
+						cmd.CommandText = insertCommand1;
                         cmd.ExecuteNonQuery();
+                        
                     }
                 }
             }

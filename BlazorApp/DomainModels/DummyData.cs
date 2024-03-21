@@ -322,7 +322,7 @@ namespace DomainModels
         {
             List<PS_Game> allPSDummyData = new List<PS_Game>();
             allPSDummyData.Add(new PS_Game(
-                1,
+                23,
                 "The Last of Us Part II",
                 60,
                 true,
@@ -336,7 +336,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                2,
+                24,
                 "Ghost of Tsushima",
                 50,
                 true,
@@ -350,7 +350,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                3,
+                25,
                 "Spider-Man: Miles Morales",
                 40,
                 true,
@@ -364,7 +364,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                4,
+                26,
                 "God of War",
                 45,
                 true,
@@ -378,7 +378,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                5,
+                27,
                 "Horizon Zero Dawn",
                 35,
                 true,
@@ -392,7 +392,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                6,
+                28,
                 "Bloodborne",
                 55,
                 false,
@@ -406,7 +406,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                7,
+                29,
                 "Demons Souls",
                 65,
                 true,
@@ -420,7 +420,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                8,
+                30,
                 "Uncharted 4: A Thiefs End",
                 30,
                 true,
@@ -434,7 +434,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                9,
+                31,
                 "Ratchet & Clank: Rift Apart",
                 55,
                 true,
@@ -448,7 +448,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                10,
+                32,
                 "Final Fantasy VII Remake",
                 50,
                 true,
@@ -462,7 +462,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                11,
+                33,
                 "The Witcher 3: Wild Hunt",
                 70,
                 true,
@@ -476,7 +476,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                12,
+                34,
                 "Grand Theft Auto V",
                 40,
                 true,
@@ -490,7 +490,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                13,
+                35,
                 "Red Dead Redemption 2",
                 50,
                 true,
@@ -504,7 +504,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                14,
+                36,
                 "Dark Souls III",
                 30,
                 false,
@@ -518,7 +518,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                15,
+                37,
                 "Mass Effect 2",
                 20,
                 true,
@@ -532,7 +532,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                16,
+                38,
                 "Divinity: Original Sin 2",
                 60,
                 true,
@@ -546,7 +546,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                17,
+                39,
                 "Persona 5",
                 35,
                 true,
@@ -560,7 +560,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                18,
+                40,
                 "DOOM Eternal",
                 25,
                 false,
@@ -574,7 +574,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                19,
+                41,
                 "Metal Gear Solid V: The Phantom Pain",
                 45,
                 true,
@@ -588,7 +588,7 @@ namespace DomainModels
             ));
 
             allPSDummyData.Add(new PS_Game(
-                20,
+                42,
                 "Bloodborne",
                 55,
                 true,
@@ -610,7 +610,7 @@ namespace DomainModels
         {
             List<XBOX_Game> allXBOXDummyData = new List<XBOX_Game>();
             allXBOXDummyData.Add(new XBOX_Game(
-                1,
+                43,
                 "The Last of Us Part II",
                 60,
                 true,
@@ -625,7 +625,7 @@ namespace DomainModels
 
 
             allXBOXDummyData.Add(new XBOX_Game(
-                1,
+                44,
                 "Halo Infinite",
                 60,
                 true,
@@ -639,7 +639,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                2,
+                45,
                 "Forza Horizon 5",
                 50,
                 true,
@@ -653,7 +653,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                3,
+                46,
                 "Fable IV",
                 40,
                 true,
@@ -667,7 +667,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                4,
+                47,
                 "Gears of War 6",
                 45,
                 true,
@@ -681,7 +681,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                5,
+                48,
                 "Fable Anniversary",
                 35,
                 true,
@@ -695,7 +695,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                6,
+                49,
                 "Halo: The Master Chief Collection",
                 55,
                 false,
@@ -709,7 +709,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                7,
+                50,
                 "Forza Motorsport 8",
                 65,
                 true,
@@ -723,7 +723,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                8,
+                51,
                 "Fable II",
                 30,
                 true,
@@ -737,7 +737,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                9,
+                52,
                 "Gears Tactics",
                 55,
                 true,
@@ -751,7 +751,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                10,
+                53,
                 "Halo Wars 2",
                 50,
                 true,
@@ -765,7 +765,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                11,
+                54,
                 "Gears 5",
                 40,
                 true,
@@ -779,7 +779,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                12,
+                55,
                 "Forza Horizon 4",
                 50,
                 true,
@@ -793,7 +793,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                13,
+                56,
                 "Halo: Combat Evolved Anniversary",
                 30,
                 false,
@@ -807,7 +807,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                14,
+                57,
                 "Sea of Thieves",
                 35,
                 true,
@@ -821,7 +821,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                15,
+                58,
                 "Fable III",
                 25,
                 false,
@@ -835,7 +835,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                16,
+                59,
                 "Ori and the Will of the Wisps",
                 60,
                 true,
@@ -849,7 +849,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                17,
+                60,
                 "Gears of War: Ultimate Edition",
                 35,
                 true,
@@ -863,7 +863,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                18,
+                61,
                 "State of Decay 2",
                 20,
                 true,
@@ -877,7 +877,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                19,
+                62,
                 "Gears Tactics",
                 55,
                 true,
@@ -891,7 +891,7 @@ namespace DomainModels
             ));
 
             allXBOXDummyData.Add(new XBOX_Game(
-                20,
+                63,
                 "Fable Heroes",
                 15,
                 true,
