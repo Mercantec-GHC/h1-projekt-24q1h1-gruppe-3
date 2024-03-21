@@ -24,7 +24,7 @@ namespace BlazorApp
             var gameDataService = new GameDataService();
 
             // Sett inn dummy-data i databasen ved hjelp av GameDataService instansen
-            gameDataService.InsertDummyDataIntoDB(allPCGames, allPSGames, allXBOXGames);
+            //gameDataService.InsertDummyDataIntoDB(allPCGames, allPSGames, allXBOXGames);
 
 
 
