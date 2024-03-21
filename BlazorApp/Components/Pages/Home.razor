@@ -62,54 +62,54 @@
 <div class="section">
 	<h2 class="text">Featured</h2>
 	<p class="text">Explore our current list of trending games.</p>
-
+@* 
 	<div class="card-container">
 		<div class="card-bottom-section">
 			<div class="card-body-bottom" @onclick="@( () => HandleCardClick(gameToShow[0].itemID) )">
 				<h4>PC</h4>
-				<img src="./Picture/Temp_Picture.jpg" class="image" />
+				<img src="./Picture/Temp_Picture.jpg" class="image" /> *@
 				@* <h4 class="game-name">@gameToShow[0].gameName</h4>
 				<p class="game-genre">@gameToShow[0].genre</p>
 				<p class="game-price">€ @gameToShow[0].price</p> *@
-			</div>
+	@* 		</div>
 		</div>
 		<div class="card-bottom-section">
 			<div class="card-body-bottom" @onclick="@( () => HandleCardClick((gameToShow[1].itemID-1)) )">
 				<h4>PS</h4>
-				<img src="./Picture/Temp_Picture.jpg" class="image" />
+				<img src="./Picture/Temp_Picture.jpg" class="image" /> *@
 				@* <h4 class="game-name">@gameToShow[1].gameName</h4>
 				<p class="game-genre">@gameToShow[1].genre</p>
 				<p class="game-price">€ @gameToShow[1].price</p> *@
-			</div>
+		@* 	</div>
 		</div>
 		<div class="card-bottom-section">
 			<div class="card-body-bottom" @onclick="@( () => HandleCardClick((gameToShow[2].itemID-1)) )">
 				<h4>XBOX</h4>
-				<img src="./Picture/Temp_Picture.jpg" class="image" />
+				<img src="./Picture/Temp_Picture.jpg" class="image" /> *@
 @* 				<h4 class="game-name">@gameToShow[2].gameName</h4>
 				<p class="game-genre">@gameToShow[2].genre</p>
 				<p class="game-price">€ @gameToShow[2].price</p> *@
-			</div>
+	@* 		</div>
 		</div>
-	</div>
+	</div>*@
 </div>
 
 @code {
-	public List<Item> gameToShow;
-	public List<PC_Game> pcGames;
-	public List<XBOX_Game> xboxGames;
-	public List<PS_Game> psGames;
+	// public List<Item> gameToShow;
+	// public List<PC_Game> pcGames;
+	// public List<XBOX_Game> xboxGames;
+	// public List<PS_Game> psGames;
 
-	protected override void OnInitialized()
-	{
-		gameToShow = null;//allDummyData;
-		//pcGameToShow = FiltreToPC_Games(allDummyData);
-	}
+	// protected override void OnInitialized()
+	// {
+	// 	gameToShow = null;//allDummyData;
+	// 	//pcGameToShow = FiltreToPC_Games(allDummyData);
+	// }
 
-	private void HandleCardClick(int gameID)
-	{
-		NavigationManager.NavigateTo($"/product/{gameID}");
-	}
+	// private void HandleCardClick(int gameID)
+	// {
+	// 	NavigationManager.NavigateTo($"/product/{gameID}");
+	// }
 
 	// public List<PC_Game> FiltreToPC_Games(List<PC_Game> data)
 	// {

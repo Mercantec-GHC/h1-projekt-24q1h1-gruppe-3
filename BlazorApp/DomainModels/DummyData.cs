@@ -1,4 +1,5 @@
-﻿using DomainModels;
+﻿using BlazorApp.DomainModels;
+using DomainModels;
 
 namespace DomainModels
 {
@@ -906,13 +907,325 @@ namespace DomainModels
 
             return allXBOXDummyData;
         }
-        
+
+
+        public List<All_Games> GenereteallDummyGames()
+        {
+            List<All_Games> allDummyData = new List<All_Games>();
+            allDummyData.Add(new All_Games(
+                1,
+                "The Elder Scrolls V: Skyrim",
+                100,
+                true,
+                "New",
+                DateTime.Now,
+                DateTime.Now,
+                "Action-RPG",
+                "Bethesda Game Studios",
+                false,
+                "Explore the world of Skyrim, filled with dragons, magic, and epic adventures."
+            ));
+
+            allDummyData.Add(new All_Games(
+                2,
+                "The Elder Scrolls V: Skyrim",
+                102,
+                true,
+                "New",
+                DateTime.Now.AddDays(-2),
+                DateTime.Now.AddDays(-2),
+                "Action-RPG",
+                "Bethesda Game Studios",
+                false,
+                "Explore the world of Skyrim, filled with dragons, magic, and epic adventures."
+            ));
+
+            allDummyData.Add(new All_Games(
+                3,
+                "The Witcher 3: Wild Hunt",
+                125,
+                true,
+                "Used",
+                new DateTime(2023, 5, 12),
+                new DateTime(2023, 6, 2),
+                "Action-RPG",
+                "CD Projekt Red",
+                false,
+                "Embark on a journey through a dark fantasy world in this action-packed RPG."
+            ));
+
+            allDummyData.Add(new All_Games(
+                4,
+                "Grand Theft Auto V",
+                180,
+                true,
+                "New",
+                new DateTime(2023, 7, 20),
+                new DateTime(2023, 8, 10),
+                "Action-Adventure",
+                "Rockstar Games",
+                false,
+                "Explore a sprawling open world filled with crime, mayhem, and opportunity."
+            ));
+
+            allDummyData.Add(new All_Games(
+                5,
+                "Red Dead Redemption 2",
+                150,
+                true,
+                "New",
+                new DateTime(2023, 9, 15),
+                new DateTime(2023, 10, 5),
+                "Action-Adventure",
+                "Rockstar Games",
+                false,
+                "Experience the Wild West like never before in this epic tale of outlaws and redemption."
+            ));
+
+            allDummyData.Add(new All_Games(
+                6,
+                "Dark Souls III",
+                95,
+                false,
+                "Used",
+                new DateTime(2023, 11, 8),
+                new DateTime(2023, 11, 28),
+                "Action-RPG",
+                "FromSoftware",
+                false,
+                "Prepare to die in this challenging action RPG filled with menacing foes and unforgiving difficulty."
+            ));
+
+            allDummyData.Add(new All_Games(
+                7,
+                "Mass Effect 2",
+                70,
+                true,
+                "Refurbished",
+                new DateTime(2023, 12, 3),
+                new DateTime(2023, 12, 23),
+                "Action-RPG",
+                "BioWare",
+                true,
+                "Command your own starship and save the galaxy in this acclaimed sci-fi RPG."
+            ));
+
+            allDummyData.Add(new All_Games(
+                8,
+                "Divinity: Original Sin 2",
+                110,
+                true,
+                "New",
+                new DateTime(2024, 1, 18),
+                new DateTime(2024, 2, 7),
+                "RPG",
+                "Larian Studios",
+                false,
+                "Gather your party and embark on an epic quest in this critically acclaimed RPG adventure."
+            ));
+
+            allDummyData.Add(new All_Games(
+                9,
+                "Persona 5",
+                100,
+                true,
+                "Used",
+                new DateTime(2024, 3, 4),
+                new DateTime(2024, 3, 24),
+                "RPG",
+                "Atlus",
+                false,
+                "Unravel the mysteries of the heart in this captivating RPG about high school life and supernatural powers."
+            ));
+
+            allDummyData.Add(new All_Games(
+                10,
+                "DOOM Eternal",
+                80,
+                false,
+                "Refurbished",
+                new DateTime(2024, 4, 9),
+                new DateTime(2024, 4, 29),
+                "Action",
+                "id Software",
+                true,
+                "Rip and tear through hordes of demons in this adrenaline-fueled first-person shooter."
+            ));
+
+            allDummyData.Add(new All_Games(
+                11,
+                "Metal Gear Solid V: The Phantom Pain",
+                90,
+                true,
+                "New",
+                new DateTime(2024, 5, 14),
+                new DateTime(2024, 6, 3),
+                "Action-Adventure",
+                "Konami",
+                false,
+                "Infiltrate enemy territory and complete missions as a legendary soldier in this gripping stealth action game."
+            ));
+
+            allDummyData.Add(new All_Games(
+                12,
+                "Bloodborne",
+                85,
+                true,
+                "Used",
+                new DateTime(2024, 6, 29),
+                new DateTime(2024, 7, 19),
+                "Action-RPG",
+                "FromSoftware",
+                false,
+                "Face your fears and uncover the truth in this hauntingly beautiful horror masterpiece."
+            ));
+
+            allDummyData.Add(new All_Games(
+                13,
+                "The Witcher 3: Wild Hunt",
+                125,
+                true,
+                "Used",
+                new DateTime(2023, 5, 12),
+                new DateTime(2023, 6, 2),
+                "Action-RPG",
+                "CD Projekt Red",
+                false,
+                "Embark on a journey through a dark fantasy world in this action-packed RPG."
+            ));
+
+            allDummyData.Add(new All_Games(
+                14,
+                "Grand Theft Auto V",
+                180,
+                true,
+                "New",
+                new DateTime(2023, 7, 20),
+                new DateTime(2023, 8, 10),
+                "Action-Adventure",
+                "Rockstar Games",
+                false,
+                "Explore a sprawling open world filled with crime, mayhem, and opportunity."
+            ));
+
+            allDummyData.Add(new All_Games(
+                15,
+                "Red Dead Redemption 2",
+                150,
+                true,
+                "New",
+                new DateTime(2023, 9, 15),
+                new DateTime(2023, 10, 5),
+                "Action-Adventure",
+                "Rockstar Games",
+                false,
+                "Experience the Wild West like never before in this epic tale of outlaws and redemption."
+            ));
+
+            allDummyData.Add(new All_Games(
+                16,
+                "Dark Souls III",
+                95,
+                false,
+                "Used",
+                new DateTime(2023, 11, 8),
+                new DateTime(2023, 11, 28),
+                "Action-RPG",
+                "FromSoftware",
+                false,
+                "Prepare to die in this challenging action RPG filled with menacing foes and unforgiving difficulty."
+            ));
+
+            allDummyData.Add(new All_Games(
+                17,
+                "Mass Effect 2",
+                70,
+                true,
+                "Refurbished",
+                new DateTime(2023, 12, 3),
+                new DateTime(2023, 12, 23),
+                "Action-RPG",
+                "BioWare",
+                true,
+                "Command your own starship and save the galaxy in this acclaimed sci-fi RPG."
+            ));
+
+            allDummyData.Add(new All_Games(
+                18,
+                "Divinity: Original Sin 2",
+                110,
+                true,
+                "New",
+                new DateTime(2024, 1, 18),
+                new DateTime(2024, 2, 7),
+                "RPG",
+                "Larian Studios",
+                false,
+                "Gather your party and embark on an epic quest in this critically acclaimed RPG adventure."
+            ));
+
+            allDummyData.Add(new All_Games(
+                19,
+                "Persona 5",
+                100,
+                true,
+                "Used",
+                new DateTime(2024, 3, 4),
+                new DateTime(2024, 3, 24),
+                "RPG",
+                "Atlus",
+                false,
+                "Unravel the mysteries of the heart in this captivating RPG about high school life and supernatural powers."
+            ));
+
+            allDummyData.Add(new All_Games(
+                20,
+                "DOOM Eternal",
+                80,
+                false,
+                "Refurbished",
+                new DateTime(2024, 4, 9),
+                new DateTime(2024, 4, 29),
+                "Action",
+                "id Software",
+                true,
+                "Rip and tear through hordes of demons in this adrenaline-fueled first-person shooter."
+            ));
+
+            allDummyData.Add(new All_Games(
+                21,
+                "Metal Gear Solid V: The Phantom Pain",
+                90,
+                true,
+                "New",
+                new DateTime(2024, 5, 14),
+                new DateTime(2024, 6, 3),
+                "Action-Adventure",
+                "Konami",
+                false,
+                "Infiltrate enemy territory and complete missions as a legendary soldier in this gripping stealth action game."
+            ));
+
+            allDummyData.Add(new All_Games(
+                22,
+                "Bloodborne",
+                85,
+                true,
+                "Used",
+                new DateTime(2024, 6, 29),
+                new DateTime(2024, 7, 19),
+                "Action-RPG",
+                "FromSoftware",
+                false,
+                "Face your fears and uncover the truth in this hauntingly beautiful horror masterpiece."
+            ));
+
+            return allDummyData;
 
 
 
 
-
-
+        }
 
 
 
@@ -962,269 +1275,269 @@ namespace DomainModels
         //{
         //    List<User> allDummyUsers = new List<User>();
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "John Doe",
-        //        userID = 1,
-        //        phoneNumber = "123-456-7890",
-        //        email = "john.doe@example.com",
-        //        Location = "New York, NY",
-        //        yearCreated = new DateTime(2020, 1, 1),
-        //        itemsSold = 10,
-        //        favorites = new List<string> { "Books", "Movies" },
-        //        ItemsViewed = 50
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "John Doe",
+            //        userID = 1,
+            //        phoneNumber = "123-456-7890",
+            //        email = "john.doe@example.com",
+            //        Location = "New York, NY",
+            //        yearCreated = new DateTime(2020, 1, 1),
+            //        itemsSold = 10,
+            //        favorites = new List<string> { "Books", "Movies" },
+            //        ItemsViewed = 50
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Jane Smith",
-        //        userID = 2,
-        //        phoneNumber = "098-765-4321",
-        //        email = "jane.smith@example.com",
-        //        Location = "Los Angeles, CA",
-        //        yearCreated = new DateTime(2019, 6, 15),
-        //        itemsSold = 15,
-        //        favorites = new List<string> { "Music", "Art" },
-        //        ItemsViewed = 75
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Jane Smith",
+            //        userID = 2,
+            //        phoneNumber = "098-765-4321",
+            //        email = "jane.smith@example.com",
+            //        Location = "Los Angeles, CA",
+            //        yearCreated = new DateTime(2019, 6, 15),
+            //        itemsSold = 15,
+            //        favorites = new List<string> { "Music", "Art" },
+            //        ItemsViewed = 75
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Alice Johnson",
-        //        userID = 3,
-        //        phoneNumber = "111-222-3333",
-        //        email = "alice.johnson@example.com",
-        //        Location = "Chicago, IL",
-        //        yearCreated = new DateTime(2021, 3, 10),
-        //        itemsSold = 5,
-        //        favorites = new List<string> { "Fashion", "Cooking" },
-        //        ItemsViewed = 30
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Alice Johnson",
+            //        userID = 3,
+            //        phoneNumber = "111-222-3333",
+            //        email = "alice.johnson@example.com",
+            //        Location = "Chicago, IL",
+            //        yearCreated = new DateTime(2021, 3, 10),
+            //        itemsSold = 5,
+            //        favorites = new List<string> { "Fashion", "Cooking" },
+            //        ItemsViewed = 30
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Michael Brown",
-        //        userID = 4,
-        //        phoneNumber = "444-555-6666",
-        //        email = "michael.brown@example.com",
-        //        Location = "Houston, TX",
-        //        yearCreated = new DateTime(2020, 9, 20),
-        //        itemsSold = 20,
-        //        favorites = new List<string> { "Electronics", "Sports" },
-        //        ItemsViewed = 100
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Michael Brown",
+            //        userID = 4,
+            //        phoneNumber = "444-555-6666",
+            //        email = "michael.brown@example.com",
+            //        Location = "Houston, TX",
+            //        yearCreated = new DateTime(2020, 9, 20),
+            //        itemsSold = 20,
+            //        favorites = new List<string> { "Electronics", "Sports" },
+            //        ItemsViewed = 100
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Emily Davis",
-        //        userID = 5,
-        //        phoneNumber = "777-888-9999",
-        //        email = "emily.davis@example.com",
-        //        Location = "Miami, FL",
-        //        yearCreated = new DateTime(2018, 5, 8),
-        //        itemsSold = 25,
-        //        favorites = new List<string> { "Home Decor", "Travel" },
-        //        ItemsViewed = 120
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Emily Davis",
+            //        userID = 5,
+            //        phoneNumber = "777-888-9999",
+            //        email = "emily.davis@example.com",
+            //        Location = "Miami, FL",
+            //        yearCreated = new DateTime(2018, 5, 8),
+            //        itemsSold = 25,
+            //        favorites = new List<string> { "Home Decor", "Travel" },
+            //        ItemsViewed = 120
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "William Wilson",
-        //        userID = 6,
-        //        phoneNumber = "123-456-7890",
-        //        email = "william.wilson@example.com",
-        //        Location = "Seattle, WA",
-        //        yearCreated = new DateTime(2017, 12, 25),
-        //        itemsSold = 12,
-        //        favorites = new List<string> { "Gardening", "Photography" },
-        //        ItemsViewed = 60
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "William Wilson",
+            //        userID = 6,
+            //        phoneNumber = "123-456-7890",
+            //        email = "william.wilson@example.com",
+            //        Location = "Seattle, WA",
+            //        yearCreated = new DateTime(2017, 12, 25),
+            //        itemsSold = 12,
+            //        favorites = new List<string> { "Gardening", "Photography" },
+            //        ItemsViewed = 60
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Olivia Martinez",
-        //        userID = 7,
-        //        phoneNumber = "321-654-9876",
-        //        email = "olivia.martinez@example.com",
-        //        Location = "Dallas, TX",
-        //        yearCreated = new DateTime(2019, 8, 14),
-        //        itemsSold = 18,
-        //        favorites = new List<string> { "Health & Fitness", "Beauty" },
-        //        ItemsViewed = 90
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Olivia Martinez",
+            //        userID = 7,
+            //        phoneNumber = "321-654-9876",
+            //        email = "olivia.martinez@example.com",
+            //        Location = "Dallas, TX",
+            //        yearCreated = new DateTime(2019, 8, 14),
+            //        itemsSold = 18,
+            //        favorites = new List<string> { "Health & Fitness", "Beauty" },
+            //        ItemsViewed = 90
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "James Taylor",
-        //        userID = 8,
-        //        phoneNumber = "555-555-5555",
-        //        email = "james.taylor@example.com",
-        //        Location = "Atlanta, GA",
-        //        yearCreated = new DateTime(2022, 2, 28),
-        //        itemsSold = 8,
-        //        favorites = new List<string> { "Tech Gadgets", "Gaming" },
-        //        ItemsViewed = 40
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "James Taylor",
+            //        userID = 8,
+            //        phoneNumber = "555-555-5555",
+            //        email = "james.taylor@example.com",
+            //        Location = "Atlanta, GA",
+            //        yearCreated = new DateTime(2022, 2, 28),
+            //        itemsSold = 8,
+            //        favorites = new List<string> { "Tech Gadgets", "Gaming" },
+            //        ItemsViewed = 40
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Sophia Brown",
-        //        userID = 9,
-        //        phoneNumber = "444-444-4444",
-        //        email = "sophia.brown@example.com",
-        //        Location = "San Francisco, CA",
-        //        yearCreated = new DateTime(2021, 11, 11),
-        //        itemsSold = 30,
-        //        favorites = new List<string> { "Fashion", "Books" },
-        //        ItemsViewed = 150
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Sophia Brown",
+            //        userID = 9,
+            //        phoneNumber = "444-444-4444",
+            //        email = "sophia.brown@example.com",
+            //        Location = "San Francisco, CA",
+            //        yearCreated = new DateTime(2021, 11, 11),
+            //        itemsSold = 30,
+            //        favorites = new List<string> { "Fashion", "Books" },
+            //        ItemsViewed = 150
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Liam Miller",
-        //        userID = 10,
-        //        phoneNumber = "666-666-6666",
-        //        email = "liam.miller@example.com",
-        //        Location = "Boston, MA",
-        //        yearCreated = new DateTime(2020, 4, 30),
-        //        itemsSold = 22,
-        //        favorites = new List<string> { "Music", "Art" },
-        //        ItemsViewed = 110
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Liam Miller",
+            //        userID = 10,
+            //        phoneNumber = "666-666-6666",
+            //        email = "liam.miller@example.com",
+            //        Location = "Boston, MA",
+            //        yearCreated = new DateTime(2020, 4, 30),
+            //        itemsSold = 22,
+            //        favorites = new List<string> { "Music", "Art" },
+            //        ItemsViewed = 110
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Ava Garcia",
-        //        userID = 11,
-        //        phoneNumber = "777-777-7777",
-        //        email = "ava.garcia@example.com",
-        //        Location = "Denver, CO",
-        //        yearCreated = new DateTime(2019, 10, 5),
-        //        itemsSold = 16,
-        //        favorites = new List<string> { "Outdoor Gear", "Pets" },
-        //        ItemsViewed = 80
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Ava Garcia",
+            //        userID = 11,
+            //        phoneNumber = "777-777-7777",
+            //        email = "ava.garcia@example.com",
+            //        Location = "Denver, CO",
+            //        yearCreated = new DateTime(2019, 10, 5),
+            //        itemsSold = 16,
+            //        favorites = new List<string> { "Outdoor Gear", "Pets" },
+            //        ItemsViewed = 80
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Noah Rodriguez",
-        //        userID = 12,
-        //        phoneNumber = "999-999-9999",
-        //        email = "noah.rodriguez@example.com",
-        //        Location = "Phoenix, AZ",
-        //        yearCreated = new DateTime(2022, 6, 18),
-        //        itemsSold = 14,
-        //        favorites = new List<string> { "Cooking", "Travel" },
-        //        ItemsViewed = 70
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Noah Rodriguez",
+            //        userID = 12,
+            //        phoneNumber = "999-999-9999",
+            //        email = "noah.rodriguez@example.com",
+            //        Location = "Phoenix, AZ",
+            //        yearCreated = new DateTime(2022, 6, 18),
+            //        itemsSold = 14,
+            //        favorites = new List<string> { "Cooking", "Travel" },
+            //        ItemsViewed = 70
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Isabella Hernandez",
-        //        userID = 13,
-        //        phoneNumber = "888-888-8888",
-        //        email = "isabella.hernandez@example.com",
-        //        Location = "Philadelphia, PA",
-        //        yearCreated = new DateTime(2018, 8, 22),
-        //        itemsSold = 19,
-        //        favorites = new List<string> { "Home Decor", "Crafts" },
-        //        ItemsViewed = 95
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Isabella Hernandez",
+            //        userID = 13,
+            //        phoneNumber = "888-888-8888",
+            //        email = "isabella.hernandez@example.com",
+            //        Location = "Philadelphia, PA",
+            //        yearCreated = new DateTime(2018, 8, 22),
+            //        itemsSold = 19,
+            //        favorites = new List<string> { "Home Decor", "Crafts" },
+            //        ItemsViewed = 95
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Ethan Lopez",
-        //        userID = 14,
-        //        phoneNumber = "101-202-3030",
-        //        email = "ethan.lopez@example.com",
-        //        Location = "San Diego, CA",
-        //        yearCreated = new DateTime(2020, 3, 15),
-        //        itemsSold = 28,
-        //        favorites = new List<string> { "Tech Gadgets", "Gaming" },
-        //        ItemsViewed = 140
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Ethan Lopez",
+            //        userID = 14,
+            //        phoneNumber = "101-202-3030",
+            //        email = "ethan.lopez@example.com",
+            //        Location = "San Diego, CA",
+            //        yearCreated = new DateTime(2020, 3, 15),
+            //        itemsSold = 28,
+            //        favorites = new List<string> { "Tech Gadgets", "Gaming" },
+            //        ItemsViewed = 140
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Mia Gonzalez",
-        //        userID = 15,
-        //        phoneNumber = "505-606-7070",
-        //        email = "mia.gonzalez@example.com",
-        //        Location = "Portland, OR",
-        //        yearCreated = new DateTime(2019, 5, 28),
-        //        itemsSold = 11,
-        //        favorites = new List<string> { "Fashion", "Beauty" },
-        //        ItemsViewed = 55
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Mia Gonzalez",
+            //        userID = 15,
+            //        phoneNumber = "505-606-7070",
+            //        email = "mia.gonzalez@example.com",
+            //        Location = "Portland, OR",
+            //        yearCreated = new DateTime(2019, 5, 28),
+            //        itemsSold = 11,
+            //        favorites = new List<string> { "Fashion", "Beauty" },
+            //        ItemsViewed = 55
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Lucas Perez",
-        //        userID = 16,
-        //        phoneNumber = "303-404-5050",
-        //        email = "lucas.perez@example.com",
-        //        Location = "Austin, TX",
-        //        yearCreated = new DateTime(2021, 1, 8),
-        //        itemsSold = 17,
-        //        favorites = new List<string> { "Sports", "Outdoor Gear" },
-        //        ItemsViewed = 85
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Lucas Perez",
+            //        userID = 16,
+            //        phoneNumber = "303-404-5050",
+            //        email = "lucas.perez@example.com",
+            //        Location = "Austin, TX",
+            //        yearCreated = new DateTime(2021, 1, 8),
+            //        itemsSold = 17,
+            //        favorites = new List<string> { "Sports", "Outdoor Gear" },
+            //        ItemsViewed = 85
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Amelia Flores",
-        //        userID = 17,
-        //        phoneNumber = "202-303-4040",
-        //        email = "amelia.flores@example.com",
-        //        Location = "Charlotte, NC",
-        //        yearCreated = new DateTime(2020, 7, 17),
-        //        itemsSold = 23,
-        //        favorites = new List<string> { "Books", "Music" },
-        //        ItemsViewed = 115
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Amelia Flores",
+            //        userID = 17,
+            //        phoneNumber = "202-303-4040",
+            //        email = "amelia.flores@example.com",
+            //        Location = "Charlotte, NC",
+            //        yearCreated = new DateTime(2020, 7, 17),
+            //        itemsSold = 23,
+            //        favorites = new List<string> { "Books", "Music" },
+            //        ItemsViewed = 115
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Oliver Washington",
-        //        userID = 18,
-        //        phoneNumber = "707-808-9090",
-        //        email = "oliver.washington@example.com",
-        //        Location = "Detroit, MI",
-        //        yearCreated = new DateTime(2019, 9, 3),
-        //        itemsSold = 13,
-        //        favorites = new List<string> { "Art", "Crafts" },
-        //        ItemsViewed = 65
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Oliver Washington",
+            //        userID = 18,
+            //        phoneNumber = "707-808-9090",
+            //        email = "oliver.washington@example.com",
+            //        Location = "Detroit, MI",
+            //        yearCreated = new DateTime(2019, 9, 3),
+            //        itemsSold = 13,
+            //        favorites = new List<string> { "Art", "Crafts" },
+            //        ItemsViewed = 65
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Charlotte Nguyen",
-        //        userID = 19,
-        //        phoneNumber = "606-707-8080",
-        //        email = "charlotte.nguyen@example.com",
-        //        Location = "Nashville, TN",
-        //        yearCreated = new DateTime(2022, 4, 22),
-        //        itemsSold = 21,
-        //        favorites = new List<string> { "Music", "Movies" },
-        //        ItemsViewed = 105
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Charlotte Nguyen",
+            //        userID = 19,
+            //        phoneNumber = "606-707-8080",
+            //        email = "charlotte.nguyen@example.com",
+            //        Location = "Nashville, TN",
+            //        yearCreated = new DateTime(2022, 4, 22),
+            //        itemsSold = 21,
+            //        favorites = new List<string> { "Music", "Movies" },
+            //        ItemsViewed = 105
+            //    });
 
-        //    allDummyUsers.Add(new User
-        //    {
-        //        name = "Benjamin Kim",
-        //        userID = 20,
-        //        phoneNumber = "404-505-6060",
-        //        email = "benjamin.kim@example.com",
-        //        Location = "Minneapolis, MN",
-        //        yearCreated = new DateTime(2018, 10, 12),
-        //        itemsSold = 26,
-        //        favorites = new List<string> { "Electronics", "Tech Gadgets" },
-        //        ItemsViewed = 130
-        //    });
+            //    allDummyUsers.Add(new User
+            //    {
+            //        name = "Benjamin Kim",
+            //        userID = 20,
+            //        phoneNumber = "404-505-6060",
+            //        email = "benjamin.kim@example.com",
+            //        Location = "Minneapolis, MN",
+            //        yearCreated = new DateTime(2018, 10, 12),
+            //        itemsSold = 26,
+            //        favorites = new List<string> { "Electronics", "Tech Gadgets" },
+            //        ItemsViewed = 130
+            //    });
 
-        //    // Add more users as needed
+            //    // Add more users as needed
 
-        //    return allDummyUsers;
-        //}
+            //    return allDummyUsers;
+            //}
     }
 }

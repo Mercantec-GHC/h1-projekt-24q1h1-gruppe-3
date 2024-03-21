@@ -3,13 +3,14 @@ using System;
 using Npgsql;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+using BlazorApp.DomainModels;
 
 namespace DomainModels
 {
     public class GameDataService
     {
 
-        public void InsertDummyDataIntoDB(List<PC_Game> AllPCGames, List<PS_Game> AllPSGames, List<XBOX_Game> AllXBOXGames)
+        public void InsertDummyDataIntoDB(List<PC_Game> AllPCGames, List<PS_Game> AllPSGames, List<XBOX_Game> AllXBOXGames, List<All_Games> AllGames)
         {
             string connectionString = "Host=ep-bitter-salad-a2i17tas.eu-central-1.aws.neon.tech;Database=GamersLounge;Username=GamersLounge_owner;Password=XJYz1P7LupEn";
 
@@ -73,6 +74,21 @@ namespace DomainModels
 						cmd.ExecuteNonQuery();
 						cmd.CommandText = insertCommand1;
                         cmd.ExecuteNonQuery();
+                        
+                    }
+                }
+                foreach (var game in AllGames)
+                {
+                    if (game is All_Games All_Games)
+                    {
+                        string createdDate = All_Games.created != DateTime.MinValue ? DateTimeToString(All_Games.created) : "NULL";
+                        string updatedDate = All_Games.updated != DateTime.MinValue ? DateTimeToString(All_Games.updated) : "NULL";
+                        string insertCommand = $@"INSERT INTO all_games(addtofavorite, condition, created, gamename, genre, itemid, manufacture, price, updated, userid, orderstatus, description)
+                                                          VALUES('{All_Games.addToFaverite}', '{All_Games.condition}', {createdDate}, '{All_Games.gameName}', '{All_Games.genre}', '{All_Games.itemID}', '{All_Games.manufacture}','{All_Games.price}',{updatedDate},'{All_Games.itemID}','{All_Games.orderStatus}','{All_Games.description}')";
+
+                        cmd.CommandText = insertCommand;
+						cmd.ExecuteNonQuery();
+						
                         
                     }
                 }

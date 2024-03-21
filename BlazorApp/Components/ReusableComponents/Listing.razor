@@ -55,15 +55,15 @@ else
 
 @code {
     [Parameter]
-    public List<Item> Games { get; set; }
+    public List<All_Games> Games { get; set; }
 
     [Parameter]
-    public EventCallback<Item> OnAddToFavorites { get; set; }
+    public EventCallback<All_Games> OnAddToFavorites { get; set; }
 
     [Parameter]
     public bool ShowAsCards { get; set; }
 
-    private async Task HandleClick(Item game)
+    private async Task HandleClick(All_Games game)
     {
         await OnAddToFavorites.InvokeAsync(game);
     }

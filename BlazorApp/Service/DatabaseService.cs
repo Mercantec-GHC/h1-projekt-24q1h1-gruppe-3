@@ -2,6 +2,7 @@
 using Npgsql;
 using System.Buffers;
 using System;
+using BlazorApp.DomainModels;
 
 
 namespace Service
@@ -122,6 +123,44 @@ namespace Service
                 }
             }
             return allXBOXGames;
+        }
+        
+        public List<All_Games> GetAllGames()
+        {
+            List<All_Games> allGames = new List<All_Games>();
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string sql = "SELECT * FROM all_games";
+
+                using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            allGames.Add(new All_Games(
+                                Convert.ToInt32(reader["itemID"]),
+                                reader["gameName"].ToString(),
+                                Convert.ToInt32(reader["price"]),
+                                (bool)reader["orderStatus"], // Bool
+                                reader["condition"].ToString(),
+                                (DateTime)reader["created"], // Datetime
+                                (DateTime)reader["updated"], // Datetime
+                                reader["genre"].ToString(),
+                                reader["manufacture"].ToString(),
+                                (bool)reader["addToFaverite"], // bool
+                                reader["description"].ToString()
+                                )
+                            );
+                        }
+                    }
+                }
+            }
+            return allGames;
         }
 
 
