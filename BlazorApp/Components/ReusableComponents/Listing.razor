@@ -1,5 +1,7 @@
 ﻿@inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
+@using Npgsql
+@using Service
 
 @if (ShowAsCards)
 {
@@ -54,8 +56,9 @@ else
 }
 
 @code {
-    [Parameter]
-    public List<Item> Games { get; set; }
+        public List<Item> Games = new List<Item>();
+
+
 
     [Parameter]
     public EventCallback<Item> OnAddToFavorites { get; set; }
