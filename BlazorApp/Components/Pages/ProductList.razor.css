@@ -8,14 +8,14 @@
 }
 
 .searchBtn {
-    background-color: transparent;
-    border: none;
-    padding: 0; 
-    cursor: pointer;
+    background-color: transparent; /* Fjerner baggrunden fra knappen */
+    border: none; /* Fjerner knappens standardramme */
+    padding: 0; /* Fjerner eventuel padding */
+    cursor: pointer; /* Sørger for, at cursoren ændrer sig til en peger, når den er over knappen */
 }
 
 .searchBtn svg {
-    fill: white;
+    fill: white; /* Sørger for, at SVG-ikonet bruger den samme farve som tekst i knappen */
 }
 
 
@@ -53,9 +53,9 @@
     height: 30px;
     position: relative;
     display: inline-block;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 20px;
+    border-radius: 50%; /* Dette tilføjer cirklen rundt om knappen */
+    text-align: center; /* Sørger for, at teksten er centreret */
+    line-height: 20px; /* Justerer vertikal placering af tekst */
 }
 
 .pageButton:disabled {
@@ -68,16 +68,21 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 25px;
+
+    font-size: 25px; /* Juster størrelsen af pilen */
 }
 
 .leftArrow {
-    transform: translate(-50%, -50%) rotate(0);
+    transform: translate(-50%, -50%) rotate(0); /* Juster rotationen for at pege til venstre */
 }
 
 .rightArrow {
-    transform: translate(-50%, -50%) rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg); /* Juster rotationen for at pege til højre */
 }
+
+
+
+
 
 
 /* Media query for mindre skærme */

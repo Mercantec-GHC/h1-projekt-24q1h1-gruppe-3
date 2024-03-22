@@ -1,7 +1,6 @@
 using BlazorApp.Components;
 using DomainModels;
-using Microsoft.Extensions.Configuration;
-using static DomainModels.GameDataService;
+using Service;
 
 namespace BlazorApp
 {
@@ -12,18 +11,11 @@ namespace BlazorApp
             var builder = WebApplication.CreateBuilder(args);
 
             IConfiguration Configuration = builder.Configuration;
-            var connectionString = Configuration.GetConnectionString("Defaultconnection") ?? Environment.GetEnvironmentVariable("DefaultConnection");
-
-            // Generer dummy-data
-            var createGames = new CreateGames();
-            var allGames = GameDataService.CreateGames.GenereteDummyItems(); // Anta at denne metoden eksisterer og returnerer en liste av Item objekter
-
-            // Opprett en instans av GameDataService
-            var gameDataService = new GameDataService();
-
-            // Sett inn dummy-data i databasen ved hjelp av GameDataService instansen
-            gameDataService.InsertDummyDataIntoDB(allGames);
-
+            var connectionString = Configuration.GetConnectionString("DefaultConnection") ?? Environment.GetEnvironmentVariable("DefaultConnection");
+            builder.Services.AddSingleton<List<Item>>(sp => new DatabaseService(connectionString).GetAllData());
+            
+            //to insert dummy data
+            //builder.Services.AddSingleton<List<Item>>(sp => new DummyData().GenereteDummyItems());
 
 
             // Add services to the container.

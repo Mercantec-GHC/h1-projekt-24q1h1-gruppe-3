@@ -3,24 +3,22 @@ using Npgsql;
 using System.Buffers;
 using System;
 
-
 namespace Service
 {
     public class DatabaseService
     {
         public string connectionString;
 
-        public DatabaseService(string connectionString) { connectionString = connectionString; }
-
-        public List<Item> GetAllGames()
+        public DatabaseService(string connectionString) { this.connectionString = connectionString; }
+        public List<Item> GetAllData()
         {
-            List<Item> allGames = new List<Item>();
+            List<Item> allData = new List<Item>();
 
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
 
-                string sql = "SELECT * FROM Item";
+                string sql = "SELECT * FROM items";
 
                 using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                 {
@@ -28,70 +26,51 @@ namespace Service
                     {
                         while (reader.Read())
                         {
-                            var type = reader["type"].ToString();
-                            if (type == "PCGames")
+                            var type = reader["type"].ToString().ToUpper();
+                            if (type == "PC")
                             {
-                                allGames.Add(new PC_Game(
-                                    Convert.ToInt32(reader["itemID"]),
-                                    reader["gameName"].ToString(),
-                                    Convert.ToInt32(reader["price"]),
-                                    (bool)reader["orderStatus"], // Bool
-                                    reader["condition"].ToString(),
-                                    (DateTime)reader["created"], // Datetime
-                                    (DateTime)reader["updated"], // Datetime
-                                    reader["genre"].ToString(),
-                                    reader["manufacture"].ToString(),
-                                    (bool)reader["addToFaverite"], // bool
-                                    reader["description"].ToString(),
-                                    reader["operatingSystem"].ToString(),
-                                    (DateTime)(reader["yearDeployed"])
-                                    )
-                                );
+                                allData.Add(new PC_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString()
+                                });
                             }
-                            else if (type == "PSGames")
+                            else if (type == "PS")
                             {
-                                allGames.Add(new PS_Game(
-                                    Convert.ToInt32(reader["itemID"]),
-                                    reader["gameName"].ToString(),
-                                    Convert.ToInt32(reader["price"]),
-                                    (bool)reader["orderStatus"], // Bool
-                                    reader["condition"].ToString(),
-                                    (DateTime)reader["created"], // Datetime
-                                    (DateTime)reader["updated"], // Datetime
-                                    reader["genre"].ToString(),
-                                    reader["manufacture"].ToString(),
-                                    (bool)reader["addToFaverite"], // bool
-                                    reader["description"].ToString(),
-                                    reader["psModel"].ToString(),
-                                    (DateTime)(reader["yearDeployed"])
-
-                                    )
-                                );
+                                allData.Add(new PS_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString()
+                                });
                             }
-                            else if (type == "XBOXGames")
+                            else if (type == "XBOX")
                             {
-                                allGames.Add(new XBOX_Game(
-                                    Convert.ToInt32(reader["itemID"]),
-                                    reader["gameName"].ToString(),
-                                    Convert.ToInt32(reader["price"]),
-                                    (bool)reader["orderStatus"], // Bool
-                                    reader["condition"].ToString(),
-                                    (DateTime)reader["created"], // Datetime
-                                    (DateTime)reader["updated"], // Datetime
-                                    reader["genre"].ToString(),
-                                    reader["manufacture"].ToString(),
-                                    (bool)reader["addToFaverite"], // bool
-                                    reader["description"].ToString(),
-                                    reader["xboxModel"].ToString(),
-                                    (DateTime)(reader["yearDeployed"])
-                                    )
-                                );
+                                allData.Add(new XBOX_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString()
+                                });
                             }
                         }
+                        return allData;
                     }
                 }
             }
-            return allGames;
         }
     }
 }

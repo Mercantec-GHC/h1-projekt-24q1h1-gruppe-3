@@ -1,6 +1,6 @@
 ﻿@page "/"
 @using DomainModels
-@*@inject List<Item> allDummyData*@
+@inject List<Item> allDummyData
 @inject NavigationManager NavigationManager
 
 <PageTitle>Gamers Lounge</PageTitle>
@@ -102,7 +102,7 @@
 
 	protected override void OnInitialized()
 	{
-		gameToShow = null;//allDummyData;
+		gameToShow = allDummyData;
 		//pcGameToShow = FiltreToPC_Games(allDummyData);
 	}
 
