@@ -1,6 +1,6 @@
 ﻿@page "/"
 @using DomainModels
-@*@inject List<Item> allDummyData*@
+@inject List<Item> allDummyData
 @inject NavigationManager NavigationManager
 
 <PageTitle>Gamers Lounge</PageTitle>
@@ -59,7 +59,7 @@
 	</div>
 </div>
 
-@* <div class="section">
+<div class="section">
 	<h2 class="text">Featured</h2>
 	<p class="text">Explore our current list of trending games.</p>
 
@@ -92,7 +92,7 @@
 			</div>
 		</div>
 	</div>
-</div> *@
+</div>
 
 @code {
 	public List<Item> gameToShow;
@@ -102,7 +102,7 @@
 
 	protected override void OnInitialized()
 	{
-		gameToShow = null;//allDummyData;
+		gameToShow = allDummyData;
 		//pcGameToShow = FiltreToPC_Games(allDummyData);
 	}
 
