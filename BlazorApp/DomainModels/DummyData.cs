@@ -1,9 +1,47 @@
 ﻿using DomainModels;
+using Npgsql;
 
 namespace DomainModels
 {
     public class DummyData
     {
+
+        public void InsertDummyDatatoDB(List<Item> allDummyData)
+        {
+            string connectionString = "Host=ep-bitter-salad-a2i17tas.eu-central-1.aws.neon.tech;Database=GamersLounge;Username=GamersLounge_owner;Password=XJYz1P7LupEn";
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+
+                foreach (var game in allDummyData) 
+                {
+                    if (game is PC_Game pcGame)
+                    {
+                        string insertCommand = $@"INSERT INTO items(itemid, type, gamename, genre, price, manufacture, condition, description)
+                                                VALUES('{pcGame.itemID}', 'PC', '{pcGame.gameName}','{pcGame.genre}','{pcGame.price}','{pcGame.manufacture}','{pcGame.condition}','{pcGame.description}')";
+                        cmd.CommandText = insertCommand;
+                        cmd.ExecuteNonQuery();
+                    }
+                    else if (game is PS_Game psGame)
+                    {
+                        string insertCommand = $@"INSERT INTO items(itemid, type, gamename, genre, price, manufacture, condition, description)
+                                            VALUES('{psGame.itemID}', 'PS', '{psGame.gameName}','{psGame.genre}','{psGame.price}','{psGame.manufacture}','{psGame.condition}','{psGame.description}')";
+                        cmd.CommandText = insertCommand;
+                        cmd.ExecuteNonQuery();
+                    }
+                    else if (game is XBOX_Game xboxGame)
+                    {
+                        string insertCommand = $@"INSERT INTO items(itemid, type, gamename, genre, price, manufacture, condition, description)
+                                                VALUES('{xboxGame.itemID}', 'XBOX', '{xboxGame.gameName}','{xboxGame.genre}','{xboxGame.price}','{xboxGame.manufacture}','{xboxGame.condition}','{xboxGame.description}')";
+                        cmd.CommandText = insertCommand;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
         public List<Item> GenereteDummyItems()
         {
             List<Item> allDummyData = new List<Item>();
@@ -144,7 +182,7 @@ namespace DomainModels
             allDummyData.Add(new PS_Game
             {
                 itemID = 10,
-                gameName = "Uncharted 4: A Thief's End",
+                gameName = "Uncharted 4: A Thiefs End",
                 price = 65,
                 orderStatus = true,
                 condition = "New",
@@ -294,7 +332,7 @@ namespace DomainModels
             allDummyData.Add(new PS_Game
             {
                 itemID = 20,
-                gameName = "Marvel's Spider-Man",
+                gameName = "Marvels Spider-Man",
                 price = 65,
                 orderStatus = true,
                 condition = "New",
@@ -308,7 +346,7 @@ namespace DomainModels
 
 			allDummyData.Add(new XBOX_Game
 			{
-				itemID = 17,
+				itemID = 21,
 				gameName = "Halo Infinite",
 				price = 70,
 				orderStatus = true,
@@ -323,7 +361,7 @@ namespace DomainModels
 
 
 
-
+            InsertDummyDatatoDB(allDummyData);
 
 
 			return allDummyData;

@@ -40,6 +40,32 @@ namespace Service
                                     description = reader["description"].ToString()
                                 });
                             }
+                            else if (type == "PS")
+                            {
+                                allData.Add(new PS_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString()
+                                });
+                            }
+                            else if (type == "XBOX")
+                            {
+                                allData.Add(new XBOX_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString()
+                                });
+                            }
                         }
                         return allData;
                     }
