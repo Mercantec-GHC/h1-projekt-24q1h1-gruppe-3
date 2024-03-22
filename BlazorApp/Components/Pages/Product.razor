@@ -1,6 +1,6 @@
 ﻿@page "/product/{itemID}"
 @inject List<Item> allDummyData
-@inject List<User> allDummyUsers
+@* @inject List<User> allDummyUsers *@
 <PageTitle>Gamers lounge: @gameToShow.gameName</PageTitle>
 
 
@@ -38,7 +38,7 @@
             2 of 3
         </div>
         <div class="col">
-            <SellerDetails user="userToShow"></SellerDetails>
+            @* <SellerDetails user="userToShow"></SellerDetails> *@
         </div>
     </div>
 </div>
@@ -52,14 +52,14 @@
 
 
 @code {
-    public User userToShow;
+    // public User userToShow;
     public Item gameToShow;
     [Parameter]
     public string itemID { get; set; }
 
     protected override void OnInitialized()
     {
-        userToShow = allDummyUsers[Int32.Parse(itemID)];
+        // userToShow = allDummyUsers[Int32.Parse(itemID)];
         gameToShow = allDummyData[Int32.Parse(itemID)];
     }
 
