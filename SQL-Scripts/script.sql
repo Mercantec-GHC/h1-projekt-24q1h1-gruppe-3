@@ -1,8 +1,1 @@
-SELECT
-    *
-FROM
-    Students
-SELECT
-    NAME
-FROM
-    Students
+CREATE TABLE "public"."products" ("itemid" int2 NOT NULL,"type" text NOT NULL,"gamename" text NOT NULL,"genre" text,"price" int2 NOT NULL,"manufacture" text,"condition" text NOT NULL,"description" text);

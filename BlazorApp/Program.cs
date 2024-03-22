@@ -1,5 +1,6 @@
 using BlazorApp.Components;
 using DomainModels;
+using Service;
 
 namespace BlazorApp
 {
@@ -9,8 +10,10 @@ namespace BlazorApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddSingleton<List<Item>>(sp => new DummyData().GenereteDummyItems());
-            builder.Services.AddSingleton<List<User>>(sp => new DummyData().GenerateDummyUsers());
+            IConfiguration Configuration = builder.Configuration;
+            var connectionString = Configuration.GetConnectionString("DefaultConnection") ?? Environment.GetEnvironmentVariable("DefaultConnection");
+            builder.Services.AddSingleton<List<Item>>(sp => new DatabaseService(connectionString).GetAllData());
+
 
             // Add services to the container.
             builder.Services.AddRazorComponents()
