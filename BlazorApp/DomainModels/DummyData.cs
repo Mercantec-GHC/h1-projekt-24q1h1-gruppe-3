@@ -19,22 +19,22 @@ namespace DomainModels
                 {
                     if (game is PC_Game pcGame)
                     {
-                        string insertCommand = $@"INSERT INTO items(itemid, type, gamename, genre, price, manufacture, condition, description)
-                                                VALUES('{pcGame.itemID}', 'PC', '{pcGame.gameName}','{pcGame.genre}','{pcGame.price}','{pcGame.manufacture}','{pcGame.condition}','{pcGame.description}')";
+                        string insertCommand = $@"INSERT INTO item(type, gamename, genre, price, manufacture, condition, description)
+                                                VALUES('PC', '{pcGame.gameName}','{pcGame.genre}','{pcGame.price}','{pcGame.manufacture}','{pcGame.condition}','{pcGame.description}')";
                         cmd.CommandText = insertCommand;
                         cmd.ExecuteNonQuery();
                     }
                     else if (game is PS_Game psGame)
                     {
-                        string insertCommand = $@"INSERT INTO items(itemid, type, gamename, genre, price, manufacture, condition, description)
-                                            VALUES('{psGame.itemID}', 'PS', '{psGame.gameName}','{psGame.genre}','{psGame.price}','{psGame.manufacture}','{psGame.condition}','{psGame.description}')";
+                        string insertCommand = $@"INSERT INTO item(type, gamename, genre, price, manufacture, condition, description)
+                                            VALUES('PS', '{psGame.gameName}','{psGame.genre}','{psGame.price}','{psGame.manufacture}','{psGame.condition}','{psGame.description}')";
                         cmd.CommandText = insertCommand;
                         cmd.ExecuteNonQuery();
                     }
                     else if (game is XBOX_Game xboxGame)
                     {
-                        string insertCommand = $@"INSERT INTO items(itemid, type, gamename, genre, price, manufacture, condition, description)
-                                                VALUES('{xboxGame.itemID}', 'XBOX', '{xboxGame.gameName}','{xboxGame.genre}','{xboxGame.price}','{xboxGame.manufacture}','{xboxGame.condition}','{xboxGame.description}')";
+                        string insertCommand = $@"INSERT INTO item(type, gamename, genre, price, manufacture, condition, description)
+                                                VALUES('XBOX', '{xboxGame.gameName}','{xboxGame.genre}','{xboxGame.price}','{xboxGame.manufacture}','{xboxGame.condition}','{xboxGame.description}')";
                         cmd.CommandText = insertCommand;
                         cmd.ExecuteNonQuery();
                     }
