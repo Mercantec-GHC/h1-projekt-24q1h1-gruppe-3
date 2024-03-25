@@ -1,6 +1,5 @@
 ﻿@page "/"
 @using DomainModels
-@inject List<Item> allDummyData
 @inject NavigationManager NavigationManager
 
 <PageTitle>Gamers Lounge</PageTitle>
@@ -102,7 +101,7 @@
 
 	protected override void OnInitialized()
 	{
-		gameToShow = allDummyData;
+		gameToShow = DB.allItems;
 		//pcGameToShow = FiltreToPC_Games(allDummyData);
 	}
 

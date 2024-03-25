@@ -3,14 +3,16 @@ using Npgsql;
 using System.Buffers;
 using System;
 using BlazorApp;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Service
 {
     public class DatabaseService
     {
         public string connectionString;
+        public List<Item> allItems;
 
-        public DatabaseService(string connectionString) { this.connectionString = connectionString; }
+        public DatabaseService(string connectionString) { this.connectionString = connectionString; this.allItems = GetAllData(); }
         public List<Item> GetAllData()
         {
             List<Item> allData = new List<Item>();
@@ -74,15 +76,9 @@ namespace Service
             }
         }
 
-        public void AddGameToDatabase(PC_Game pcGameToBeCreated)
+        public void AddPCGameToDatabase(PC_Game pcGameToBeCreated)
         {
 
-
-
-            var builder = WebApplication.CreateBuilder();
-                
-            IConfiguration Configuration = builder.Configuration;
-            var connectionString = Configuration.GetConnectionString("DefaultConnection") ?? Environment.GetEnvironmentVariable("DefaultConnection");
             using var connection = new NpgsqlConnection(connectionString);
 
             connection.Open();
@@ -92,13 +88,56 @@ namespace Service
                 cmd.Connection = connection;
                 if (pcGameToBeCreated is PC_Game pcGame)
                 {
-                    string insertCommand = $@"INSERT INTO item(type, gamename, genre, price, manufacture, condition, description)
-                                        VALUES('PC', '{pcGame.gameName}','{pcGame.genre}','{pcGame.price}','{pcGame.manufacture}','{pcGame.condition}','{pcGame.description}')";
+                    string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description)
+                                            VALUES('PC', '{pcGame.gameName}','{pcGame.genre}','{pcGame.price}','{pcGame.manufacture}','{pcGame.condition}','{pcGame.description}')";
                     cmd.CommandText = insertCommand;
                     cmd.ExecuteNonQuery();
+                    this.allItems = GetAllData();
                 }
             }
-        
+
+        }
+        public void AddPSGameToDatabase(PS_Game psGameToBeCreated)
+        {
+
+            using var connection = new NpgsqlConnection(connectionString);
+
+            connection.Open();
+
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                if (psGameToBeCreated is PS_Game psGame)
+                {
+                    string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description)
+                                            VALUES('PS', '{psGame.gameName}','{psGame.genre}','{psGame.price}','{psGame.manufacture}','{psGame.condition}','{psGame.description}')";
+                    cmd.CommandText = insertCommand;
+                    cmd.ExecuteNonQuery();
+                    this.allItems = GetAllData();
+                }
+            }
+
+        }
+        public void AddXboxGameToDatabase(XBOX_Game XboxGameToBeCreated)
+        {
+
+            using var connection = new NpgsqlConnection(connectionString);
+
+            connection.Open();
+
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                if (XboxGameToBeCreated is XBOX_Game XboxGame)
+                {
+                    string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description)
+                                            VALUES('XBOX', '{XboxGame.gameName}','{XboxGame.genre}','{XboxGame.price}','{XboxGame.manufacture}','{XboxGame.condition}','{XboxGame.description}')";
+                    cmd.CommandText = insertCommand;
+                    cmd.ExecuteNonQuery();
+                    this.allItems = GetAllData();
+                }
+            }
+
         }
     }
 }
