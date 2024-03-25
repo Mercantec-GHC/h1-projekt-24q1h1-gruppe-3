@@ -2,6 +2,7 @@
 using Npgsql;
 using System.Buffers;
 using System;
+using BlazorApp;
 
 namespace Service
 {
@@ -71,6 +72,33 @@ namespace Service
                     }
                 }
             }
+        }
+
+        public void AddGameToDatabase(PC_Game pcGameToBeCreated)
+        {
+
+
+
+            var builder = WebApplication.CreateBuilder();
+                
+            IConfiguration Configuration = builder.Configuration;
+            var connectionString = Configuration.GetConnectionString("DefaultConnection") ?? Environment.GetEnvironmentVariable("DefaultConnection");
+            using var connection = new NpgsqlConnection(connectionString);
+
+            connection.Open();
+
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                if (pcGameToBeCreated is PC_Game pcGame)
+                {
+                    string insertCommand = $@"INSERT INTO item(type, gamename, genre, price, manufacture, condition, description)
+                                        VALUES('PC', '{pcGame.gameName}','{pcGame.genre}','{pcGame.price}','{pcGame.manufacture}','{pcGame.condition}','{pcGame.description}')";
+                    cmd.CommandText = insertCommand;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        
         }
     }
 }
