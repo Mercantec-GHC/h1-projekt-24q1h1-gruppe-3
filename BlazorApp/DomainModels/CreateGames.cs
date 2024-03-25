@@ -30,7 +30,7 @@ namespace DomainModels
                                                           VALUES('{Item.addToFaverite}', '{Item.condition}', {createdDate}, '{Item.gameName}', '{Item.genre}', '{Item.itemID}', '{Item.manufacture}','{Item.price}',{updatedDate},'{Item.itemID}','{Item.orderStatus}')";
 
                         cmd.CommandText = insertCommand;
-                        cmd.ExecuteNonQuery();
+                        //cmd.ExecuteNonQuery();
                     }
                     else if (game is PS_Game ps_Game)
                     {
@@ -38,7 +38,7 @@ namespace DomainModels
                                                           VALUES('{ps_Game.itemID}', '{ps_Game.gameName}', '{ps_Game.price}', '{ps_Game.orderStatus}', '{ps_Game.condition}', '{ps_Game.created}','{ps_Game.updated}','{ps_Game.genre}','{ps_Game.manufacture}','{ps_Game.addToFaverite}', '{ps_Game.description}', '{ps_Game.psModel}', '{ps_Game.yearDeployed}')";
 
                         cmd.CommandText = insertCommand;
-                        cmd.ExecuteNonQuery();
+                        //cmd.ExecuteNonQuery();
                     }
                     else if (game is XBOX_Game xbox_Game)
                     {
@@ -46,7 +46,7 @@ namespace DomainModels
                                                           VALUES('{xbox_Game.itemID}', '{xbox_Game.gameName}', '{xbox_Game.price}', '{xbox_Game.orderStatus}', '{xbox_Game.condition}', '{xbox_Game.created}','{xbox_Game.updated}','{xbox_Game.genre}','{xbox_Game.manufacture}','{xbox_Game.addToFaverite}', '{xbox_Game.description}', '{xbox_Game.xboxModel}', '{xbox_Game.yearDeployed}')";
 
                         cmd.CommandText = insertCommand;
-                        cmd.ExecuteNonQuery();
+                        //cmd.ExecuteNonQuery();
                     }
                 }
             }
