@@ -1,5 +1,4 @@
 ﻿@page "/"
-@using DomainModels
 
 <PageTitle>Gamers Lounge</PageTitle>
 
@@ -68,55 +67,13 @@
 
 	protected override void OnInitialized()
 	{
-		pcGameToShow = FiltreToPC_Games(DB.allItems);
-		psGameToShow = FiltreToPS_Games(DB.allItems);
-		xboxGameToShow = FiltreToXBOX_Games(DB.allItems);
+		pcGameToShow = FT.FiltreToPC_Games(DB.allItems);
+		psGameToShow = FT.FiltreToPS_Games(DB.allItems);
+		xboxGameToShow = FT.FiltreToXBOX_Games(DB.allItems);
 	}
 
 	private void HandleCardClick(int gameID)
 	{
 		NavigationManager.NavigateTo($"/product/{gameID}");
-	}
-
-	public List<PC_Game> FiltreToPC_Games(List<Item> games)
-	{
-		List<PC_Game> pcGameToShow = new List<PC_Game>();
-
-		foreach (var game in games)
-		{
-			if (game is PC_Game pcGame)
-			{
-				pcGameToShow.Add(pcGame);
-			}
-		}
-		return pcGameToShow;
-	}
-
-	public List<PS_Game> FiltreToPS_Games(List<Item> games)
-	{
-		List<PS_Game> psGameToShow = new List<PS_Game>();
-
-		foreach (var game in games)
-		{
-			if (game is PS_Game psGame)
-			{
-				psGameToShow.Add(psGame);
-			}
-		}
-		return psGameToShow;
-	}
-
-	public List<XBOX_Game> FiltreToXBOX_Games(List<Item> games)
-	{
-		List<XBOX_Game> xboxGameToShow = new List<XBOX_Game>();
-
-		foreach (var game in games)
-		{
-			if (game is XBOX_Game xboxGame)
-			{
-				xboxGameToShow.Add(xboxGame);
-			}
-		}
-		return xboxGameToShow;
 	}
 }

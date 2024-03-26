@@ -13,6 +13,7 @@ namespace BlazorApp
             IConfiguration Configuration = builder.Configuration;
             var connectionString = Configuration.GetConnectionString("DefaultConnection") ?? Environment.GetEnvironmentVariable("DefaultConnection");
             builder.Services.AddSingleton<DatabaseService>(sp => new DatabaseService(connectionString));
+            builder.Services.AddSingleton<FiltreTypes>(sp => new FiltreTypes());
             
 
 
