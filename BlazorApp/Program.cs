@@ -12,8 +12,10 @@ namespace BlazorApp
 
             IConfiguration Configuration = builder.Configuration;
             var connectionString = Configuration.GetConnectionString("DefaultConnection") ?? Environment.GetEnvironmentVariable("DefaultConnection");
-            builder.Services.AddSingleton<List<Item>>(sp => new DatabaseService(connectionString).GetAllData());
+            builder.Services.AddSingleton<DatabaseService>(sp => new DatabaseService(connectionString));
             
+
+
             //to insert dummy data
             //builder.Services.AddSingleton<List<Item>>(sp => new DummyData().GenereteDummyItems());
 

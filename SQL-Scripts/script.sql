@@ -1,1 +1,10 @@
-CREATE TABLE "public"."items" ("itemid" int2 NOT NULL,"type" text NOT NULL,"gamename" text NOT NULL,"genre" text,"price" int2 NOT NULL,"manufacture" text,"condition" text NOT NULL,"description" text);
+CREATE TABLE item (
+    itemid SERIAL PRIMARY KEY,
+    type VARCHAR(255),
+    gamename VARCHAR(255),
+    genre VARCHAR(255),
+    price INTEGER,
+    manufacture VARCHAR(255),
+    condition VARCHAR(255),
+    description TEXT
+);

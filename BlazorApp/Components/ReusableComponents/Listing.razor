@@ -3,7 +3,7 @@
 
 @foreach (var game in Games)
 {
-    <div class="row" style="margin-bottom: 0.2rem; cursor: pointer;" @onclick="() => NavigateToProduct(game.itemID - 1)">
+    <div class="row" style="margin-bottom: 0.2rem; cursor: pointer;" @onclick="() => NavigateToProduct(game.itemID)">
         <div class="col-1">
             <div class="image-container">
                 <img src="/Picture/skyrim.png" class="img-fluid game-image" alt="Game Image">

@@ -1,5 +1,4 @@
 ﻿@page "/product/{itemID}"
-@inject List<Item> allDummyData
 @* @inject List<User> allDummyUsers *@
 <PageTitle>Gamers lounge: @gameToShow.gameName</PageTitle>
 
@@ -53,6 +52,12 @@
     protected override void OnInitialized()
     {
         // userToShow = allDummyUsers[Int32.Parse(itemID)];
-        gameToShow = allDummyData[Int32.Parse(itemID)];
+        foreach (var item in DB.allItems)
+        {
+            if (item.itemID == Int32.Parse(itemID))
+            {
+                gameToShow = item;
+            }
+        }
     }
 }
