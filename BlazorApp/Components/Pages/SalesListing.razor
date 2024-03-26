@@ -1,13 +1,16 @@
 ﻿@page "/SalesListing"
 @using Microsoft.Extensions.Configuration
 @using Service;
+@inject NavigationManager NavigationManager
+
+
 <PageTitle>Gamers Lounge: Create New Sales</PageTitle>
 
 
 <div class="container text-center">
     <div class="row">
         <div class="col">
-            
+            @* <button @onclick="ShowModal">Åpne Modal</button> *@
         </div>
         <div class="col-6">
             <div class="card">
@@ -54,10 +57,10 @@
                         <p>Condtion *</p>
                         <select class="form-select Condition" aria-label="Default select example" @bind="pcGameToBeCreated.condition" required>
                             <option selected></option>
-                            <option value="1">New</option>
-                            <option value="2">Used as new</option>
-                            <option value="3">Used</option>
-                            <option value="4">Used and worn</option>
+                            <option value="New">New</option>
+                            <option value="Used as new">Used as new</option>
+                            <option value="Used">Used</option>
+                            <option value="Used and worn">Used and worn</option>
                         </select>
 
                         <div class="mb-3 Description" >
@@ -73,7 +76,7 @@
                     </form>
                 }
                 else if (platform == "PS")
-                {
+                    {
                     <form>
                         <div class="mb-3 gameTitle">
                             <label for="exampleInputGametitle" class="form-label">Game Title *</label>
@@ -106,10 +109,10 @@
                         <p>Condtion *</p>
                         <select class="form-select Condition" aria-label="Default select example" @bind="psGameToBeCreated.condition">
                             <option selected></option>
-                            <option value="1">New</option>
-                            <option value="2">Used as new</option>
-                            <option value="3">Used</option>
-                            <option value="4">Used and worn</option>
+                            <option value="New">New</option>
+                            <option value="Used as new">Used as new</option>
+                            <option value="Used">Used</option>
+                            <option value="Used and worn">Used and worn</option>
                         </select>
 
                         <div class="mb-3 Description" >
@@ -158,10 +161,10 @@
                         <p>Condtion *</p>
                         <select class="form-select Condition" aria-label="Default select example" @bind="xboxGameToBeCreated.condition">
                             <option selected></option>
-                            <option value="1">New</option>
-                            <option value="2">Used as new</option>
-                            <option value="3">Used</option>
-                            <option value="4">Used and worn</option>
+                            <option value="New">New</option>
+                            <option value="Used as new">Used as new</option>
+                            <option value="Used">Used</option>
+                            <option value="Used and worn">Used and worn</option>
                         </select>
 
                         <div class="mb-3 Description">
@@ -176,6 +179,32 @@
                         <button type="submit" class="btn btn-dark" @onclick="SubmitFormXBOX">Submit</button>
                     </form>
                 }
+
+                @if (showModal == true)
+                {
+                    <div class="modal" tabindex="-1" style="display:block;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Succes!</h5>
+                                    <button type="button" class="close" @onclick="CloseModal">
+                                        <span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Your game has been succesfully listed!</p>
+                                    <p>Do you wish to add one more game?</p>
+
+                                    <button type="button" class="btn btn-dark" @onclick="Refresh">Yes</button>
+                                    <button type="button" class="btn btn-dark" @onclick="() => Listed(itemId)">No</button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-dark" @onclick="CloseModal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
                 
             </div>
@@ -189,27 +218,56 @@
 
 @code {
     string platform = "";
+    bool showModal = false;
+    int itemId;
 
     PC_Game pcGameToBeCreated = new PC_Game();
     PS_Game psGameToBeCreated = new PS_Game();
     XBOX_Game xboxGameToBeCreated = new XBOX_Game();
 
+   
+
     public void SubmitFormPC()
     {
-        try
-        {
-        DB.AddPCGameToDatabase(pcGameToBeCreated);   
-        }
-        catch{
-        }
+        itemId = DB.AddPCGameToDatabase(pcGameToBeCreated);
+        ShowModal();
+
     }
     public void SubmitFormPS()
     {
-        DB.AddPSGameToDatabase(psGameToBeCreated);
+
+        itemId = DB.AddPSGameToDatabase(psGameToBeCreated);
+        Console.WriteLine("PSSUBMIT");
+        ShowModal();
+
     }
     public void SubmitFormXBOX()
     {
         DB.AddXboxGameToDatabase(xboxGameToBeCreated);
+        ShowModal();
     }
 
+    void ShowModal()
+    {
+        showModal = true;
+    }
+
+    void CloseModal()
+    {
+        showModal = false;
+    }
+
+    public void Refresh()
+    {
+        CloseModal();
+        NavigationManager.NavigateTo($"/SalesListing", forceLoad: true);
+        
+    }
+
+    public void Listed(int itemId)
+    {
+        CloseModal();
+        NavigationManager.NavigateTo($"/product/{itemId}");
+        
+    }
 }
