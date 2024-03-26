@@ -70,14 +70,15 @@
     border-radius: 10px;
 }
 
+.card-bottom-section:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+
 .card-body-bottom {
     display: flex;
     flex-direction: column;
     position: relative;
-}
-
-.card-body-bottom:hover {
-    opacity: 70%;
 }
 
 .btn-dark {
@@ -85,5 +86,6 @@
 }
 
 .btn-dark:hover {
-    opacity: 70%;
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
 }
