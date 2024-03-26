@@ -18,7 +18,7 @@
             <div class="card">
                 <form>
                         <div class="select-container">
-                            <p>Platform:</p>
+                            <p>Platform</p>
                             <select class="form-select Type" aria-label="Default select example" @bind="platform">
                                 <option selected></option>
                                 <option value="PC">PC</option>
@@ -184,7 +184,7 @@
 
                 @if (showModal == true)
                 {
-                    <div class="modal" tabindex="-1" style="display:block;" @onclick="() => CloseModalOutside()">
+                    <div class="modal" tabindex="-1" style="display:block;">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -266,10 +266,5 @@
     {
         CloseModal();
         NavigationManager.NavigateTo($"/product/{itemId}");
-    }
-
-    void CloseModalOutside()
-    {
-        showModal = false;
     }
 }
