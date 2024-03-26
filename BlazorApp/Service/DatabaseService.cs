@@ -123,9 +123,9 @@ namespace Service
             }
             return newItemId;
         }
-        public void AddXboxGameToDatabase(XBOX_Game XboxGameToBeCreated)
+        public int AddXboxGameToDatabase(XBOX_Game XboxGameToBeCreated)
         {
-
+            int newItemId = -1;
             using var connection = new NpgsqlConnection(connectionString);
 
             connection.Open();
@@ -136,13 +136,14 @@ namespace Service
                 if (XboxGameToBeCreated is XBOX_Game XboxGame)
                 {
                     string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description)
-                                            VALUES('XBOX', '{XboxGame.gameName}','{XboxGame.genre}','{XboxGame.price}','{XboxGame.manufacture}','{XboxGame.condition}','{XboxGame.description}')";
+                                            VALUES('XBOX', '{XboxGame.gameName}','{XboxGame.genre}','{XboxGame.price}','{XboxGame.manufacture}','{XboxGame.condition}','{XboxGame.description}')
+                                            RETURNING itemid";
                     cmd.CommandText = insertCommand;
-                    cmd.ExecuteNonQuery();
+                    newItemId = (int)cmd.ExecuteScalar(); // ExecuteScalar to get the ID of the newly inserted row
                     this.allItems = GetAllData();
                 }
             }
-
+            return newItemId;
         }
     }
 }

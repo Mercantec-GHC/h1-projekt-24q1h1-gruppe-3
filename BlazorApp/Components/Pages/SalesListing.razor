@@ -2,6 +2,8 @@
 @using Microsoft.Extensions.Configuration
 @using Service;
 @inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Web
+@inject IJSRuntime JSRuntime
 
 
 <PageTitle>Gamers Lounge: Create New Sales</PageTitle>
@@ -124,7 +126,7 @@
                             <input class="form-control" type="file" id="UploadPicture" multiple>
                         </div>
 
-                        <button type="submit" class="btn btn-dark" @onclick="SubmitFormPS">Submit</button>
+                        <button type="button" class="btn btn-dark" @onclick="SubmitFormPS">Submit</button>
                     </form>
                 }
                 else if (platform == "Xbox")
@@ -176,38 +178,37 @@
                             <input class="form-control" type="file" id="UploadPicture" multiple>
                         </div>
 
-                        <button type="submit" class="btn btn-dark" @onclick="SubmitFormXBOX">Submit</button>
+                        <button type="button" class="btn btn-dark" @onclick="SubmitFormXBOX">Submit</button>
                     </form>
                 }
 
                 @if (showModal == true)
                 {
-                    <div class="modal" tabindex="-1" style="display:block;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Succes!</h5>
-                                    <button type="button" class="close" @onclick="CloseModal">
-                                        <span>&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Your game has been succesfully listed!</p>
-                                    <p>Do you wish to add one more game?</p>
-
-                                    <button type="button" class="btn btn-dark" @onclick="Refresh">Yes</button>
-                                    <button type="button" class="btn btn-dark" @onclick="() => Listed(itemId)">No</button>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-dark" @onclick="CloseModal">Close</button>
+                    <div class="modal" tabindex="-1" style="display:block;" @onclick="() => CloseModalOutside()">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Succes!</h5>
+                                    
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Your game has been succesfully listed!</p>
+                                        <p>Do you wish to add one more game?</p>
+                                        <div id="buttonContainer">
+                                            <button type="button" id="Refresh" class="btn btn-dark" @onclick="Refresh">Yes</button>
+                                            <button type="button" id="Listed" class="btn btn-dark" @onclick="() => Listed(itemId)">No</button>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-dark" @onclick="CloseModal">Close</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 }
             </div>
                 
-            </div>
+        </div>
             <div class="col">
             
             </div>
@@ -225,25 +226,23 @@
     PS_Game psGameToBeCreated = new PS_Game();
     XBOX_Game xboxGameToBeCreated = new XBOX_Game();
 
-   
+
 
     public void SubmitFormPC()
     {
         itemId = DB.AddPCGameToDatabase(pcGameToBeCreated);
         ShowModal();
-
     }
+
     public void SubmitFormPS()
     {
-
         itemId = DB.AddPSGameToDatabase(psGameToBeCreated);
-        Console.WriteLine("PSSUBMIT");
         ShowModal();
-
     }
+
     public void SubmitFormXBOX()
     {
-        DB.AddXboxGameToDatabase(xboxGameToBeCreated);
+        itemId = DB.AddXboxGameToDatabase(xboxGameToBeCreated);
         ShowModal();
     }
 
@@ -261,13 +260,16 @@
     {
         CloseModal();
         NavigationManager.NavigateTo($"/SalesListing", forceLoad: true);
-        
     }
 
     public void Listed(int itemId)
     {
         CloseModal();
         NavigationManager.NavigateTo($"/product/{itemId}");
-        
+    }
+
+    void CloseModalOutside()
+    {
+        showModal = false;
     }
 }
