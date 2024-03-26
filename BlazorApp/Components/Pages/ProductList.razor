@@ -143,21 +143,21 @@
     }
 
     private void HandleSearch(string searchText)
-{
-    if (string.IsNullOrWhiteSpace(searchText))
     {
-        // Hvis søgefeltet er tomt, vis alle spillene igen
-            gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
-            totalPages = (int)Math.Ceiling((double)DB.allItems.Count / itemsPerPage);
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            // Hvis søgefeltet er tomt, vis alle spillene igen
+                gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+                totalPages = (int)Math.Ceiling((double)DB.allItems.Count / itemsPerPage);
+        }
+        else
+        {
+            // Filtrer spillene baseret på, om de indeholder søgeteksten i gameTitle, uanset case
+                gamesToShow = DB.allItems
+                .Where(game => game.gameName.ToLower().Contains(searchText.ToLower()))
+                .OrderBy(game => game.gameName)
+                .ToList();
+        }
     }
-    else
-    {
-        // Filtrer spillene baseret på, om de indeholder søgeteksten i gameTitle, uanset case
-            gamesToShow = DB.allItems
-            .Where(game => game.gameName.ToLower().Contains(searchText.ToLower()))
-            .OrderBy(game => game.gameName)
-            .ToList();
-    }
-}
 
 }

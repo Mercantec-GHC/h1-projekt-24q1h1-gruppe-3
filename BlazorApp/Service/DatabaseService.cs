@@ -76,8 +76,9 @@ namespace Service
             }
         }
 
-        public void AddPCGameToDatabase(PC_Game pcGameToBeCreated)
+        public int AddPCGameToDatabase(PC_Game pcGameToBeCreated)
         {
+            int newItemId = -1; // Initialize newItemId to -1 (or any default value)
 
             using var connection = new NpgsqlConnection(connectionString);
 
@@ -89,17 +90,19 @@ namespace Service
                 if (pcGameToBeCreated is PC_Game pcGame)
                 {
                     string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description)
-                                            VALUES('PC', '{pcGame.gameName}','{pcGame.genre}','{pcGame.price}','{pcGame.manufacture}','{pcGame.condition}','{pcGame.description}')";
+                                    VALUES('PC', '{pcGame.gameName}','{pcGame.genre}','{pcGame.price}','{pcGame.manufacture}','{pcGame.condition}','{pcGame.description}')
+                                    RETURNING itemid"; // Include RETURNING id to get the ID of the newly inserted row
                     cmd.CommandText = insertCommand;
-                    cmd.ExecuteNonQuery();
-                    this.allItems = GetAllData();
+                    newItemId = (int)cmd.ExecuteScalar(); // ExecuteScalar to get the ID of the newly inserted row
+                    this.allItems = GetAllData(); // You may or may not need to update allItems
                 }
             }
 
+            return newItemId; // Return the ID of the newly added item
         }
-        public void AddPSGameToDatabase(PS_Game psGameToBeCreated)
+        public int AddPSGameToDatabase(PS_Game psGameToBeCreated)
         {
-
+            int newItemId = -1;
             using var connection = new NpgsqlConnection(connectionString);
 
             connection.Open();
@@ -110,17 +113,19 @@ namespace Service
                 if (psGameToBeCreated is PS_Game psGame)
                 {
                     string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description)
-                                            VALUES('PS', '{psGame.gameName}','{psGame.genre}','{psGame.price}','{psGame.manufacture}','{psGame.condition}','{psGame.description}')";
+                                            VALUES('PS', '{psGame.gameName}','{psGame.genre}','{psGame.price}','{psGame.manufacture}','{psGame.condition}','{psGame.description}')
+                                            RETURNING itemid";
                     cmd.CommandText = insertCommand;
-                    cmd.ExecuteNonQuery();
+                    newItemId = (int)cmd.ExecuteScalar(); // ExecuteScalar to get the ID of the newly inserted row
                     this.allItems = GetAllData();
+
                 }
             }
-
+            return newItemId;
         }
-        public void AddXboxGameToDatabase(XBOX_Game XboxGameToBeCreated)
+        public int AddXboxGameToDatabase(XBOX_Game XboxGameToBeCreated)
         {
-
+            int newItemId = -1;
             using var connection = new NpgsqlConnection(connectionString);
 
             connection.Open();
@@ -131,13 +136,14 @@ namespace Service
                 if (XboxGameToBeCreated is XBOX_Game XboxGame)
                 {
                     string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description)
-                                            VALUES('XBOX', '{XboxGame.gameName}','{XboxGame.genre}','{XboxGame.price}','{XboxGame.manufacture}','{XboxGame.condition}','{XboxGame.description}')";
+                                            VALUES('XBOX', '{XboxGame.gameName}','{XboxGame.genre}','{XboxGame.price}','{XboxGame.manufacture}','{XboxGame.condition}','{XboxGame.description}')
+                                            RETURNING itemid";
                     cmd.CommandText = insertCommand;
-                    cmd.ExecuteNonQuery();
+                    newItemId = (int)cmd.ExecuteScalar(); // ExecuteScalar to get the ID of the newly inserted row
                     this.allItems = GetAllData();
                 }
             }
-
+            return newItemId;
         }
     }
 }
