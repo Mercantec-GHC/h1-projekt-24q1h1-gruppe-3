@@ -58,51 +58,79 @@
 	</div>
 </div>
 
-@* <div class="section">
+<div class="section">
 	<h2 class="text">Featured</h2>
 	<p class="text">Explore our current list of trending games.</p>
 
 	<div class="card-container">
 		<div class="card-bottom-section">
-			<div class="card-body-bottom" @onclick="@( () => HandleCardClick(gameToShow[0].itemID) )">
-				<h4>PC</h4>
-				<img src="./Picture/Temp_Picture.jpg" class="image" />
-				<h4 class="game-name">@gameToShow[0].gameName</h4>
-				<p class="game-genre">@gameToShow[0].genre</p>
-				<p class="game-price">€ @gameToShow[0].price</p>
+			<div class="carousel">
+				@for (var i = 0; i < pcGameToShow.Count; i++)
+				{
+					var localIndex = i;
+					<div class="carousel-item @(currentIndexPC == i ? "active" : "")">
+						<div class="card-body-bottom" @onclick="@( () => HandleCardClick(pcGameToShow[localIndex].itemID))">
+							<h4>PC</h4>
+							<img src="./Picture/Temp_Picture.jpg" class="image" />
+							<h4 class="game-name">@pcGameToShow[localIndex].gameName</h4>
+							<p class="game-genre">@pcGameToShow[localIndex].genre</p>
+							<p class="game-price">€ @pcGameToShow[localIndex].price</p>
+						</div>
+					</div>
+				}
 			</div>
 		</div>
 		<div class="card-bottom-section">
-			<div class="card-body-bottom" @onclick="@( () => HandleCardClick((gameToShow[1].itemID-1)) )">
-				<h4>PS</h4>
-				<img src="./Picture/Temp_Picture.jpg" class="image" />
-				<h4 class="game-name">@gameToShow[1].gameName</h4>
-				<p class="game-genre">@gameToShow[1].genre</p>
-				<p class="game-price">€ @gameToShow[1].price</p>
-			</div>
+			@for (var i = 0; i < psGameToShow.Count; i++)
+			{
+				var localIndex = i;
+				<div class="carousel-item @(currentIndexPS == i ? "active" : "")">
+					<div class="card-body-bottom" @onclick="@( () => HandleCardClick(psGameToShow[localIndex].itemID))">
+						<h4>PS</h4>
+						<img src="./Picture/Temp_Picture.jpg" class="image" />
+						<h4 class="game-name">@psGameToShow[localIndex].gameName</h4>
+						<p class="game-genre">@psGameToShow[localIndex].genre</p>
+						<p class="game-price">€ @psGameToShow[localIndex].price</p>
+					</div>
+				</div>
+			}
 		</div>
 		<div class="card-bottom-section">
-			<div class="card-body-bottom" @onclick="@( () => HandleCardClick((gameToShow[2].itemID-1)) )">
-				<h4>XBOX</h4>
-				<img src="./Picture/Temp_Picture.jpg" class="image" />
-				<h4 class="game-name">@gameToShow[2].gameName</h4>
-				<p class="game-genre">@gameToShow[2].genre</p>
-				<p class="game-price">€ @gameToShow[2].price</p>
-			</div>
+			@for (var i = 0; i < xboxGameToShow.Count; i++)
+			{
+				var localIndex = i;
+				<div class="carousel-item @(currentIndexXBOX == i ? "active" : "")">
+					<div class="card-body-bottom" @onclick="@( () => HandleCardClick(xboxGameToShow[localIndex].itemID))">
+						<h4>XBOX</h4>
+						<img src="./Picture/Temp_Picture.jpg" class="image" />
+						<h4 class="game-name">@xboxGameToShow[localIndex].gameName</h4>
+						<p class="game-genre">@xboxGameToShow[localIndex].genre</p>
+						<p class="game-price">€ @xboxGameToShow[localIndex].price</p>
+					</div>
+				</div>
+			}
 		</div>
 	</div>
-</div> *@
+</div>
 
 @code {
-	public List<Item> gameToShow;
 	public List<PC_Game> pcGameToShow;
 	public List<XBOX_Game> xboxGameToShow;
 	public List<PS_Game> psGameToShow;
+	public int currentIndexPC = 0;
+	public int currentIndexPS = 0;
+	public int currentIndexXBOX = 0;
+	private System.Timers.Timer timer;
 
 	protected override void OnInitialized()
 	{
-		gameToShow = DB.allItems;
-		//pcGameToShow = FiltreToPC_Games(allDummyData);
+		pcGameToShow = FiltreToPC_Games(DB.allItems);
+		psGameToShow = FiltreToPS_Games(DB.allItems);
+		xboxGameToShow = FiltreToXBOX_Games(DB.allItems);
+
+		timer = new System.Timers.Timer(8000);
+		timer.Elapsed += TimerElapsed;
+		timer.Start();
 	}
 
 	private void HandleCardClick(int gameID)
@@ -110,11 +138,24 @@
 		NavigationManager.NavigateTo($"/product/{gameID}");
 	}
 
-	public List<PC_Game> FiltreToPC_Games(List<Item> data)
+	private void TimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
+	{
+		NextGame();
+		InvokeAsync(StateHasChanged);
+	}
+
+	private void NextGame()
+	{
+		currentIndexPC = (currentIndexPC + 1) % pcGameToShow.Count;
+		currentIndexPS = (currentIndexPS + 1) % psGameToShow.Count;
+		currentIndexXBOX = (currentIndexXBOX + 1) % xboxGameToShow.Count;
+	}
+
+	public List<PC_Game> FiltreToPC_Games(List<Item> games)
 	{
 		List<PC_Game> pcGameToShow = new List<PC_Game>();
 
-		foreach (var game in data)
+		foreach (var game in games)
 		{
 			if (game is PC_Game pcGame)
 			{
@@ -124,25 +165,11 @@
 		return pcGameToShow;
 	}
 
-	public List<XBOX_Game> FiltreToXBOX_Games(List<Item> data)
-	{
-		List<XBOX_Game> xboxGameToShow = new List<XBOX_Game>();
-
-		foreach (var game in data)
-		{
-			if (game is XBOX_Game xboxGame)
-			{
-				xboxGameToShow.Add(xboxGame);
-			}
-		}
-		return xboxGameToShow;
-	}
-
-	public List<PS_Game> FiltreToPS_Games(List<Item> data)
+	public List<PS_Game> FiltreToPS_Games(List<Item> games)
 	{
 		List<PS_Game> psGameToShow = new List<PS_Game>();
 
-		foreach (var game in data)
+		foreach (var game in games)
 		{
 			if (game is PS_Game psGame)
 			{
@@ -150,5 +177,19 @@
 			}
 		}
 		return psGameToShow;
+	}
+
+	public List<XBOX_Game> FiltreToXBOX_Games(List<Item> games)
+	{
+		List<XBOX_Game> xboxGameToShow = new List<XBOX_Game>();
+
+		foreach (var game in games)
+		{
+			if (game is XBOX_Game xboxGame)
+			{
+				xboxGameToShow.Add(xboxGame);
+			}
+		}
+		return xboxGameToShow;
 	}
 }
