@@ -1,16 +1,21 @@
 ﻿<div class="sellerDetailsContainer"
                 <h5 class="sellerDetails"><b>Seller Details:</b></h5>
-                <p class="name"><b>Name: </b>@user.name</p>
-                <p class="location"><b>Loaction: </b>@user.city</p>
-                <p class="itemsold"><b>Items sold: </b>@user.itemsSold</p>
-                <p class="itemviewed"><b>Item viewed: </b>@user.ItemsViewed</p>
+                <p class="name"><b>Name: </b>@sellerDetails[0].name</p>
+                <p class="location"><b>Loaction: </b>@sellerDetails[0].city</p>
+                <p class="itemsold"><b>Items sold: </b>@sellerDetails[0].itemsSold</p>
+                <p class="itemviewed"><b>Item viewed: </b>@sellerDetails[0].ItemsViewed</p>
 </div>
 
 @code {
     [Parameter]
     public int userID { get; set; }
 
-    public List<User> user = DB.GetSellerDetailsFromUsers();
+    public List<User> sellerDetails = new List<User>();
+
+    protected override void OnInitialized()
+    {
+        List<User> sellerDetails = DB.GetSellerDetailsFromUsers(userID);
+    }
 
     // [Parameter]
     // public bool IsPopupVisible { get; set; }
