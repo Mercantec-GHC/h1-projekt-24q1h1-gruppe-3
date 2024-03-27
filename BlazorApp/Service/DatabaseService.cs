@@ -4,6 +4,7 @@ using System.Buffers;
 using System;
 using BlazorApp;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Components;
 
 namespace Service
 {
@@ -11,7 +12,10 @@ namespace Service
     {
         public string connectionString;
         public List<Item> allItems;
+
         
+       
+        //er det smart at den beder om alle bruger ved opstart??
 
 
         public DatabaseService(string connectionString) { this.connectionString = connectionString; this.allItems = GetAllData(); this.allUsers = GetAllUser(); }
@@ -42,7 +46,8 @@ namespace Service
                                     price = Convert.ToInt32(reader["price"]),
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
-                                    description = reader["description"].ToString()
+                                    description = reader["description"].ToString(),
+                                    userID = Convert.ToInt32(reader["userid"])
                                 });
                             }
                             else if (type == "PS")
@@ -55,7 +60,8 @@ namespace Service
                                     price = Convert.ToInt32(reader["price"]),
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
-                                    description = reader["description"].ToString()
+                                    description = reader["description"].ToString(),
+                                    userID = Convert.ToInt32(reader["userid"])
                                 });
                             }
                             else if (type == "XBOX")
@@ -68,7 +74,8 @@ namespace Service
                                     price = Convert.ToInt32(reader["price"]),
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
-                                    description = reader["description"].ToString()
+                                    description = reader["description"].ToString(),
+                                    userID = Convert.ToInt32(reader["userid"])
                                 });
                             }
                         }
@@ -203,17 +210,22 @@ namespace Service
             }
         }
 
+        [Parameter]
+        public string userID { get; set; }
+
+        public List<Item> itemsForUser;
         public List<Item> GetListedSalesForUser(int userID)
         {
+
             List<Item> itemsForUser = new List<Item>();
 
             using (var connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
-                string sql = "SELECT * FROM items WHERE userid = @UserID";
+                string sql = $@"SELECT * FROM items WHERE userid = {userID}";
                 using (var command = new NpgsqlCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("@UserID", userID);
+                    //command.Parameters.AddWithValue("@UserID", userID);
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())

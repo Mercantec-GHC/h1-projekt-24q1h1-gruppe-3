@@ -19,7 +19,7 @@ namespace DomainModels
         public bool addToFaverite;
         public string description;
 
-        public int userID { get; internal set; }
+        public int userID { get; set; }
 
         //Remove addtofavorite and insert into user
 

@@ -20,15 +20,7 @@
                 
             </div>
             <div class="col">
-                <div class="ListedSalesContaier">
-                    <p>Listed sales: </p>
-                    <ul>
-                        @foreach (var item in userToShow.ListedSales)
-                        {
-                            <li>@item.Name - @item.Description</li>
-                        }
-                    </ul>
-                </div>
+                <Listing Games="itemsForUserToShow"></Listing>
             </div>
         </div>
     </div>
@@ -40,6 +32,8 @@
     [Parameter]
     public string userID { get; set; }
 
+    public List<Item> itemsForUserToShow;
+
     protected override void OnInitialized()
     {
 
@@ -48,11 +42,13 @@
             if (user.userID == Int32.Parse(userID))
             {
                 userToShow = user;
-                Console.WriteLine(user.userID);
-                Console.WriteLine(userToShow.name);
+
             }
         }
-    }
+
+        itemsForUserToShow = DB.GetListedSalesForUser(Int32.Parse(userID));
+
+    }   
 
     
 }
