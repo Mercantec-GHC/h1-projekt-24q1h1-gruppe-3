@@ -5,6 +5,7 @@ using System;
 using BlazorApp;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.Components;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Service
 {
@@ -13,8 +14,8 @@ namespace Service
         public string connectionString;
         public List<Item> allItems;
 
-        
-       
+
+
         //er det smart at den beder om alle bruger ved opstart??
 
 
@@ -210,10 +211,6 @@ namespace Service
             }
         }
 
-        [Parameter]
-        public string userID { get; set; }
-
-        public List<Item> itemsForUser;
         public List<Item> GetListedSalesForUser(int userID)
         {
 
@@ -281,6 +278,33 @@ namespace Service
             }
             return itemsForUser;
         }
+
+
+                public User GetSellerDetailsFromUser(int userID)
+                {
+                    public User seller = new User();
+
+                    using (var connection = new NpgsqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        string sql = $@"SELECT * FROM items WHERE userid = {userID}";
+                        using (var command = new NpgsqlCommand(sql, connection))
+                        {
+                            //command.Parameters.AddWithValue("@UserID", userID);
+                            using (var reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                            
+                            
+                                }
+                            }
+                        }
+                    }
+                    return seller;
+                }
+        
+
 
 
     }
