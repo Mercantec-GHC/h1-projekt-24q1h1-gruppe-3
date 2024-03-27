@@ -12,6 +12,7 @@ namespace Service
         public string connectionString;
         public List<Item> allItems;
 
+
         public DatabaseService(string connectionString) { this.connectionString = connectionString; this.allItems = GetAllData(); }
         public List<Item> GetAllData()
         {
