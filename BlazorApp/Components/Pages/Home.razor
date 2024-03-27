@@ -1,7 +1,4 @@
 ﻿@page "/"
-@using DomainModels
-@inject List<Item> allDummyData
-@inject NavigationManager NavigationManager
 
 <PageTitle>Gamers Lounge</PageTitle>
 
@@ -59,97 +56,24 @@
 	</div>
 </div>
 
-<div class="section">
-	<h2 class="text">Featured</h2>
-	<p class="text">Explore our current list of trending games.</p>
+<CarouselProductCard pcGamesToShow="@pcGameToShow" psGamesToShow="@psGameToShow" xboxGamesToShow="@xboxGameToShow"></CarouselProductCard>
 
-	<div class="card-container">
-		<div class="card-bottom-section">
-			<div class="card-body-bottom" @onclick="@( () => HandleCardClick(gameToShow[0].itemID) )">
-				<h4>PC</h4>
-				<img src="./Picture/Temp_Picture.jpg" class="image" />
-				<h4 class="game-name">@gameToShow[0].gameName</h4>
-				<p class="game-genre">@gameToShow[0].genre</p>
-				<p class="game-price">€ @gameToShow[0].price</p>
-			</div>
-		</div>
-		<div class="card-bottom-section">
-			<div class="card-body-bottom" @onclick="@( () => HandleCardClick((gameToShow[1].itemID-1)) )">
-				<h4>PS</h4>
-				<img src="./Picture/Temp_Picture.jpg" class="image" />
-				<h4 class="game-name">@gameToShow[1].gameName</h4>
-				<p class="game-genre">@gameToShow[1].genre</p>
-				<p class="game-price">€ @gameToShow[1].price</p>
-			</div>
-		</div>
-		<div class="card-bottom-section">
-			<div class="card-body-bottom" @onclick="@( () => HandleCardClick((gameToShow[2].itemID-1)) )">
-				<h4>XBOX</h4>
-				<img src="./Picture/Temp_Picture.jpg" class="image" />
-				<h4 class="game-name">@gameToShow[2].gameName</h4>
-				<p class="game-genre">@gameToShow[2].genre</p>
-				<p class="game-price">€ @gameToShow[2].price</p>
-			</div>
-		</div>
-	</div>
-</div>
 
 @code {
-	public List<Item> gameToShow;
 	public List<PC_Game> pcGameToShow;
 	public List<XBOX_Game> xboxGameToShow;
 	public List<PS_Game> psGameToShow;
 
+
 	protected override void OnInitialized()
 	{
-		gameToShow = allDummyData;
-		//pcGameToShow = FiltreToPC_Games(allDummyData);
+		pcGameToShow = FT.FiltreToPC_Games(DB.allItems);
+		psGameToShow = FT.FiltreToPS_Games(DB.allItems);
+		xboxGameToShow = FT.FiltreToXBOX_Games(DB.allItems);
 	}
 
 	private void HandleCardClick(int gameID)
 	{
 		NavigationManager.NavigateTo($"/product/{gameID}");
-	}
-
-	public List<PC_Game> FiltreToPC_Games(List<Item> data)
-	{
-		List<PC_Game> pcGameToShow = new List<PC_Game>();
-
-		foreach (var game in data)
-		{
-			if (game is PC_Game pcGame)
-			{
-				pcGameToShow.Add(pcGame);
-			}
-		}
-		return pcGameToShow;
-	}
-
-	public List<XBOX_Game> FiltreToXBOX_Games(List<Item> data)
-	{
-		List<XBOX_Game> xboxGameToShow = new List<XBOX_Game>();
-
-		foreach (var game in data)
-		{
-			if (game is XBOX_Game xboxGame)
-			{
-				xboxGameToShow.Add(xboxGame);
-			}
-		}
-		return xboxGameToShow;
-	}
-
-	public List<PS_Game> FiltreToPS_Games(List<Item> data)
-	{
-		List<PS_Game> psGameToShow = new List<PS_Game>();
-
-		foreach (var game in data)
-		{
-			if (game is PS_Game psGame)
-			{
-				psGameToShow.Add(psGame);
-			}
-		}
-		return psGameToShow;
 	}
 }

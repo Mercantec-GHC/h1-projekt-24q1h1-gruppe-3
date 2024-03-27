@@ -94,3 +94,33 @@
     text-align: left;
     margin-bottom: 10px;
 }
+
+.details{
+    text-align: left;
+    background-color: red;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    padding: 20px;
+    border-radius: 10px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(112, 110, 111, 0.8);
+}
+
+/* Stil for modalinnhold */
+.modal-content {
+    background-color: #b3b3b3;
+    z-index: 999;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #b3b3b3;
+    width: 80%;
+    max-width: 600px;
+}
+

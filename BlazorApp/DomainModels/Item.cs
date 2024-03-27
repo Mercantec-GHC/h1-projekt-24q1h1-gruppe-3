@@ -18,6 +18,9 @@ namespace DomainModels
         public string manufacture;
         public bool addToFaverite;
         public string description;
+
+        //Remove addtofavorite and insert into user
+
         //private User userID;
 
 

@@ -1,5 +1,5 @@
 ﻿@page "/productlist"
-@inject List<Item> allDummyData
+
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
@@ -15,7 +15,7 @@
     <Search OnSearch="HandleSearch" showSearch="@showSearch" searchText="@searchText"></Search>
 </div>
 
-<h5 class="productsCount">Total products: @allDummyData.Count</h5>
+<h5 class="productsCount">Total products: @DB.allItems.Count</h5>
 
 <div class="container">
     <Listing Games="gamesToShow" OnAddToFavorites="AddToFavorites"></Listing>
@@ -59,9 +59,9 @@
         }
 
         // Calculate items to show based on current page
-        gamesToShow = allDummyData.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+        gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
         // Calculate total pages
-        totalPages = (int)Math.Ceiling((double)allDummyData.Count / itemsPerPage);
+        totalPages = (int)Math.Ceiling((double)DB.allItems.Count / itemsPerPage);
     }
 
     private bool isUpdatingPage = false;
@@ -83,8 +83,8 @@
         isUpdatingPage = true;
 
         currentPage = page;
-        gamesToShow = allDummyData.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
-        totalPages = (int)Math.Ceiling((double)allDummyData.Count / itemsPerPage);
+        gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+        totalPages = (int)Math.Ceiling((double)DB.allItems.Count / itemsPerPage);
 
         // Get the current URL and parse its query string
         var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
@@ -143,21 +143,21 @@
     }
 
     private void HandleSearch(string searchText)
-{
-    if (string.IsNullOrWhiteSpace(searchText))
     {
-        // Hvis søgefeltet er tomt, vis alle spillene igen
-        gamesToShow = allDummyData.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
-        totalPages = (int)Math.Ceiling((double)allDummyData.Count / itemsPerPage);
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            // Hvis søgefeltet er tomt, vis alle spillene igen
+                gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+                totalPages = (int)Math.Ceiling((double)DB.allItems.Count / itemsPerPage);
+        }
+        else
+        {
+            // Filtrer spillene baseret på, om de indeholder søgeteksten i gameTitle, uanset case
+                gamesToShow = DB.allItems
+                .Where(game => game.gameName.ToLower().Contains(searchText.ToLower()))
+                .OrderBy(game => game.gameName)
+                .ToList();
+        }
     }
-    else
-    {
-        // Filtrer spillene baseret på, om de indeholder søgeteksten i gameTitle, uanset case
-        gamesToShow = allDummyData
-            .Where(game => game.gameName.ToLower().Contains(searchText.ToLower()))
-            .OrderBy(game => game.gameName)
-            .ToList();
-    }
-}
 
 }
