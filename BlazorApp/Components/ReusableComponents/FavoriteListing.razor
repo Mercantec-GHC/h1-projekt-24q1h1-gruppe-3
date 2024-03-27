@@ -1,0 +1,16 @@
+﻿﻿@page "/favorites"
+<PageTitle>Gamers Lounge: Your Favorites</PageTitle>
+
+<h3 class="text">Your Favorites</h3>
+<div class="container">
+	<Listing Games="favGames"></Listing>
+</div>
+
+@code {
+	public List<Item> favGames;
+
+	protected override void OnInitialized()
+	{
+		favGames = DB.allItems;
+	}
+}
