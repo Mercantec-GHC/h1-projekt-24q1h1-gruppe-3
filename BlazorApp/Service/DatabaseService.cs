@@ -284,7 +284,7 @@ namespace Service
             {
                 connection.Open();
 
-                string sql = $@"SELECT * FROM users WHERE userid = {userID}";
+                string sql = $@"SELECT * FROM users WHERE id = {userID}";
 
                 using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                 {
@@ -298,7 +298,8 @@ namespace Service
                                 name = reader["name"].ToString(),
                                 userID = Convert.ToInt32(reader["id"]),
                                 phoneNumber = reader["phonenumber"].ToString(),
-                                email = reader["email"].ToString()
+                                email = reader["email"].ToString(),
+                                city = reader["city"].ToString()
                             });
                         }
                         return seller;

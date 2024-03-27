@@ -1,9 +1,13 @@
-﻿<div class="sellerDetailsContainer"
+﻿
+
+<div class="sellerDetailsContainer"
                 <h5 class="sellerDetails"><b>Seller Details:</b></h5>
-                <p class="name"><b>Name: </b>@sellerDetails[0].name</p>
-                <p class="location"><b>Loaction: </b>@sellerDetails[0].city</p>
-                <p class="itemsold"><b>Items sold: </b>@sellerDetails[0].itemsSold</p>
-                <p class="itemviewed"><b>Item viewed: </b>@sellerDetails[0].ItemsViewed</p>
+                @foreach (var sellerDetail in sellerDetails)
+                {
+                        <p class="name"><b>Name: </b>@sellerDetail.name</p>
+                        <p class="location"><b>Location: </b>@sellerDetail.city</p>
+                        
+                }
 </div>
 
 @code {
@@ -14,7 +18,7 @@
 
     protected override void OnInitialized()
     {
-        List<User> sellerDetails = DB.GetSellerDetailsFromUsers(userID);
+        sellerDetails = DB.GetSellerDetailsFromUsers(userID);
     }
 
     // [Parameter]
