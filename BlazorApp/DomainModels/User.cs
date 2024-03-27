@@ -17,6 +17,8 @@ namespace DomainModels
         public int itemsSold { get; set; }
         public List<string> favorites { get; set; }
         public int ItemsViewed { get; set; }
+        public List<Item> ListedSales { get; set; } = new List<Item>();
+
 
         bool LoginAction()
         { return true; }

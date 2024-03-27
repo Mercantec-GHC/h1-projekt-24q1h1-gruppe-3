@@ -203,6 +203,73 @@ namespace Service
             }
         }
 
+        public List<Item> GetListedSalesForUser(int userID)
+        {
+            List<Item> itemsForUser = new List<Item>();
+
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                string sql = "SELECT * FROM items WHERE userid = @UserID";
+                using (var command = new NpgsqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@UserID", userID);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var type = reader["type"].ToString().ToUpper();
+                            if (type == "PC")
+                            {
+                                itemsForUser.Add(new PC_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString()
+                                    // Assuming a 'userID' field exists linking the item to a user
+                                    // user = Convert.ToInt32(reader["userid"])
+                                });
+                            }
+                            else if (type == "PS")
+                            {
+                                itemsForUser.Add(new PS_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString()
+                                    // user = Convert.ToInt32(reader["userid"])
+                                });
+                            }
+                            else if (type == "XBOX")
+                            {
+                                itemsForUser.Add(new XBOX_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString()
+                                    // user = Convert.ToInt32(reader["userid"])
+                                });
+                            }
+                            // Add additional cases for other item types as necessary
+                        }
+                    }
+                }
+            }
+            return itemsForUser;
+        }
+
 
     }
 }
