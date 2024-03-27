@@ -14,10 +14,7 @@ namespace Service
         public string connectionString;
         public List<Item> allItems;
 
-
-
         //er det smart at den beder om alle bruger ved opstart??
-
 
         public DatabaseService(string connectionString) { this.connectionString = connectionString; this.allItems = GetAllData(); this.allUsers = GetAllUser(); }
         public List<Item> GetAllData()
@@ -278,34 +275,37 @@ namespace Service
             }
             return itemsForUser;
         }
+    
+        public List<User> GetSellerDetailsFromUsers(int userID)
+        {
+            List<User> seller = new List<User>();
 
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
 
-                public User GetSellerDetailsFromUser(int userID)
+                string sql = $@"SELECT * FROM users WHERE userid = {userID}";
+
+                using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                 {
-                    public User seller = new User();
-
-                    using (var connection = new NpgsqlConnection(connectionString))
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
-                        connection.Open();
-                        string sql = $@"SELECT * FROM items WHERE userid = {userID}";
-                        using (var command = new NpgsqlCommand(sql, connection))
+                        while (reader.Read())
                         {
-                            //command.Parameters.AddWithValue("@UserID", userID);
-                            using (var reader = command.ExecuteReader())
+
+                            seller.Add(new User()
                             {
-                                while (reader.Read())
-                                {
-                            
-                            
-                                }
-                            }
+                                name = reader["name"].ToString(),
+                                userID = Convert.ToInt32(reader["id"]),
+                                phoneNumber = reader["phonenumber"].ToString(),
+                                email = reader["email"].ToString()
+                            });
                         }
+                        return seller;
                     }
-                    return seller;
                 }
-        
+            }
 
-
-
+        }
     }
 }

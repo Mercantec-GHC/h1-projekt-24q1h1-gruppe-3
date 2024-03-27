@@ -10,10 +10,10 @@
     [Parameter]
     public int userID { get; set; }
 
-    public User user = DB.
+    public List<User> user = DB.GetSellerDetailsFromUsers();
 
-    [Parameter]
-    public bool IsPopupVisible { get; set; }
+    // [Parameter]
+    // public bool IsPopupVisible { get; set; }
 
 
 
