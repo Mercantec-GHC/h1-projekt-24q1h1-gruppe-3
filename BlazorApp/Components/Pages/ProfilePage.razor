@@ -1,4 +1,4 @@
-﻿@page "/profilepage"
+﻿@page "/profilepage/{userID}"
 
 <PageTitle>Gamers Lounge: Profile Page</PageTitle>
 
@@ -9,10 +9,10 @@
                 <div class="ProfileContainer">
                     <img src="./Picture/img_avatar.png" alt="Avatar">
                         <div class="ProfileDetails">
-                            <p>Name: </p>
-                            <p>Phone number: </p>
-                            <p>Email: </p>
-                            <p>City: </p>
+                            <p>Name: @userToShow.name </p>
+                            <p>Phone number: @userToShow.phoneNumber</p>
+                            <p>Email: @userToShow.email</p>
+                            <p>City: @userToShow.city</p>
                         </div>
                 </div>
             </div>
@@ -31,5 +31,21 @@
 
 
 @code {
-    
+    public User userToShow;
+    [Parameter]
+    public string userID { get; set; }
+
+    protected override void OnInitialized()
+    {
+
+        foreach (var user in DB.allUsers)
+        {
+            if (user.userID == Int32.Parse(userID))
+            {
+                userToShow = user;
+                Console.WriteLine(user.userID);
+                Console.WriteLine(userToShow.name);
+            }
+        }
+    }
 }

@@ -11,9 +11,10 @@ namespace Service
     {
         public string connectionString;
         public List<Item> allItems;
+        
 
 
-        public DatabaseService(string connectionString) { this.connectionString = connectionString; this.allItems = GetAllData(); }
+        public DatabaseService(string connectionString) { this.connectionString = connectionString; this.allItems = GetAllData(); this.allUsers = GetAllUser(); }
         public List<Item> GetAllData()
         {
             List<Item> allData = new List<Item>();
@@ -72,6 +73,38 @@ namespace Service
                             }
                         }
                         return allData;
+                    }
+                }
+            }
+        }
+        public List<User> allUsers;
+        public List<User> GetAllUser()
+        {
+            List<User> allUser = new List<User>();
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string sql = "SELECT * FROM users";
+
+                using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            allUser.Add(new User()
+                            {
+                                name = reader["name"].ToString(),
+                                userID = Convert.ToInt32(reader["id"]),
+                                phoneNumber = reader["phonenumber"].ToString(),
+                                email = reader["email"].ToString(),
+                                password = reader["password"].ToString(),
+                                city = reader["city"].ToString()
+                            });
+                        }
+                        return allUser;
                     }
                 }
             }
