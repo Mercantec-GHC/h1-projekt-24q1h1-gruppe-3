@@ -145,5 +145,30 @@ namespace Service
             }
             return newItemId;
         }
+
+        public void AddUserToDatabase(string name, string email, string password, string phonenumber, string city)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+
+            connection.Open();
+
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                string insertCommand = @"INSERT INTO users(name, email, password, phonenumber, city)
+                                VALUES(@Name, @Email, @Password, @phonenumber,@City)";
+                cmd.CommandText = insertCommand;
+
+                cmd.Parameters.AddWithValue("@Name", name);
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@Password", password);
+                cmd.Parameters.AddWithValue("@Phonenumber", phonenumber);
+                cmd.Parameters.AddWithValue("@City", city);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+
     }
 }

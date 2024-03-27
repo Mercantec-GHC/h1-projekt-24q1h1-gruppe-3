@@ -1,44 +1,59 @@
 ﻿@page "/register"
+@inject IJSRuntime JSRuntime
+@inject Service.DatabaseService DatabaseService
 
 <!-- Section with background image and overlay -->
-<section class="vh-100 bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+<section class="vh-100 bg-image">
     <!-- Overlay with gradient for visual effect -->
-    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="mask d-flex align-items-center gradient-custom-3">
         <!-- Container for centering content -->
-        <div class="container h-100">
+        <div class="container">
             <!-- Row for centered content column -->
-            <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="row d-flex justify-content-center align-items-center">
                 <!-- Column for form, adjusts size based on screen size -->
                 <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                     <!-- Card for registration form, rounded corners for aesthetics -->
-                    <div class="card" style="border-radius: 15px;">
+                    <div class="card" style="border-radius: 15px; background-color: #b3b3b3;">
                         <!-- Card body with padding for form -->
                         <div class="card-body p-5">
                             <!-- Heading for form -->
                             <h2 class="text-uppercase text-center mb-5">Create an account</h2>
                             <form>
+                                <!-- Form fields and other content -->
                                 <!-- Form field for name -->
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="formYourName">Your Name</label>
-                                    <input type="text" id="formYourName" class="form-control form-control-lg" />
+                                    <input type="text" id="formYourName" class="form-control form-control-lg" @bind="Name" required />
                                 </div>
 
                                 <!-- Form field for email -->
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="formYourEmail">Your Email</label>
-                                    <input type="email" id="formYourEmail" class="form-control form-control-lg" />
+                                    <input type="email" id="formYourEmail" class="form-control form-control-lg" @bind="Email" />
                                 </div>
 
                                 <!-- Form field for password -->
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="formPassword">Password</label>
-                                    <input type="password" id="formPassword" class="form-control form-control-lg" />
+                                    <input type="password" id="formPassword" class="form-control form-control-lg" @bind="Password" />
                                 </div>
 
                                 <!-- Form field to repeat password -->
                                 <div class="form-outline mb-4">
                                     <label class="form-label" for="formPasswordRepeat">Repeat your password</label>
-                                    <input type="password" id="formPasswordRepeat" class="form-control form-control-lg" />
+                                    <input type="password" id="formPasswordRepeat" class="form-control form-control-lg" @bind="Password" />
+                                </div>
+
+                                <!-- Form field to phonenumber -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="formPhonenumber">Phonenumber</label>
+                                    <input type="text" id="formPhonenumber" class="form-control form-control-lg" @bind="Phonenumber" />
+                                </div>
+
+                                <!-- Form field to city -->
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="formCity">City</label>
+                                    <input type="text" id="formCity" class="form-control form-control-lg" @bind="City" />
                                 </div>
 
                                 <!-- Checkbox for agreement to terms of service -->
@@ -48,12 +63,10 @@
                                         I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
                                     </label>
                                 </div>
-
                                 <!-- Register button -->
                                 <div class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                                    <button type="button" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" @onclick="RegisterUser">Register</button>
                                 </div>
-
                                 <!-- Link for existing users to log in -->
                                 <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!" class="fw-bold text-body"><u>Login here</u></a></p>
                             </form>
@@ -65,10 +78,16 @@
     </div>
 </section>
 
-
-
-
-
 @code {
+    private string Name { get; set; }
+    private string Email { get; set; }
+    private string Password { get; set; }
+    private string Phonenumber { get; set; }
+    private string City { get; set; }
 
+    private async Task RegisterUser()
+    {
+        DatabaseService.AddUserToDatabase(Name, Email, Password, Phonenumber, City);
+
+    }
 }
