@@ -1,0 +1,54 @@
+﻿@page "/profilepage/{userID}"
+
+<PageTitle>Gamers Lounge: Profile Page</PageTitle>
+
+<div class="card">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col" id="colLeft">
+                <div class="ProfileContainer">
+                    <img src="./Picture/img_avatar.png" alt="Avatar">
+                        <div class="ProfileDetails">
+                            <p>Name: @userToShow.name </p>
+                            <p>Phone number: @userToShow.phoneNumber</p>
+                            <p>Email: @userToShow.email</p>
+                            <p>City: @userToShow.city</p>
+                        </div>
+                </div>
+            </div>
+            <div class="col-6">
+                
+            </div>
+            <div class="col">
+                <Listing Games="itemsForUserToShow"></Listing>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    public User userToShow;
+    [Parameter]
+    public string userID { get; set; }
+
+    public List<Item> itemsForUserToShow;
+
+    protected override void OnInitialized()
+    {
+
+        foreach (var user in DB.allUsers)
+        {
+            if (user.userID == Int32.Parse(userID))
+            {
+                userToShow = user;
+
+            }
+        }
+
+        itemsForUserToShow = DB.GetListedSalesForUser(Int32.Parse(userID));
+
+    }   
+
+    
+}

@@ -4,6 +4,7 @@ using System.Buffers;
 using System;
 using BlazorApp;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Components;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Service
@@ -13,7 +14,9 @@ namespace Service
         public string connectionString;
         public List<Item> allItems;
 
-        public DatabaseService(string connectionString) { this.connectionString = connectionString; this.allItems = GetAllData(); }
+        //er det smart at den beder om alle bruger ved opstart??
+
+        public DatabaseService(string connectionString) { this.connectionString = connectionString; this.allItems = GetAllData(); this.allUsers = GetAllUser(); }
         public List<Item> GetAllData()
         {
             List<Item> allData = new List<Item>();
@@ -41,7 +44,8 @@ namespace Service
                                     price = Convert.ToInt32(reader["price"]),
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
-                                    description = reader["description"].ToString()
+                                    description = reader["description"].ToString(),
+                                    userID = Convert.ToInt32(reader["userid"])
                                 });
                             }
                             else if (type == "PS")
@@ -54,7 +58,8 @@ namespace Service
                                     price = Convert.ToInt32(reader["price"]),
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
-                                    description = reader["description"].ToString()
+                                    description = reader["description"].ToString(),
+                                    userID = Convert.ToInt32(reader["userid"])
                                 });
                             }
                             else if (type == "XBOX")
@@ -67,11 +72,44 @@ namespace Service
                                     price = Convert.ToInt32(reader["price"]),
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
-                                    description = reader["description"].ToString()
+                                    description = reader["description"].ToString(),
+                                    userID = Convert.ToInt32(reader["userid"])
                                 });
                             }
                         }
                         return allData;
+                    }
+                }
+            }
+        }
+        public List<User> allUsers;
+        public List<User> GetAllUser()
+        {
+            List<User> allUser = new List<User>();
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string sql = "SELECT * FROM users";
+
+                using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            allUser.Add(new User()
+                            {
+                                name = reader["name"].ToString(),
+                                userID = Convert.ToInt32(reader["id"]),
+                                phoneNumber = reader["phonenumber"].ToString(),
+                                email = reader["email"].ToString(),
+                                password = reader["password"].ToString(),
+                                city = reader["city"].ToString()
+                            });
+                        }
+                        return allUser;
                     }
                 }
             }
@@ -147,17 +185,106 @@ namespace Service
             return newItemId;
         }
 
-        public List<int> GetFavoritesByUserID(int id)
+        public void AddUserToDatabase(string name, string email, string password, string phonenumber, string city)
         {
-            List<int> favorites = new List<int>();
+            using var connection = new NpgsqlConnection(connectionString);
+
+            connection.Open();
+
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                string insertCommand = @"INSERT INTO users(name, email, password, phonenumber, city)
+                                VALUES(@Name, @Email, @Password, @phonenumber,@City)";
+                cmd.CommandText = insertCommand;
+
+                cmd.Parameters.AddWithValue("@Name", name);
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@Password", password);
+                cmd.Parameters.AddWithValue("@Phonenumber", phonenumber);
+                cmd.Parameters.AddWithValue("@City", city);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public List<Item> GetListedSalesForUser(int userID)
+        {
+
+            List<Item> itemsForUser = new List<Item>();
+
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                string sql = $@"SELECT * FROM items WHERE userid = {userID}";
+                using (var command = new NpgsqlCommand(sql, connection))
+                {
+                    //command.Parameters.AddWithValue("@UserID", userID);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var type = reader["type"].ToString().ToUpper();
+                            if (type == "PC")
+                            {
+                                itemsForUser.Add(new PC_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString()
+                                    // Assuming a 'userID' field exists linking the item to a user
+                                    // user = Convert.ToInt32(reader["userid"])
+                                });
+                            }
+                            else if (type == "PS")
+                            {
+                                itemsForUser.Add(new PS_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString()
+                                    // user = Convert.ToInt32(reader["userid"])
+                                });
+                            }
+                            else if (type == "XBOX")
+                            {
+                                itemsForUser.Add(new XBOX_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString()
+                                    // user = Convert.ToInt32(reader["userid"])
+                                });
+                            }
+                            // Add additional cases for other item types as necessary
+                        }
+                    }
+                }
+            }
+            return itemsForUser;
+        }
+    
+        public List<User> GetSellerDetailsFromUsers(int userID)
+        {
+            List<User> seller = new List<User>();
 
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
 
-                string sql = $@"SELECT array_to_string(favorites, ',') AS favorites 
-                             FROM users 
-                             WHERE id={id}";
+                string sql = $@"SELECT * FROM users WHERE id = {userID}";
 
                 using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                 {
@@ -165,16 +292,21 @@ namespace Service
                     {
                         while (reader.Read())
                         {
-                            foreach (var item in reader["favorites"].ToString().Split(','))
+
+                            seller.Add(new User()
                             {
-                                favorites.Add(Convert.ToInt32(item));
-                            }
-                            //favorites = Convert.ToInt32(reader["favorites"].ToString()).ToList();
+                                name = reader["name"].ToString(),
+                                userID = Convert.ToInt32(reader["id"]),
+                                phoneNumber = reader["phonenumber"].ToString(),
+                                email = reader["email"].ToString(),
+                                city = reader["city"].ToString()
+                            });
                         }
-                        return favorites;
+                        return seller;
                     }
                 }
             }
+
         }
     }
 }
