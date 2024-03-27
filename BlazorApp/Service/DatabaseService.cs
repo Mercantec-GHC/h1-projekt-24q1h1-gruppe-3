@@ -4,6 +4,7 @@ using System.Buffers;
 using System;
 using BlazorApp;
 using Microsoft.AspNetCore.SignalR;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Service
 {
@@ -144,6 +145,36 @@ namespace Service
                 }
             }
             return newItemId;
+        }
+
+        public List<int> GetFavoritesByUserID(int id)
+        {
+            List<int> favorites = new List<int>();
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string sql = $@"SELECT array_to_string(favorites, ',') AS favorites 
+                             FROM users 
+                             WHERE id={id}";
+
+                using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            foreach (var item in reader["favorites"].ToString().Split(','))
+                            {
+                                favorites.Add(Convert.ToInt32(item));
+                            }
+                            //favorites = Convert.ToInt32(reader["favorites"].ToString()).ToList();
+                        }
+                        return favorites;
+                    }
+                }
+            }
         }
     }
 }
