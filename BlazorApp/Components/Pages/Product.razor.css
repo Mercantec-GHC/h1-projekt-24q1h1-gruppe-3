@@ -4,6 +4,7 @@
 .container .row:first-child {
     box-shadow: 5px 5px;
     background-color: #b3b3b3;
+    border-radius: 10px;
 }
 
 .col {
@@ -13,6 +14,7 @@
     align-items: center; /* Center items horizontally */
     justify-content: center; /* Center items vertically */
     text-align: center; /* Ensure text is centered */
+    
 }
 
 .col .gameTitle {
@@ -71,8 +73,9 @@
 
 .container .row:nth-child(2) {
     background-color: #b3b3b3;
-    margin-top: 1rem;
+    margin-top: 2rem;
     box-shadow: 5px 5px;
+    border-radius: 10px;
 }
 
 .col .details {
@@ -96,8 +99,10 @@
 }
 
 .details{
+    margin-top: 5%;
+    margin-bottom: 5%;
     text-align: left;
-    background-color: red;
+    
 }
 
 .modal {

@@ -1,0 +1,30 @@
+﻿.card{
+    background-color: #b3b3b3
+}
+
+#colLeft{
+    display:flex;
+    max-width: 100%;
+}
+
+.ProfileContainer{
+    justify-content: left;
+    
+}
+
+img {
+    border-radius: 50%;
+    max-width: 8rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.ProfileDetails {
+    text-align: left;
+    line-height: 0.7;
+
+}
+
+.ListedSalesContaier {
+    text-align: right;
+}
