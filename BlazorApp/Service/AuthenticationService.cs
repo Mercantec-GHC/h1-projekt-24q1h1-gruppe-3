@@ -31,9 +31,10 @@ namespace Service
 			IsAuthenticated = false;
 			CurrentUser = null;
 			await ClearLocalStorage();
-		}
+            await ClearCookiesOnClose(); // Tilføj denne 
+        }
 
-		private async Task SaveToLocalStorage()
+        private async Task SaveToLocalStorage()
 		{
 			await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "IsAuthenticated", IsAuthenticated.ToString());
 			await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "CurrentUser", CurrentUser != null ? CurrentUser.name : "");
@@ -61,5 +62,17 @@ namespace Service
 			await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", "IsAuthenticated");
 			await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", "CurrentUser");
 		}
-	}
+
+        private async Task ClearCookiesOnClose()
+        {
+            await _jsRuntime.InvokeVoidAsync("eval", @"
+                function clearCookiesOnClose() {
+                    document.cookie.split(';').forEach(function(c) {
+                        document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/');
+                    });
+                }
+                window.addEventListener('beforeunload', clearCookiesOnClose);
+            ");
+        }
+    }
 }
