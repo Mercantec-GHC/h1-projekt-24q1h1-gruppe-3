@@ -17,7 +17,7 @@
                         <!-- Card body with padding for form -->
                         <div class="card-body p-5">
                             <!-- Heading for form -->
-                            <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+                            <h2 class="text-center mb-5">Register</h2>
                             <form>
                                 <!-- Form fields and other content -->
                                 <!-- Form field for name -->
@@ -40,13 +40,13 @@
 
                                 <!-- Form field to repeat password -->
                                 <div class="form-outline mb-4">
-                                    <label class="form-label" for="formPasswordRepeat">Repeat your password</label>
+                                    <label class="form-label" for="formPasswordRepeat">Confirm password</label>
                                     <input type="password" id="formPasswordRepeat" class="form-control form-control-lg" @bind="Password" />
                                 </div>
 
                                 <!-- Form field to phonenumber -->
                                 <div class="form-outline mb-4">
-                                    <label class="form-label" for="formPhonenumber">Phonenumber</label>
+                                    <label class="form-label" for="formPhonenumber">Phone number</label>
                                     <input type="text" id="formPhonenumber" class="form-control form-control-lg" @bind="Phonenumber" />
                                 </div>
 
@@ -65,10 +65,10 @@
                                 </div>
                                 <!-- Register button -->
                                 <div class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" @onclick="RegisterUser">Register</button>
+                                    <button type="button" class="btn btn-dark" @onclick="RegisterUser">Register</button>
                                 </div>
                                 <!-- Link for existing users to log in -->
-                                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!" class="fw-bold text-body"><u>Login here</u></a></p>
+                                <p class="text-center text-muted mt-5 mb-0">Already have an account? <a href="#!" class="fw-bold text-body"><u>Login here</u></a></p>
                             </form>
                         </div>
                     </div>

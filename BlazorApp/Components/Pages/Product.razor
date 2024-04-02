@@ -7,7 +7,6 @@
     <div class="row">
         <div class="col">
             <GallerySlider></GallerySlider>
-
         </div>
         <div class="col">
             <h1 class="gameTitle"><b>@gameToShow.gameName</b></h1>
@@ -31,7 +30,6 @@
                 <p class="conditionDetails"><b>Condition: </b>@gameToShow.condition</p>
                 <p class="genreDetails"><b>Genre: </b>@gameToShow.genre</p>
                 <p class="manufactureDetails"><b>Manufacture: </b>@gameToShow.manufacture</p>
-                <p class="manufactureDetails"><b>Manufacture: </b>@gameToShow.userID</p>
             </div>
         </div>
         <div class="col">
@@ -39,7 +37,6 @@
         </div>
         <div class="col">
             <div class="sellerLocation">
-                <SellerDetails userID="gameToShow.userID"></SellerDetails>
                 <h5><b>Seller location:</b></h5>
                 <p></p>
             </div>
@@ -57,8 +54,7 @@
 
                 </div>
                 <div class="modal-body">
-
-                  @*   <SellerDetails userID="gameToShow.userID"></SellerDetails> *@
+                    <SellerDetails userID="gameToShow.userID"></SellerDetails>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark" @onclick="CloseModal">Close</button>
