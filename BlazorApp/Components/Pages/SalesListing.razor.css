@@ -15,11 +15,23 @@
 
 }
 
-
-
-.form-select {
-    box-shadow: 0.2rem 0.5rem 0.3rem rgba(0, 0, 0, 0.1); /* Legg til skygge */
+.card-header {
+    background-color: #b3b3b3;
+    text-align: center;
+    font-weight: bold;
 }
+
+.card-body{
+    display: flex;
+    max-width: 100%;
+}
+
+    .card-body btn {
+    }
+
+    .form-select {
+        box-shadow: 0.2rem 0.5rem 0.3rem rgba(0, 0, 0, 0.1); /* Legg til skygge */
+    }
 
 
 .gameTitle {
@@ -29,6 +41,7 @@
 .btn {
     display: flex;
     align-items: center;
+    margin-right: 1rem;
 }
 
 /* Stil for modal */

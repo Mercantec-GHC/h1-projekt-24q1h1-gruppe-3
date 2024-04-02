@@ -1,4 +1,6 @@
-﻿@page "/login"
+﻿@using Service
+@inject AuthenticationService AuthenticationService
+@page "/login"
 <PageTitle>Gamers lounge: Login</PageTitle>
 
 <div class="container">
@@ -47,8 +49,8 @@
 
         if (user != null)
         {
-            int userID = user.userID; // Få userID fra den fundne bruger
-            NavigationManager.NavigateTo($"/profilepage/{userID}");
+            AuthenticationService.Login(user);
+            NavigationManager.NavigateTo($"/profilepage/{user.userID}");
             Console.WriteLine("Bruger findes");
         }
         else

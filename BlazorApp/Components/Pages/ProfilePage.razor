@@ -34,21 +34,24 @@
 
     public List<Item> itemsForUserToShow;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-
-        foreach (var user in DB.allUsers)
+        try
         {
-            if (user.userID == Int32.Parse(userID))
+            int parsedUserID;
+            if (int.TryParse(userID, out parsedUserID))
             {
-                userToShow = user;
-
+                userToShow = DB.allUsers.FirstOrDefault(user => user.userID == parsedUserID);
+                itemsForUserToShow = DB.GetListedSalesForUser(parsedUserID);
+            }
+            else
+            {
+                // Handle invalid userID
             }
         }
-
-        itemsForUserToShow = DB.GetListedSalesForUser(Int32.Parse(userID));
-
+        catch (Exception ex)
+        {
+            // Handle exception
+        }
     }   
-
-    
 }

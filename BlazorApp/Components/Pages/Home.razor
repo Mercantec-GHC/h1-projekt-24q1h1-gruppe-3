@@ -65,11 +65,14 @@
 	public List<PS_Game> psGameToShow;
 
 
+
+
 	protected override void OnInitialized()
 	{
 		pcGameToShow = FT.FiltreToPC_Games(DB.allItems);
 		psGameToShow = FT.FiltreToPS_Games(DB.allItems);
 		xboxGameToShow = FT.FiltreToXBOX_Games(DB.allItems);
+		
 	}
 
 	private void HandleCardClick(int gameID)
