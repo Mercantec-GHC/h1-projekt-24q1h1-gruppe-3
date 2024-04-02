@@ -18,7 +18,7 @@
                             <label for="password" class="label">Adgangskode</label>
                             <input type="password" class="form-control" id="password" placeholder="Indtast adgangskode" @bind="password">
                         </div>
-                        <button type="submit" class="btn btn-dark" @onclick="HandleLogin">Log ind</button>
+                        <button type="submit" class="btn btn-dark" @onclick="HandleLogin" @onclick:preventDefault>Log ind</button>
                     </form>
                 </div>
             </div>
@@ -49,7 +49,6 @@
         {
             int userID = user.userID; // Få userID fra den fundne bruger
             NavigationManager.NavigateTo($"/profilepage/{userID}");
-
             Console.WriteLine("Bruger findes");
         }
         else
@@ -58,18 +57,3 @@
         }
     }
 }
-
-
-        User user = allusers.FirstOrDefault(u => u.name == username && u.password == password);
-
-        if (user != null)
-        {
-            int userID = user.userID; // Få userID fra den fundne bruger
-            NavigationManager.NavigateTo($"/profilepage/{userID}");
-
-            Console.WriteLine("Bruger findes");
-        }
-        else
-        {
-            Console.WriteLine("Findes ikke");
-        }
