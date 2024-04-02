@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Components\ReusableComponents\LocationMap.razor" />
+    <None Include="Components\Pages\LocationMap.razor" />
     <None Include="wwwroot\Picture\skyrim.png" />
   </ItemGroup>
 

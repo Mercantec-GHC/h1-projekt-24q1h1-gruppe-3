@@ -7,10 +7,10 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
 </HeadContent>
 
-<h1>Hej med Dig!</h1>
+<h1 style="color:red;">Hej med Dig!</h1>
 
 <div @ref="mapElement" style='width:400px;height:300px'></div>
-<a class="btn btn-dark" @onclick="() => ShowAsync(latitude,longitude)">Show Seller Location</a>
+<a style="color:red;" @onclick="() => ShowAsync(latitude, longitude)">Seller Location</a>
 
 @code {
 
@@ -25,21 +25,19 @@
     {
         foreach (var user in DB.allUsers)
         {
-            if (user.userID == userID)
+            if (user.userID == 1)
             {
                 userInfo = user;
             }
         }
-        ConvertCityToLatLong();
     }
 
     public void ConvertCityToLatLong()
     {
-        var address = userInfo.city + ", Denmark";
+        var address = "Las Vegas, USA";
 
-        var locationService = new GoogleLocationService();
+        var locationService = new GoogleLocationService(apikey:"");
         var point = locationService.GetLatLongFromAddress(address);
-
         latitude = point.Latitude;
         longitude = point.Longitude;
     }
@@ -54,6 +52,8 @@
         {
             mapModule = await JS.InvokeAsync<IJSObjectReference>("import", "/Picture/mapComponent.js");
             mapInstance = await mapModule.InvokeAsync<IJSObjectReference>("addMapToElement", mapElement);
+            ConvertCityToLatLong();
+            await ShowAsync(latitude, longitude);
         }
     }
 
@@ -68,14 +68,23 @@
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
-        if (mapInstance is not null)
+        try
         {
-            await mapInstance.DisposeAsync();
-        }
+            if (mapInstance is not null)
+            {
+                await mapInstance.DisposeAsync();
+            }
 
-        if (mapModule is not null)
+            if (mapModule is not null)
+            {
+                await mapModule.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException)
         {
-            await mapModule.DisposeAsync();
+            // The circuit has been disconnected, so we can't perform JS interop calls.
+            // This is expected behavior when the page is refreshed or navigated away from.
+            // You can optionally log this event or perform cleanup here.
         }
     }
 }
