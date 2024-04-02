@@ -5,6 +5,7 @@
 
 <PageTitle>Gamers Lounge: Product List</PageTitle>
 
+<!-- Search funktion and btn -->
 <div class="ProductListTop">
     <h3 class="ProductListTitle">ProductList</h3>
     <button class="searchBtn" @onclick="ToggleSearch">
@@ -15,31 +16,49 @@
     <Search OnSearch="HandleSearch" showSearch="@showSearch" searchText="@searchText"></Search>
 </div>
 
+<!-- Show amount of products -->
 <h5 class="productsCount">Total products: @DB.allItems.Count</h5>
 
+<!-- Filter: Select platform -->
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Select platform
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#" @onclick="() => FilterGamesByPlatform('PC')">PC Games</a>
+        <a class="dropdown-item" href="#">PS</a>
+        <a class="dropdown-item" href="#">XBOX</a>
+    </div>
+</div>
+
+<!-- Show the products -->
 <div class="container">
     <Listing Games="gamesToShow" OnAddToFavorites="AddToFavorites"></Listing>
 </div>
 
-<div class="pageCount">
-    <button class="pageButton" @onclick="() => UpdatePage(currentPage -1)" disabled="@(currentPage == 1)">
-        <span class="arrow leftArrow">&lt;</span>
-    </button>
-    <p>@currentPage - @totalPages</p>
-    <button class="pageButton" @onclick="() => UpdatePage(currentPage + 1)" disabled="@(currentPage == totalPages)">
-        <span class="arrow rightArrow">&gt;</span>
-    </button>
+<!--   Page  -->
+<div class="pagination">
+    <button class="pageBtn" @onclick="() => { currentPage = currentPage - 1; UpdatePage(currentPage); }" disabled="@(currentPage == 1)"> ◄ </button>
+    <span class="pageBtnText">Page @currentPage - @totalPages</span>
+    <button class="pageBtn" @onclick="() => { currentPage = currentPage + 1; UpdatePage(currentPage); }" disabled="@(currentPage >= totalPages)"> ► </button>
 </div>
 
+
+
+
 @code {
+    public List<Item> favoriteGames = new List<Item>();
     public List<Item> gamesToShow;
-    public List<Item> favoriteGames = new List<Item>(); // Liste til at gemme favoritter
+
+    // Switch between pages variables
     private int currentPage = 1;
     private const int itemsPerPage = 5;
     private int totalPages;
 
+    // Search variables
     public bool showSearch = false;
     public string searchText = "";
+
 
     public void ToggleSearch()
     {
@@ -49,86 +68,64 @@
 
     protected override void OnInitialized()
     {
-        // Parse URL to get current page number
-        var uri = new Uri(NavigationManager.Uri);
-        var queryString = uri.Query;
-        var parameters = ParseQueryString(queryString);
-        if (parameters.TryGetValue("page", out var pageValue) && int.TryParse(pageValue, out var page))
-        {
-            currentPage = page;
-        }
-
         // Calculate items to show based on current page
         gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
         // Calculate total pages
         totalPages = (int)Math.Ceiling((double)DB.allItems.Count / itemsPerPage);
     }
 
-    private bool isUpdatingPage = false;
 
     private void UpdatePage(int page)
     {
-        // Sørg for, at siden ikke går i minus
-        if (page < 1)
-        {
-            page = 1;
-        }
-
-        // Sørg for, at vi ikke behandler flere sideopdateringer samtidig
-        if (isUpdatingPage)
+        if (page < 1 || page > totalPages)
         {
             return;
         }
 
-        isUpdatingPage = true;
-
         currentPage = page;
         gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
-        totalPages = (int)Math.Ceiling((double)DB.allItems.Count / itemsPerPage);
-
-        // Get the current URL and parse its query string
-        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
-        var queryString = uri.Query;
-        var parameters = ParseQueryString(queryString);
-
-        // Remove any existing "page" parameters
-        parameters.Remove("page=2");
-
-        // Add the new "page" parameter
-        parameters["page"] = currentPage.ToString();
-
-        // Construct the new query string, ensuring only one "page" parameter
-        var newQueryString = string.Join("&", parameters.Select(p => $"{p.Key}={p.Value}"));
-
-        // If the new query string starts with "&", remove the first "&"
-        if (newQueryString.StartsWith("&"))
-        {
-            newQueryString = newQueryString.Substring(1);
-        }
-
-        // Navigate to the new URL with the updated query string
-        NavigationManager.NavigateTo(uri.GetLeftPart(UriPartial.Path) + "?" + newQueryString, forceLoad: true);
-
-        // Reset isUpdatingPage til false efter sideopdateringen er fuldført
-        isUpdatingPage = false;
+        StateHasChanged();
     }
 
-    private Dictionary<string, string> ParseQueryString(string queryString)
+
+    // Search funktion
+    private void HandleSearch(string searchText)
     {
-        // Parse query string into key-value pairs
-        var parameters = new Dictionary<string, string>();
-        var pairs = queryString.Split('&');
-        foreach (var pair in pairs)
+        currentPage = 1;
+
+        if (string.IsNullOrWhiteSpace(searchText))
         {
-            var keyValue = pair.Split('=');
-            if (keyValue.Length == 2)
-            {
-                parameters[keyValue[0]] = keyValue[1];
-            }
+            gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+            totalPages = (int)Math.Ceiling((double)DB.allItems.Count / itemsPerPage);
         }
-        return parameters;
+        else
+        {
+            gamesToShow = DB.allItems
+            .Where(game => game.gameName.ToLower().Contains(searchText.ToLower()))
+            .OrderBy(game => game.gameName)
+            .ToList();
+
+            totalPages = (int)Math.Ceiling((double)gamesToShow.Count / itemsPerPage);
+        }
+
+        StateHasChanged(); 
     }
 
+    private void FilterGamesByPlatform(string platform)
+    {
+        switch (platform)
+        {
+            case "PC":
+                gamesToShow = FiltreTypes.FiltreToPC_Games(DB.allItems);
+                break;
+        }
+    }
+
+
+
+
+
+    // Add to favorites
     private async Task AddToFavorites(Item game)
     {
         if (!favoriteGames.Contains(game))
@@ -139,24 +136,6 @@
         else
         {
             await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er allerede tilføjet til favoritter");
-        }
-    }
-
-    private void HandleSearch(string searchText)
-    {
-        if (string.IsNullOrWhiteSpace(searchText))
-        {
-            // Hvis søgefeltet er tomt, vis alle spillene igen
-                gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
-                totalPages = (int)Math.Ceiling((double)DB.allItems.Count / itemsPerPage);
-        }
-        else
-        {
-            // Filtrer spillene baseret på, om de indeholder søgeteksten i gameTitle, uanset case
-                gamesToShow = DB.allItems
-                .Where(game => game.gameName.ToLower().Contains(searchText.ToLower()))
-                .OrderBy(game => game.gameName)
-                .ToList();
         }
     }
 
