@@ -3,6 +3,7 @@
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
+
 <PageTitle>Gamers Lounge: Product List</PageTitle>
 
 <!-- Search funktion and btn -->
@@ -25,10 +26,12 @@
         Select platform
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#" @onclick="() => FilterGamesByPlatform('PC')">PC Games</a>
-        <a class="dropdown-item" href="#">PS</a>
-        <a class="dropdown-item" href="#">XBOX</a>
+       <a class="dropdown-item" href="#">All</a>
+        <a class="dropdown-item" href="#" @onclick="PCGamesList">PC Games</a>
+        <a class="dropdown-item" href="#">PS Games</a>
+        <a class="dropdown-item" href="#">XBOX Games</a>
     </div>
+
 </div>
 
 <!-- Show the products -->
@@ -49,10 +52,11 @@
 @code {
     public List<Item> favoriteGames = new List<Item>();
     public List<Item> gamesToShow;
+    public List<PC_Game> PCGames;
 
     // Switch between pages variables
     private int currentPage = 1;
-    private const int itemsPerPage = 5;
+    private const int itemsPerPage = 9;
     private int totalPages;
 
     // Search variables
@@ -88,6 +92,14 @@
     }
 
 
+    public void PCGamesList()
+    {
+        PCGames = FT.FiltreToPC_Games(DB.allItems);
+    }
+
+
+
+
     // Search funktion
     private void HandleSearch(string searchText)
     {
@@ -111,17 +123,7 @@
         StateHasChanged(); 
     }
 
-    private void FilterGamesByPlatform(string platform)
-    {
-        switch (platform)
-        {
-            case "PC":
-                gamesToShow = FiltreTypes.FiltreToPC_Games(DB.allItems);
-                break;
-        }
-    }
-
-
+    
 
 
 
