@@ -2,6 +2,12 @@
     display:flex;
 }
 
+.container {
+    min-height: 100vh !important;
+}
+
+
+
 .card {
     max-width: 100%;
     display: flex;
@@ -15,23 +21,11 @@
 
 }
 
-.card-header {
-    background-color: #b3b3b3;
-    text-align: center;
-    font-weight: bold;
+
+
+.form-select {
+    box-shadow: 0.2rem 0.5rem 0.3rem rgba(0, 0, 0, 0.1);
 }
-
-.card-body{
-    display: flex;
-    max-width: 100%;
-}
-
-    .card-body btn {
-    }
-
-    .form-select {
-        box-shadow: 0.2rem 0.5rem 0.3rem rgba(0, 0, 0, 0.1); /* Legg til skygge */
-    }
 
 
 .gameTitle {
@@ -41,10 +35,9 @@
 .btn {
     display: flex;
     align-items: center;
-    margin-right: 1rem;
 }
 
-/* Stil for modal */
+
 .modal {
     display: none;
     position: fixed;
@@ -58,7 +51,6 @@
     background-color: rgba(112, 110, 111, 0.8);
 }
 
-/* Stil for modalinnhold */
 .modal-content {
     background-color: #b3b3b3;
     z-index: 999;
@@ -72,7 +64,7 @@
 #buttonContainer {
     display: flex;
     justify-content: center;
-    margin-top: 20 px;
+    margin-top: 20px;
 }
 
 #buttonContainer .btn {

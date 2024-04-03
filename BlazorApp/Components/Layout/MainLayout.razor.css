@@ -6,6 +6,7 @@
 
 main {
     flex: 1;
+    min-height: auto;
 }
 
 .mb-3 {
@@ -13,13 +14,20 @@ main {
 }
 
 .navbar, .navbar * {
+    color: lightblue !important;
+    font-size: 1rem;
+}
+
+::deep .nav-link {
     color: white !important;
+    font-size: 1rem;
 }
 
-.navbar .navlink {
-    color: #ffffff !important;
+::deep .nav-link.active {
+    color: lightblue !important;
+    font-size: 1rem;
+    text-decoration: underline;
 }
-
 
 .navcontainer {
     background-color: #212529;
