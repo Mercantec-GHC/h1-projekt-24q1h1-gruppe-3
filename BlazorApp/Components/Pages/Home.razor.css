@@ -1,7 +1,12 @@
-﻿.section {
+﻿.body {
+    min-height: 100vh;
+}
+
+.section {
     position: relative;
     align-items: center;
     padding: 2%;
+
 }
 
 .left-colum {

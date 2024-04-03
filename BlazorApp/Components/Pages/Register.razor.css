@@ -1,5 +1,14 @@
-﻿.card{
+﻿.body {
+    min-height: 100vh;
+}
+
+.card{
     background-color: #b3b3b3;
+    
+}
+
+.main {
+    min-height: 100vh;
 }
 
 .gradient-custom-4 {

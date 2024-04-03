@@ -3972,7 +3972,7 @@ textarea.form-control-lg {
     flex-wrap: wrap;
     padding-left: 0;
     margin-bottom: 0;
-    list-style: none
+    list-style: none;
 }
 
 .nav-link {
@@ -3993,7 +3993,7 @@ textarea.form-control-lg {
     color: #0a58ca
 }
 
-.nav-link.disabled {
+link.disabled {
     color: #6c757d;
     pointer-events: none;
     cursor: default
@@ -4009,11 +4009,13 @@ textarea.form-control-lg {
         border: 1px solid transparent;
         border-top-left-radius: .25rem;
         border-top-right-radius: .25rem
+
     }
 
         .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
             border-color: #e9ecef #e9ecef #dee2e6;
             isolation: isolate
+
         }
 
         .nav-tabs .nav-link.disabled {
@@ -4037,7 +4039,8 @@ textarea.form-control-lg {
 .nav-pills .nav-link {
     background: 0 0;
     border: 0;
-    border-radius: .25rem
+    border-radius: .25rem;
+    
 }
 
     .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -4047,7 +4050,7 @@ textarea.form-control-lg {
 
 .nav-fill .nav-item, .nav-fill > .nav-link {
     flex: 1 1 auto;
-    text-align: center
+    text-align: center;
 }
 
 .nav-justified .nav-item, .nav-justified > .nav-link {
