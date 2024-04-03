@@ -3972,7 +3972,7 @@ textarea.form-control-lg {
     flex-wrap: wrap;
     padding-left: 0;
     margin-bottom: 0;
-    list-style: none
+    list-style: none;
 }
 
 .nav-link {
@@ -3993,7 +3993,7 @@ textarea.form-control-lg {
     color: #0a58ca
 }
 
-.nav-link.disabled {
+link.disabled {
     color: #6c757d;
     pointer-events: none;
     cursor: default
