@@ -1,5 +1,4 @@
 ﻿@page "/productlist"
-
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
 
@@ -21,22 +20,41 @@
 <h5 class="productsCount">Total products: @DB.allItems.Count</h5>
 
 <!-- Filter: Select platform -->
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Select platform
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-       <a class="dropdown-item" href="#">All</a>
-        <a class="dropdown-item" href="#" @onclick="PCGamesList">PC Games</a>
-        <a class="dropdown-item" href="#">PS Games</a>
-        <a class="dropdown-item" href="#">XBOX Games</a>
-    </div>
-
+<div>
+    <label>
+        <select @bind="Platform">
+            <option value="">Select Platform</option>
+            <option value="All">All</option>
+            <option value="PC">PC</option>
+            <option value="PS">PS</option>
+            <option value="XBOX">XBOX</option>
+        </select>
+    </label>
 </div>
+
+@if (Platform is not null)
+{
+    if (Platform == "All")
+    {
+        gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+    }
+    else if (Platform == "PC")
+    {
+        gamesToShow = FT.FiltreToPC_Games(DB.allItems).Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList(); ;
+    }
+    else if (Platform == "PS")
+    {
+        gamesToShow = FT.FiltreToPS_Games(DB.allItems).Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList(); ;
+    }
+    else if (Platform == "XBOX")
+    {
+        gamesToShow = FT.FiltreToXBOX_Games(DB.allItems).Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList(); ;
+    }
+}
 
 <!-- Show the products -->
 <div class="container">
-    <Listing Games="gamesToShow" OnAddToFavorites="AddToFavorites"></Listing>
+	<Listing Games="gamesToShow" OnAddToFavorites="AddToFavorites"></Listing>
 </div>
 
 <!--   Page  -->
@@ -46,13 +64,10 @@
     <button class="pageBtn" @onclick="() => { currentPage = currentPage + 1; UpdatePage(currentPage); }" disabled="@(currentPage >= totalPages)"> ► </button>
 </div>
 
-
-
-
 @code {
     public List<Item> favoriteGames = new List<Item>();
     public List<Item> gamesToShow;
-    public List<PC_Game> PCGames;
+    public string Platform;
 
     // Switch between pages variables
     private int currentPage = 1;
@@ -90,15 +105,6 @@
         gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
         StateHasChanged();
     }
-
-
-    public void PCGamesList()
-    {
-        PCGames = FT.FiltreToPC_Games(DB.allItems);
-    }
-
-
-
 
     // Search funktion
     private void HandleSearch(string searchText)

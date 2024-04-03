@@ -2,6 +2,7 @@
 @inject NavigationManager NavigationManager
 
 <div class="game-grid">
+
     @foreach (var game in Games)
     {
         <div class="row" style="cursor: pointer;" @onclick="() => NavigateToProduct(game.itemID)">
@@ -46,13 +47,4 @@
     {
         NavigationManager.NavigateTo($"./product/{itemId}");
     }
-
-    public List<PC_Game> PCgamesToShow;
-
-    public void PCGamesList()
-    {
-        PCgamesToShow = FT.FiltreToPC_Games(DB.allItems);
-    }
-
-
 }
