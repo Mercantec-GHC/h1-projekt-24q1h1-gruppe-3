@@ -12,7 +12,7 @@
 				<a href="" class="btn btn-dark">Learn More</a>
 			</div>
 			<div class="right-colum">
-				<img src="./Picture/Temp_Picture.jpg" alt="" class="colum-image" />
+				<img src="./Picture/Front.jpg" alt="" class="colum-image" />
 			</div>
 		</div>
 	</div>
@@ -56,7 +56,7 @@
 	</div>
 </div>
 
-<CarouselProductCard pcGamesToShow="@pcGameToShow" psGamesToShow="@psGameToShow" xboxGamesToShow="@xboxGameToShow"></CarouselProductCard>
+@* <CarouselProductCard pcGamesToShow="@pcGameToShow" psGamesToShow="@psGameToShow" xboxGamesToShow="@xboxGameToShow"></CarouselProductCard> *@
 
 
 @code {
@@ -65,11 +65,14 @@
 	public List<Item> psGameToShow;
 
 
+
+
 	protected override void OnInitialized()
 	{
 		pcGameToShow = FT.FiltreToPC_Games(DB.allItems);
 		psGameToShow = FT.FiltreToPS_Games(DB.allItems);
 		xboxGameToShow = FT.FiltreToXBOX_Games(DB.allItems);
+		
 	}
 
 	private void HandleCardClick(int gameID)

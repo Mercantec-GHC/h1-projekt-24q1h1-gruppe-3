@@ -2,6 +2,7 @@ using BlazorApp.Components;
 using DomainModels;
 using Service;
 
+
 namespace BlazorApp
 {
     public class Program
@@ -14,8 +15,8 @@ namespace BlazorApp
             var connectionString = Configuration.GetConnectionString("DefaultConnection") ?? Environment.GetEnvironmentVariable("DefaultConnection");
             builder.Services.AddSingleton<DatabaseService>(sp => new DatabaseService(connectionString));
             builder.Services.AddSingleton<FiltreTypes>(sp => new FiltreTypes());
-            
 
+            builder.Services.AddScoped<AuthenticationService>();
 
             //to insert dummy data
             //builder.Services.AddSingleton<List<Item>>(sp => new DummyData().GenereteDummyItems());

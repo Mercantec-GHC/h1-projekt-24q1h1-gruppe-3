@@ -7,7 +7,6 @@
     <div class="row">
         <div class="col">
             <GallerySlider></GallerySlider>
-
         </div>
         <div class="col">
             <h1 class="gameTitle"><b>@gameToShow.gameName</b></h1>
@@ -55,8 +54,7 @@
 
                 </div>
                 <div class="modal-body">
-
-                    @* <SellerDetails></SellerDetails> *@
+                    <SellerDetails userID="gameToShow.userID"></SellerDetails>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark" @onclick="CloseModal">Close</button>

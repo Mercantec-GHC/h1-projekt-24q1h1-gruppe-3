@@ -1,15 +1,29 @@
 ﻿@inherits LayoutComponentBase
+@using Service
+@inject AuthenticationService AuthenticationService
 
 
 <div class="page">
     <div class="sidebar">
-        <NavMenu />
+        <NavMenu/>
     </div>
 
 
-    <main style="background-color:#212529; ">
-        <div class="top-row px-4" style="background-color:#212529;z-index: 1000;">
-            <a href="register" target="_blank">Register</a>
+    <main style="background-color:#212529;">
+        <div class="top-row px-4" style="background-color:#212529;">
+            
+            @if (AuthenticationService.IsAuthenticated)
+            {
+                <button class="btn btn-link" disabled>Logget ind som: @AuthenticationService.CurrentUser.name</button>
+                <button type="button" class="btn btn-link" @onclick="logout">Log Out</button>
+            }
+            else
+            {
+                <a href="login">LogIn</a>
+
+                <a href="register">Register</a>
+            }
+
         </div>
 
         <article class="content px-4" id="bodybackground">
@@ -23,3 +37,19 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+@code {
+    [Parameter]
+    public int userID { get; set; }
+    private void logout()
+    {
+        AuthenticationService.Logout();
+        NavigationManager.NavigateTo("/");
+    }
+
+    private void profilePage()
+    {
+        NavigationManager.NavigateTo($"/profilepage/{userID}");
+    }
+
+}

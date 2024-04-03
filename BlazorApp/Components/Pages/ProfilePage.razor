@@ -20,10 +20,7 @@
                 
             </div>
             <div class="col">
-                <div class="ListedSalesContaier">
-                    <p>Listed sales: </p>
-                    
-                </div>
+                <Listing Games="itemsForUserToShow"></Listing>
             </div>
         </div>
     </div>
@@ -35,17 +32,26 @@
     [Parameter]
     public string userID { get; set; }
 
-    protected override void OnInitialized()
-    {
+    public List<Item> itemsForUserToShow;
 
-        foreach (var user in DB.allUsers)
+    protected override async Task OnInitializedAsync()
+    {
+        try
         {
-            if (user.userID == Int32.Parse(userID))
+            int parsedUserID;
+            if (int.TryParse(userID, out parsedUserID))
             {
-                userToShow = user;
-                Console.WriteLine(user.userID);
-                Console.WriteLine(userToShow.name);
+                userToShow = DB.allUsers.FirstOrDefault(user => user.userID == parsedUserID);
+                itemsForUserToShow = DB.GetListedSalesForUser(parsedUserID);
+            }
+            else
+            {
+                // Handle invalid userID
             }
         }
-    }
+        catch (Exception ex)
+        {
+            // Handle exception
+        }
+    }   
 }

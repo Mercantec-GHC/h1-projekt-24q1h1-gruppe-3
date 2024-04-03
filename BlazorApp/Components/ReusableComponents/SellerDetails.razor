@@ -1,17 +1,29 @@
-﻿<div class="sellerDetailsContainer"
+﻿
+
+<div class="sellerDetailsContainer"
                 <h5 class="sellerDetails"><b>Seller Details:</b></h5>
-                <p class="name"><b>Name: </b>@user.name</p>
-                <p class="location"><b>Loaction: </b>@user.city</p>
-                <p class="itemsold"><b>Items sold: </b>@user.itemsSold</p>
-                <p class="itemviewed"><b>Item viewed: </b>@user.ItemsViewed</p>
+                @foreach (var sellerDetail in sellerDetails)
+                {
+                        <p class="name"><b>Name: </b>@sellerDetail.name</p>
+                        <p class="location"><b>Location: </b>@sellerDetail.city</p>
+                        
+                }
 </div>
 
 @code {
     [Parameter]
-    public User user { get; set; }
+    public int userID { get; set; }
+
+    public List<User> sellerDetails = new List<User>();
+
+    protected override void OnInitialized()
+    {
+        sellerDetails = DB.GetSellerDetailsFromUsers(userID);
+    }
+
+    // [Parameter]
+    // public bool IsPopupVisible { get; set; }
 
 
-    [Parameter]
-    public bool IsPopupVisible { get; set; }
 
 }
