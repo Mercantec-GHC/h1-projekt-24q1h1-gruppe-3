@@ -7,13 +7,14 @@ namespace Service
     public class AuthenticationService
     {
         private readonly IJSRuntime _jsRuntime;
-        private readonly DatabaseService _databaseService; // Tilføj denne linje
+        private readonly DatabaseService _databaseService;
 
         public AuthenticationService(IJSRuntime jsRuntime, DatabaseService databaseService)
         {
             _jsRuntime = jsRuntime;
-            _databaseService = databaseService; // Tilføj denne linje
+            _databaseService = databaseService;
             LoadFromLocalStorage();
+            ClearLocalStorageOnPageExit();
         }
 
         public bool IsAuthenticated { get; private set; }
@@ -24,8 +25,8 @@ namespace Service
         {
             IsAuthenticated = true;
             CurrentUser = user;
-            CurrentUserID = user.userID.ToString(); // Sørg for at sætte CurrentUserID korrekt
-            _databaseService.SetCurrentUserID(CurrentUserID); // Tilføj denne linje
+            CurrentUserID = user.userID.ToString(); // Sørger for at sætte CurrentUserID korrekt
+            _databaseService.SetCurrentUserID(CurrentUserID); 
             await SaveToLocalStorage();
         }
 
@@ -35,7 +36,7 @@ namespace Service
             CurrentUser = null;
             CurrentUserID = null; // Sørg for at rydde CurrentUserID
             await ClearLocalStorage();
-            await ClearCookiesOnClose();
+            
         }
 
         private async Task SaveToLocalStorage()
@@ -69,16 +70,13 @@ namespace Service
             await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", "CurrentUserId");
         }
 
-        private async Task ClearCookiesOnClose()
+        private async Task ClearLocalStorageOnPageExit()
         {
-            await _jsRuntime.InvokeVoidAsync("eval", @"
-                function clearCookiesOnClose() {
-                    document.cookie.split(';').forEach(function(c) {
-                        document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/');
-                    });
-                }
-                window.addEventListener('beforeunload', clearCookiesOnClose);
-            ");
+                await _jsRuntime.InvokeVoidAsync("eval", @"
+            window.addEventListener('beforeunload', function() {
+                localStorage.clear();
+                });
+                ");
         }
     }
 }

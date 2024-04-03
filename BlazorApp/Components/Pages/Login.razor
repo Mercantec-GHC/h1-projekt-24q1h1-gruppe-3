@@ -13,12 +13,12 @@
                 <div class="card-body">
                     <form>
                         <div class="form-group">
-                            <label for="username" class="label">Brugernavn</label>
-                            <input type="text" class="form-control" id="username" placeholder="Indtast brugernavn" @bind="username">
+                            <label for="username" class="label">Username</label>
+                            <input type="text" class="form-control" id="username" placeholder="Input username" @bind="username">
                         </div>
                         <div class="form-group">
-                            <label for="password" class="label">Adgangskode</label>
-                            <input type="password" class="form-control" id="password" placeholder="Indtast adgangskode" @bind="password">
+                            <label for="password" class="label">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Input Password" @bind="password">
                         </div>
                         <button type="submit" class="btn btn-dark" @onclick="HandleLogin" @onclick:preventDefault>Log ind</button>
                     </form>

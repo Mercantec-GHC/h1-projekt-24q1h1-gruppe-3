@@ -41,7 +41,7 @@
             int parsedUserID;
             if (int.TryParse(userID, out parsedUserID))
             {
-                userToShow = DB.allUsers.FirstOrDefault(user => user.userID == parsedUserID);
+                userToShow = DB.GetAllUser().FirstOrDefault(user => user.userID == parsedUserID);
                 itemsForUserToShow = DB.GetListedSalesForUser(parsedUserID);
             }
             else
