@@ -13,6 +13,13 @@ namespace Service
     {
         public string connectionString;
         public List<Item> allItems;
+        public string CurrentUserID { get; private set; }
+
+
+        public void SetCurrentUserID(string userID)
+        {
+            CurrentUserID = userID;
+        }
 
         //er det smart at den beder om alle bruger ved opstart??
 
@@ -119,7 +126,12 @@ namespace Service
         {
             int newItemId = -1; // Initialize newItemId to -1 (or any default value)
 
+            int useridToInsert = Convert.ToInt32(CurrentUserID);
+
             using var connection = new NpgsqlConnection(connectionString);
+
+
+
 
             connection.Open();
 
@@ -128,8 +140,8 @@ namespace Service
                 cmd.Connection = connection;
                 if (pcGameToBeCreated is PC_Game pcGame)
                 {
-                    string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description)
-                                    VALUES('PC', '{pcGame.gameName}','{pcGame.genre}','{pcGame.price}','{pcGame.manufacture}','{pcGame.condition}','{pcGame.description}')
+                    string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description, userid)
+                                    VALUES('PC', '{pcGame.gameName}','{pcGame.genre}','{pcGame.price}','{pcGame.manufacture}','{pcGame.condition}','{pcGame.description}','{useridToInsert}')
                                     RETURNING itemid"; // Include RETURNING id to get the ID of the newly inserted row
                     cmd.CommandText = insertCommand;
                     newItemId = (int)cmd.ExecuteScalar(); // ExecuteScalar to get the ID of the newly inserted row
@@ -142,6 +154,9 @@ namespace Service
         public int AddPSGameToDatabase(PS_Game psGameToBeCreated)
         {
             int newItemId = -1;
+
+            int useridToInsert = Convert.ToInt32(CurrentUserID);
+
             using var connection = new NpgsqlConnection(connectionString);
 
             connection.Open();
@@ -151,8 +166,8 @@ namespace Service
                 cmd.Connection = connection;
                 if (psGameToBeCreated is PS_Game psGame)
                 {
-                    string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description)
-                                            VALUES('PS', '{psGame.gameName}','{psGame.genre}','{psGame.price}','{psGame.manufacture}','{psGame.condition}','{psGame.description}')
+                    string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description, userid)
+                                            VALUES('PS', '{psGame.gameName}','{psGame.genre}','{psGame.price}','{psGame.manufacture}','{psGame.condition}','{psGame.description}','{useridToInsert}')
                                             RETURNING itemid";
                     cmd.CommandText = insertCommand;
                     newItemId = (int)cmd.ExecuteScalar(); // ExecuteScalar to get the ID of the newly inserted row
@@ -165,6 +180,9 @@ namespace Service
         public int AddXboxGameToDatabase(XBOX_Game XboxGameToBeCreated)
         {
             int newItemId = -1;
+
+            int useridToInsert = Convert.ToInt32(CurrentUserID);
+
             using var connection = new NpgsqlConnection(connectionString);
 
             connection.Open();
@@ -174,8 +192,8 @@ namespace Service
                 cmd.Connection = connection;
                 if (XboxGameToBeCreated is XBOX_Game XboxGame)
                 {
-                    string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description)
-                                            VALUES('XBOX', '{XboxGame.gameName}','{XboxGame.genre}','{XboxGame.price}','{XboxGame.manufacture}','{XboxGame.condition}','{XboxGame.description}')
+                    string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description, userid)
+                                            VALUES('XBOX', '{XboxGame.gameName}','{XboxGame.genre}','{XboxGame.price}','{XboxGame.manufacture}','{XboxGame.condition}','{XboxGame.description}','{useridToInsert}')
                                             RETURNING itemid";
                     cmd.CommandText = insertCommand;
                     newItemId = (int)cmd.ExecuteScalar(); // ExecuteScalar to get the ID of the newly inserted row

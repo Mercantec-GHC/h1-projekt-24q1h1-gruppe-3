@@ -14,7 +14,7 @@
             
             @if (AuthenticationService.IsAuthenticated)
             {
-                <button class="btn btn-link" @onclick="profilePage">Logget ind som: @AuthenticationService.CurrentUser.name</button>
+                <button class="btn btn-link" disabled>Logget ind som: @AuthenticationService.CurrentUser.name</button>
                 <button type="button" class="btn btn-link" @onclick="logout">Log Out</button>
             }
             else
@@ -39,6 +39,8 @@
 </div>
 
 @code {
+    [Parameter]
+    public int userID { get; set; }
     private void logout()
     {
         AuthenticationService.Logout();
@@ -47,6 +49,7 @@
 
     private void profilePage()
     {
-        NavigationManager.NavigateTo($"/profilepage/{@AuthenticationService.CurrentUser.userID}");
+        NavigationManager.NavigateTo($"/profilepage/{userID}");
     }
+
 }
