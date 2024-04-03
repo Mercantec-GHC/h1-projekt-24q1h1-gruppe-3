@@ -2,24 +2,26 @@
 
 <PageTitle>Gamers Lounge</PageTitle>
 
-<div class="section">
-	<div class="container text-center">
-		<div class="row">
-			<div class="left-colum">
-				<h2 class="header-top-section">Buy and Sell Used Video Games</h2>
-				<p>Discover a wide selection of pre-owned video games and console. Start buying or selling today.</p>
-				<a href="/productlist" class="btn btn-dark">Browse sales</a>
-				<a href="/login" class="btn btn-dark">LogIn</a>
-				<a href="/register" class="btn btn-dark">Register</a>
-			</div>
-			<div class="right-colum">
-				<img src="./Picture/Front.jpg" alt="" class="colum-image" />
+<div class="body">
+	<div class="section">
+		<div class="container text-center">
+			<div class="row">
+				<div class="left-colum">
+					<h2 class="header-top-section">Buy and Sell Used Video Games</h2>
+					<p>Discover a wide selection of pre-owned video games and console. Start buying or selling today.</p>
+					<a href="/productlist" class="btn btn-dark">Browse sales</a>
+					<a href="/login" class="btn btn-dark">LogIn</a>
+					<a href="/register" class="btn btn-dark">Register</a>
+				</div>
+				<div class="right-colum">
+					<img src="./Picture/Front.jpg" alt="" class="colum-image" />
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-<CarouselProductCard pcGamesToShow="@pcGameToShow" psGamesToShow="@psGameToShow" xboxGamesToShow="@xboxGameToShow"></CarouselProductCard>
+	<CarouselProductCard pcGamesToShow="@pcGameToShow" psGamesToShow="@psGameToShow" xboxGamesToShow="@xboxGameToShow"></CarouselProductCard>
+</div>
 
 @code {
 	public List<Item> pcGameToShow;
