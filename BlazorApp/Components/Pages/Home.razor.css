@@ -42,26 +42,6 @@
     color: #b3b3b3;
 }
 
-.card-container {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-}
-
-.card-middle-section {
-    width: 32.5%;
-    padding: 2%;
-    text-align: center;
-    background: #b3b3b3;
-    border-radius: 10px;
-}
-
-.button-container-middle-section {
-    display: flex;
-    justify-content: center;
-    padding: 2%;
-}
-
 .btn-dark {
     border: 1px solid #b3b3b3;
 }
