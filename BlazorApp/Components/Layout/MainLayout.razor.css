@@ -8,11 +8,34 @@ main {
     flex: 1;
 }
 
-#new-navbar-menu {
+.mb-3 {
+    background-color: #212529 !important;
 }
 
+.navbar, .navbar * {
+    color: white !important;
+}
+
+.navbar .navlink {
+    color: #ffffff !important;
+}
+
+
 .navcontainer {
-    justify-content: space-between !important;
+    background-color: #212529;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#new-navbar-menu-user{
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.nav-item-show {
+    justify-content: space-between;
 }
 
 .sidebar {
@@ -20,12 +43,8 @@ main {
 }
 
 .top-row {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-end;
-    height: 3.5rem;
-    display: flex;
     align-items: center;
+
 }
 
     .top-row ::deep a, .top-row ::deep .btn-link {
@@ -44,8 +63,12 @@ main {
     }
 
 @media (max-width: 640.98px) {
+    .navcontainer {
+        flex-direction: column;
+    }
+
     .top-row {
-        justify-content: space-between;
+        order: 2;
     }
 
     .top-row ::deep a, .top-row ::deep .btn-link {
