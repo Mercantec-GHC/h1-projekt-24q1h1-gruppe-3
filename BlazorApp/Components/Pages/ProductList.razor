@@ -19,10 +19,10 @@
 <!-- Show amount of products -->
 <h5 class="productsCount">Total products: @DB.allItems.Count</h5>
 
-<!-- Filter: Select platform -->
+<!-- Filter: Select platform and choose between highest or lowest price order -->
 <div>
     <label>
-        <select @bind="Platform">
+        <select @bind="platform">
             <option value="">Select Platform</option>
             <option value="All">All</option>
             <option value="PC">PC</option>
@@ -32,23 +32,51 @@
     </label>
 </div>
 
-@if (Platform is not null)
+<div>
+    <label>
+        <select @bind="price">
+            <option value="">Price Status</option>
+            <option value="High">Highest</option>
+            <option value="Low">Lowest</option>
+        </select>
+    </label>
+</div>
+
+@if (platform is not null)
 {
-    if (Platform == "All")
+    if (platform == "All")
     {
         gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
     }
-    else if (Platform == "PC")
+    else if (platform == "PC")
     {
         gamesToShow = FT.FiltreToPC_Games(DB.allItems).Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList(); ;
     }
-    else if (Platform == "PS")
+    else if (platform == "PS")
     {
         gamesToShow = FT.FiltreToPS_Games(DB.allItems).Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList(); ;
     }
-    else if (Platform == "XBOX")
+    else if (platform == "XBOX")
     {
         gamesToShow = FT.FiltreToXBOX_Games(DB.allItems).Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList(); ;
+    }
+}
+
+@if (price is not null)
+{
+    if (price == "High")
+    {
+        foreach (var game in gamesToShow)
+        {
+            gamesToShow = gamesToShow.OrderByDescending(game => game.price).ToList();
+        }
+    }
+    else if (price == "Low")
+    {
+        foreach ( var game in gamesToShow)
+        {
+            gamesToShow = gamesToShow.OrderBy(game => game.price).ToList();
+        }
     }
 }
 
@@ -67,7 +95,8 @@
 @code {
     public List<Item> favoriteGames = new List<Item>();
     public List<Item> gamesToShow;
-    public string Platform;
+    public string platform;
+    public string price;
 
     // Switch between pages variables
     private int currentPage = 1;
@@ -78,12 +107,10 @@
     public bool showSearch = false;
     public string searchText = "";
 
-
     public void ToggleSearch()
     {
         showSearch = !showSearch;
     }
-
 
     protected override void OnInitialized()
     {
@@ -92,7 +119,6 @@
         // Calculate total pages
         totalPages = (int)Math.Ceiling((double)DB.allItems.Count / itemsPerPage);
     }
-
 
     private void UpdatePage(int page)
     {
@@ -129,10 +155,6 @@
         StateHasChanged(); 
     }
 
-    
-
-
-
     // Add to favorites
     private async Task AddToFavorites(Item game)
     {
@@ -146,5 +168,4 @@
             await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er allerede tilføjet til favoritter");
         }
     }
-
 }
