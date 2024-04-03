@@ -26,10 +26,11 @@
 .container {
     margin-left: auto;
     margin-right: auto;
-    display: flex;
+    display: grid;
     flex-direction: column;
     justify-content: center;
     min-height: 100vh;
+    
 }
 
 .pageCount {
@@ -40,12 +41,24 @@
     width: 100%;
 }
 
+.pagination {
+    justify-content: right;
+    align-items: right;
+    padding: 0.2rem;
+    position: sticky;
+}
+
 .pageCount p {
     margin: 1rem;
     font-size: 1.5rem;
 }
 
-.pageButton {
+.pageBtnText {
+    color: white;
+    padding: 5px 10px 5px 10px;
+}
+
+.pageBtn {
     background-color: white;
     border: none;
     padding: 5px;
@@ -58,31 +71,10 @@
     line-height: 20px; /* Justerer vertikal placering af tekst */
 }
 
-.pageButton:disabled {
+.pageBtn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
-
-.arrow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    font-size: 25px; /* Juster størrelsen af pilen */
-}
-
-.leftArrow {
-    transform: translate(-50%, -50%) rotate(0); /* Juster rotationen for at pege til venstre */
-}
-
-.rightArrow {
-    transform: translate(-50%, -50%) rotate(0deg); /* Juster rotationen for at pege til højre */
-}
-
-
-
-
 
 
 /* Media query for mindre skærme */

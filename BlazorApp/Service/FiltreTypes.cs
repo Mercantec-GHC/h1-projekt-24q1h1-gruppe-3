@@ -4,10 +4,9 @@ namespace Service
 {
     public class FiltreTypes
     {
-
-        public List<PC_Game> FiltreToPC_Games(List<Item> games)
+        public List<Item> FiltreToPC_Games(List<Item> games)
         {
-            List<PC_Game> Games = new List<PC_Game>();
+            List<Item> Games = new List<Item>();
 
             foreach (var game in games)
             {
@@ -18,10 +17,9 @@ namespace Service
             }
             return Games;
         }
-
-        public List<PS_Game> FiltreToPS_Games(List<Item> games)
+        public List<Item> FiltreToPS_Games(List<Item> games)
         {
-            List<PS_Game> Games = new List<PS_Game>();
+            List<Item> Games = new List<Item>();
 
             foreach (var game in games)
             {
@@ -32,10 +30,9 @@ namespace Service
             }
             return Games;
         }
-
-        public List<XBOX_Game> FiltreToXBOX_Games(List<Item> games)
+        public List<Item> FiltreToXBOX_Games(List<Item> games)
         {
-            List<XBOX_Game> Games = new List<XBOX_Game>();
+            List<Item> Games = new List<Item>();
 
             foreach (var game in games)
             {
