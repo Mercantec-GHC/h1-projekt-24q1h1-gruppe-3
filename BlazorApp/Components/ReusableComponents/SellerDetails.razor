@@ -1,18 +1,24 @@
 ﻿
 
-<div class="sellerDetailsContainer"
-                <h5 class="sellerDetails"><b>Seller Details:</b></h5>
-                @foreach (var sellerDetail in sellerDetails)
-                {
-                        <p class="name"><b>Name: </b>@sellerDetail.name</p>
-                        <p class="location"><b>Location: </b>@sellerDetail.city</p>
-                        
-                }
+<div class="sellerDetailsContainer">
+    <h5 class="sellerDetails"><b>Seller Details:</b></h5>
+    @foreach (var sellerDetail in sellerDetails)
+    {
+        if (!ShowOnlyLocation)
+        {
+            <p class="name"><b>Name: </b>@sellerDetail.name</p>
+        }
+        <p class="location"><b>Location: </b>@sellerDetail.city</p>
+    }
 </div>
+
 
 @code {
     [Parameter]
     public int userID { get; set; }
+
+    [Parameter]
+    public bool ShowOnlyLocation { get; set; } = false;
 
     public List<User> sellerDetails = new List<User>();
 

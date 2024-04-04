@@ -1,4 +1,6 @@
 ﻿@page "/product/{itemID}"
+@using Service
+@inject AuthenticationService AuthenticationService
 
 <PageTitle>Gamers lounge: @gameToShow.gameName</PageTitle>
 
@@ -15,7 +17,23 @@
                 <p class="description">@gameToShow.description</p>
             </div>
             <div class="col">
-                    <h3 class="priceTag">Price: <b>@gameToShow.price € </b></h3>
+                @if (gameToShow.userID.ToString() == CurrentUserID)
+                {
+                                    <button class="Delete" @onclick="DeleteGame">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 16 16" class="bi bi-trash">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="48%" style="stop-color:rgb(159,36,255);stop-opacity:1" />
+                                <stop offset="56%" style="stop-color:rgb(0,158,255);stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path fill="url(#gradient)" d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                        <path fill="url(#gradient)" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                    </svg>
+                </button>
+                }
+
+                <h3 class="priceTag">Price: <b>@gameToShow.price € </b></h3>
                 <button type="button" class="btn btn-dark" @onclick="ShowPopup"><b>Contact seller</b></button>
                 <img class="favoriteStar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACu0lEQVR4nO2ZS2sTURTHr28FRUSoC4ViMHPOxLYqRUVcuPEruNKFKPgV+gHEKoiCC4WCILhoaXzW+t50Ydvk3MRdVXBRF924sCAIvmrzl5m0SYa8JnHuZEbyh7OcM7//OfdO7rlRqquuujImCB9zQsVV0PwCws9VHIUsD0K4AM1ALnlExU3Q9NSFd4MmVZwEbR8qVb8U1mEVF0F4wgvPgPBjFQdBUgerq+8aKDj7QkVd0PSwCr5kgh6oKAti74fwcn0DXEDGGlBRFTSn68KXY1xFUcimUg2rX+7CMvLUr6ImCI35qP7qXhhVURIySdtX9Su7oLmvM7AziR7krOMQOgvhSyvr/pNv+HI4z6TdHE4uJ+dMoicYyDf9O4pnGToF4SEIj0B4GsJf2wBtNX5A07tiYegKNF+Atk9CJxPNwYWGoWkxBMg2gxYdxvoGPu7bBOEnnQflevESs3u2NO7CXGojND2KACw8IfQMU72b/e2B/OAGCN+P0NKZdFaHL/iSibRaB6G7nYfncaegLcF7TGi+08FlM4qpE+vbgi+ZgFoDoZsdWDa3AbX2n+A9JjTfCK/yPBIYvMeE0PUQDNxy3hUovMeI5osGK3/VGHjbJ0//G3YsFPiiAb5noAPpMA18MGDgfTjwznlJ01LwBmip5V/btq9NTG3ibPKAeQPaOmPuK0SnQzBAlw0aGDZvwOS8IDxh3oDmeZ9AC8Vx0I0Fn8/Mm4WfS22tee/p/Zp8cefoismpOCQ5Ruhzkw4UME3bzBnI20cbrN9v7hCeT2xvUoChhpcDOYN/hiBrn68B/ss9PWb6dvnOI7xz5cbhe40OnjNnoPI0KvTbndiy1t62880md7vHdOGfFQauBUtd+UKh1yt7II2MnQws71u71+2i5j/Q9CqovNUvcpeKuetxZKwB5x2m8nfV1f+ov0WA2bF0AkOGAAAAAElFTkSuQmCC">
                 <h5 class="favoriteStarText"><b>Favorite this item!</b></h5>
@@ -37,8 +55,7 @@
             </div>
             <div class="col">
                 <div class="sellerLocation">
-                    <h5><b>Seller location:</b></h5>
-                    <p></p>
+                    <p><SellerDetails userID="gameToShow.userID" ShowOnlyLocation="true"></SellerDetails> </p>
                 </div>
             </div>
         </div>
@@ -66,7 +83,8 @@
 </div>
 
 @code {
-    // public User userToShow;
+    // public User userToShow { get; set; }
+    public string CurrentUserID { get; set; }
 
     bool ShowModal = false;
 
@@ -74,8 +92,11 @@
     [Parameter]
     public string itemID { get; set; }
 
+
     protected override void OnInitialized()
     {
+        CurrentUserID = AuthenticationService.CurrentUserID;
+
         // userToShow = allDummyUsers[Int32.Parse(itemID)];
         foreach (var item in DB.allItems)
         {
@@ -85,6 +106,16 @@
             }
         }
     }
+
+    void DeleteGame()
+    {
+        // Call the DeleteItem method from DatabaseService to delete the game
+        DB.DeleteItem(gameToShow.itemID);
+
+        NavigationManager.NavigateTo($"/profilepage/{CurrentUserID}");
+    }
+
+
 
     void ShowPopup()
     {

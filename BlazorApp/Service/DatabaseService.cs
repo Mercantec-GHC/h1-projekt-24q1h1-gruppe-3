@@ -293,7 +293,29 @@ namespace Service
             }
             return itemsForUser;
         }
-    
+
+        public void DeleteItem(int itemID)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+
+            // Prepare the SQL command to delete the item with the specified ID
+            string deleteItemCommand = @"DELETE FROM items WHERE itemid = @ItemID";
+
+            using (var cmd = new NpgsqlCommand(deleteItemCommand, connection))
+            {
+                // Add the item ID parameter to the command
+                cmd.Parameters.AddWithValue("@ItemID", itemID);
+
+                // Execute the command to delete the item
+                cmd.ExecuteNonQuery();
+            }
+
+            // Optionally, update the allItems list to reflect the deletion
+            this.allItems = GetAllData();
+        }
+
+
         public List<User> GetSellerDetailsFromUsers(int userID)
         {
             List<User> seller = new List<User>();

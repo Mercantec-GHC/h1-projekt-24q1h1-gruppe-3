@@ -38,6 +38,15 @@
     text-align: left;
 }
 
+.col .Delete {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
 .col .priceTag {
     text-align: left;
 }

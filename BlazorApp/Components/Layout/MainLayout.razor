@@ -37,21 +37,21 @@
                         </ul>
                     </div>
                 </div>
-						<div class="top-row">
+					<div class="top-row">
 
-							@if (AuthenticationService.IsAuthenticated)
-							{
-								<button class="btn btn-link" @onclick="profilePage">Logget ind som: @AuthenticationService.CurrentUser.name</button>
-								<button type="button" class="btn btn-link" @onclick="logout">Log Out</button>
-							}
-							else
-							{
-								<a href="login">LogIn</a>
+						@if (AuthenticationService.IsAuthenticated)
+						{
+							<button class="btn btn-link" @onclick="profilePage">Logget ind som: @AuthenticationService.CurrentUser.name</button>
+							<button type="button" class="btn btn-link" @onclick="logout">Log Out</button>
+						}
+						else
+						{
+							<a href="login">LogIn</a>
 
-								<a href="register">Register</a>
-							}
+							<a href="register">Register</a>
+						}
 
-						</div>
+					</div>
             </div>
         </nav>
         
