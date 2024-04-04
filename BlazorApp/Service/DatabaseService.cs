@@ -213,8 +213,8 @@ namespace Service
             using (var cmd = new NpgsqlCommand())
             {
                 cmd.Connection = connection;
-                string insertCommand = @"INSERT INTO users(name, email, password, phonenumber, city)
-                                VALUES(@Name, @Email, @Password, @phonenumber,@City)";
+                string insertCommand = @"INSERT INTO users(name, email, password, phonenumber, city, favorites)
+                                VALUES(@Name, @Email, @Password, @phonenumber,@City, ARRAY[]::integer[])";
                 cmd.CommandText = insertCommand;
 
                 cmd.Parameters.AddWithValue("@Name", name);
@@ -368,11 +368,10 @@ namespace Service
                     {
                         while (reader.Read())
                         {
-                            foreach (var item in reader["favorites"].ToString().Split(','))
+                            foreach (var item in reader["favorites"].ToString().Split(',').Where(s => !string.IsNullOrWhiteSpace(s)))
                             {
                                 favorites.Add(Convert.ToInt32(item));
                             }
-                            //favorites = Convert.ToInt32(reader["favorites"].ToString()).ToList();
                         }
                         return favorites;
                     }
@@ -416,7 +415,7 @@ namespace Service
                 cmd.ExecuteNonQuery();
             }
         }
-        public void AddItemToFavoriteInUsers(int userid, int itemid)
+        public void AddItemToFavoriteInUsers(int userid, int itemid, List<int> a)
         {
             using var connection = new NpgsqlConnection(connectionString);
             connection.Open();
@@ -427,6 +426,11 @@ namespace Service
                 string insertFav = $"UPDATE users SET favorites = favorites || ARRAY[{itemid}] WHERE id = {userid}";
                 cmd.CommandText = insertFav;
                 cmd.ExecuteNonQuery();
+            }
+
+            foreach (var item in a)
+            {
+                Console.WriteLine(item);
             }
         }
     }

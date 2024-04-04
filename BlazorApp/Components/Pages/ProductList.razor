@@ -75,7 +75,7 @@
     }
     else if (price == "Low")
     {
-        foreach ( var game in gamesToShow)
+        foreach (var game in gamesToShow)
         {
             gamesToShow = gamesToShow.OrderBy(game => game.price).ToList();
         }
@@ -84,7 +84,7 @@
 
 <!-- Show the products -->
 <div class="container">
-	<Listing Games="gamesToShow" OnAddToFavorites="AddToFavorites"></Listing>
+    <Listing Games="gamesToShow" OnAddToFavorites="AddToFavorites"></Listing>
 </div>
 
 <!--   Page  -->
@@ -154,18 +154,18 @@
             totalPages = (int)Math.Ceiling((double)gamesToShow.Count / itemsPerPage);
         }
 
-        StateHasChanged(); 
+        StateHasChanged();
     }
 
     // Add to favorites
     private async Task AddToFavorites(Item game)
     {
-        favoriteGames = DB.GetFavoritesByUserID(AuthenticationService.CurrentUser.userID);
+        favoriteGames = (DB.GetFavoritesByUserID(AuthenticationService.CurrentUser.userID));        
         if (!favoriteGames.Contains(game.itemID))
         {
             favoriteGames.Add(game.itemID);
             await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er tilføjet til favoritter");
-            DB.AddItemToFavoriteInUsers(AuthenticationService.CurrentUser.userID, game.itemID);
+            DB.AddItemToFavoriteInUsers(AuthenticationService.CurrentUser.userID, game.itemID, favoriteGames);
         }
         else
         {
