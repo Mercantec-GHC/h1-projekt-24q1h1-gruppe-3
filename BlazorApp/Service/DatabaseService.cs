@@ -6,6 +6,7 @@ using BlazorApp;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.Components;
 using System.Security.Cryptography.X509Certificates;
+using NpgsqlTypes;
 
 namespace Service
 {
@@ -356,5 +357,45 @@ namespace Service
                 }
             }
         }
+
+        public void UpdateUserInDatabase(int userID, string name, string email, string password, string phoneNumber, string city)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+
+            connection.Open();
+
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                string updateCommand = @"UPDATE users SET name = @Name, email = @Email, password = @password, phonenumber = @PhoneNumber, city = @City WHERE id = @UserID";
+                cmd.CommandText = updateCommand;
+
+                cmd.Parameters.Add(new NpgsqlParameter("@Name", NpgsqlDbType.Text) { Value = name });
+                cmd.Parameters.Add(new NpgsqlParameter("@Email", NpgsqlDbType.Text) { Value = email });
+                cmd.Parameters.Add(new NpgsqlParameter("@password", NpgsqlDbType.Text) { Value = password });
+                cmd.Parameters.Add(new NpgsqlParameter("@PhoneNumber", NpgsqlDbType.Text) { Value = phoneNumber });
+                cmd.Parameters.Add(new NpgsqlParameter("@City", NpgsqlDbType.Text) { Value = city });
+                cmd.Parameters.Add(new NpgsqlParameter("@UserID", NpgsqlDbType.Integer) { Value = userID });
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteUserAndItsItems(int userID)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+
+            // Dernæst slet brugeren selv
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                string deleteUserCommand = @"DELETE FROM users WHERE id = @UserID";
+                cmd.CommandText = deleteUserCommand;
+                cmd.Parameters.AddWithValue("@UserID", userID);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
     }
 }
