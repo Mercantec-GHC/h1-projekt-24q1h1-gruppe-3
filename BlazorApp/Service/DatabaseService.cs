@@ -14,8 +14,6 @@ namespace Service
         public string connectionString;
         public List<Item> allItems;
         public string CurrentUserID { get; private set; }
-
-
         public void SetCurrentUserID(string userID)
         {
             CurrentUserID = userID;
@@ -129,9 +127,6 @@ namespace Service
             int useridToInsert = Convert.ToInt32(CurrentUserID);
 
             using var connection = new NpgsqlConnection(connectionString);
-
-
-
 
             connection.Open();
 
@@ -354,6 +349,19 @@ namespace Service
                         return favorites;
                     }
                 }
+            }
+        }
+        public void AddItemToFavoriteInUsers(int userid, int itemid)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                string insertFav = $"UPDATE users SET favorites = favorites || ARRAY[{itemid}] WHERE id = {userid}";
+                cmd.CommandText = insertFav;
+                cmd.ExecuteNonQuery();
             }
         }
     }
