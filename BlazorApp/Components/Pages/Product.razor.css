@@ -49,6 +49,14 @@
 
 .col .priceTag {
     text-align: left;
+
+}
+
+.priceColor {
+    background: #9F24FF;
+    background: linear-gradient(to right, #9F24FF 0%, #009EFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .col .btn-dark {
