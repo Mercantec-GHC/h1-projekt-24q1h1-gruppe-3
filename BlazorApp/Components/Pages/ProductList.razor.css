@@ -7,6 +7,13 @@
     background-clip: content-box;
 }
 
+.textColor {
+    background: #9F24FF;
+    background: linear-gradient(to right, #9F24FF 0%, #009EFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .searchBtn {
     background-color: transparent; /* Fjerner baggrunden fra knappen */
     border: none; /* Fjerner knappens standardramme */
@@ -86,4 +93,14 @@
     .container {
         padding: 0 1rem;
     }
+}
+
+@media (min-width: 300px) {
+
+    .container {
+        display: flex;
+        flex-direction: column !important;
+        width: 100%;
+    }
+
 }
