@@ -2,25 +2,47 @@
 
 <PageTitle>Gamers Lounge: Profile Page</PageTitle>
 
-<div class="card">
-    <div class="container text-center">
-        <div class="row">
-            <div class="col" id="colLeft">
-                <div class="ProfileContainer">
-                    <img src="./Picture/img_avatar.png" alt="Avatar">
-                        <div class="ProfileDetails">
-                            <p>Name: @userToShow.name </p>
-                            <p>Phone number: @userToShow.phoneNumber</p>
-                            <p>Email: @userToShow.email</p>
-                            <p>City: @userToShow.city</p>
-                        </div>
+<div class="body">
+    <div class="card">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col" id="colLeft">
+                    <div class="ProfileContainer">
+                        <img src="./Picture/img_avatar.png" alt="Avatar">
+                            <div class="ProfileDetails">
+                                <p>Name: @userToShow.name </p>
+                                <p>Phone number: @userToShow.phoneNumber</p>
+                                <p>Email: @userToShow.email</p>
+                                <p>City: @userToShow.city</p>
+                                <button class="btn btn-dark editProfileBtn">Edit Profile</button>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col">
+                
                 </div>
             </div>
-            <div class="col-6">
-                
-            </div>
-            <div class="col">
-                <Listing Games="itemsForUserToShow"></Listing>
+            <div class="row">
+                <div class="col">
+
+                </div>
+                <div class="col-8">
+                    <button class="btn btn-dark" @onclick="expandListin">See your listings here</button>
+                    <button class="btn btn-dark" @onclick="expandFavListin">See your favorites here</button>
+                    @if (Listexpandable == true)
+                    {
+                        <Listing Games="itemsForUserToShow"></Listing>
+                    }
+                    @if (favlistexpandable == true)
+                    {
+                        <FavoriteListing userID="userToShow.userID"></FavoriteListing>
+                    }
+                </div>
+                <div class="col">
+
+                </div>
             </div>
         </div>
     </div>
@@ -29,10 +51,15 @@
 
 @code {
     public User userToShow;
+
     [Parameter]
     public string userID { get; set; }
 
     public List<Item> itemsForUserToShow;
+
+    bool Listexpandable = false;
+
+    bool favlistexpandable = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -54,4 +81,30 @@
             // Handle exception
         }
     }   
+
+    public void expandListin()
+    {
+        if (Listexpandable == false)
+        {
+            Listexpandable = true;
+            favlistexpandable = false;
+        }
+        else
+        {
+            Listexpandable = false;
+        }
+    }
+
+    public void expandFavListin()
+    {
+        if (favlistexpandable == false)
+        {
+            favlistexpandable = true;
+            Listexpandable = false;
+        }
+        else
+        {
+            favlistexpandable = false;
+        }
+    }
 }
