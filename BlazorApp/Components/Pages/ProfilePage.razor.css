@@ -1,4 +1,8 @@
-﻿.card{
+﻿.body {
+    min-height: 100vh;
+}
+
+.card{
     background-color: #b3b3b3
 }
 
@@ -22,9 +26,23 @@ img {
 .ProfileDetails {
     text-align: left;
     line-height: 0.7;
-
 }
+
+.editProfileBtn {
+    margin-top: 0.1rem;
+}
+
 
 .ListedSalesContaier {
     text-align: right;
+}
+
+.Displaygrid {
+    display: grid;
+    min-width: auto;
+    max-height: 1rem !important;
+}
+
+.btn {
+    margin-bottom: 1rem;
 }
