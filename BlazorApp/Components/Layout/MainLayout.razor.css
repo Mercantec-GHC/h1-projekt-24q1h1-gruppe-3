@@ -3,30 +3,47 @@
     display: flex;
     flex-direction: column;
 }
+.Logo{
+    margin: 0 1rem 0 1rem;
+}
 
 main {
     flex: 1;
     min-height: auto;
 }
 
+
 .mb-3 {
     background-color: #212529 !important;
 }
 
 .navbar, .navbar * {
-    color: lightblue !important;
     font-size: 1rem;
+    background: rgb(159,36,255);
+    background: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
+
 ::deep .nav-link {
-    color: white !important;
+    
     font-size: 1rem;
+    margin: 0 0.5rem 0 0.5rem;
 }
 
 ::deep .nav-link.active {
-    color: lightblue !important;
+    font-weight: bold;
     font-size: 1rem;
-    text-decoration: underline;
+    border-bottom: 3px solid white;
+    border-radius: 12px;
+}
+
+.textColor {
+    background: rgb(159,36,255);
+    background: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .navcontainer {
@@ -35,6 +52,7 @@ main {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    flex-direction: row;
 }
 
 #new-navbar-menu-user{
@@ -111,6 +129,13 @@ main {
     .top-row, article {
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
+    }
+}
+
+/* Move Icon & Home, product list & list for sale to left in nav */
+@media (min-width: 576px) {
+    .flex-sm-row-reverse {
+        flex-direction: row !important;
     }
 }
 
