@@ -3,7 +3,8 @@
 }
 
 .card{
-    background-color: #b3b3b3
+    background-color: #b3b3b3;
+    border-radius: 10px;
 }
 
 #colLeft{
@@ -51,6 +52,13 @@ img {
 
 .editProfileBtn {
     margin-top: 0.1rem;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #000; /* Ændrer linjens farve */
+    width: 100%; /* Sørger for, at linjen strækker sig over hele bredden */
+    height: 3px; /* Ændrer linjens højde */
 }
 
 .modal {
