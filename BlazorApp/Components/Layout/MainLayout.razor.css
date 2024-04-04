@@ -3,7 +3,10 @@
     display: flex;
     flex-direction: column;
 }
-.Logo{
+
+
+
+.Logo {
     margin: 0 1rem 0 1rem;
 }
 
@@ -17,13 +20,6 @@ main {
     background-color: #212529 !important;
 }
 
-.navbar, .navbar * {
-    font-size: 1rem;
-    background: rgb(159,36,255);
-    background: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
 
 
 ::deep .nav-link {
@@ -37,6 +33,9 @@ main {
     font-size: 1rem;
     border-bottom: 3px solid white;
     border-radius: 12px;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
 }
 
 .textColor {
@@ -70,7 +69,11 @@ main {
 
 .top-row {
     align-items: center;
-
+    font-size: 1rem;
+    background: rgb(159,36,255);
+    background: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
     .top-row ::deep a, .top-row ::deep .btn-link {
@@ -137,6 +140,19 @@ main {
     .flex-sm-row-reverse {
         flex-direction: row !important;
     }
+    
+}@media (min-width: 350px) {
+    .top-row {
+        display:flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .flex-sm-row-reverse {
+        flex-direction: row !important;
+    }
+
 }
 
 #blazor-error-ui {
