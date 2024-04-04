@@ -1,4 +1,7 @@
-﻿@page "/profilepage/{userID}"
+﻿@using Service
+@inject AuthenticationService AuthenticationService
+
+@page "/profilepage/{userID}"
 
 <PageTitle>Gamers Lounge: Profile Page</PageTitle>
 
@@ -10,18 +13,64 @@
                     <div class="ProfileContainer">
                         <img src="./Picture/img_avatar.png" alt="Avatar">
                             <div class="ProfileDetails">
+                            @if (editProfileinfo == true)
+                            {
+                                <label class="label">Name:</label>
+                                <input type="text" class="form-control" id="name" placeholder="@userToShow.name" @bind="updatedName">
+                                <label class="label">Email:</label>
+                                <input type="email" class="form-control" id="Email" placeholder="@userToShow.email" @bind="updatedEmail">
+                                <label class="label">Password:</label>
+                                <input type="text" class="form-control" id="City" placeholder="@userToShow.password" @bind="updatedPassword">
+                                <label class="label">Phone number:</label>
+                                <input type="tel" class="form-control" id="PhoneNumber" placeholder="@userToShow.phoneNumber" @bind="updatedPhoneNumber">
+                                <label class="label">City:</label>
+                                <input type="text" class="form-control" id="City" placeholder="@userToShow.city" @bind="updatedCity">
+                                <button class="btn btn-dark saveInfoBtn" @onclick="saveInfo">Save information</button>
+                                <button class="btn btn-dark cancelInfoBtn" @onclick="cancelsaveInfo">Cancel</button>
+                            }
+                            else{
+                                
                                 <p>Name: @userToShow.name </p>
                                 <p>Phone number: @userToShow.phoneNumber</p>
                                 <p>Email: @userToShow.email</p>
                                 <p>City: @userToShow.city</p>
-                                <button class="btn btn-dark editProfileBtn">Edit Profile</button>
+                                <button class="btn btn-dark editProfileBtn" @onclick="editProfile">Edit Profile</button>
+                            }
                             </div>
                     </div>
                 </div>
                 <div class="col-2">
                 </div>
                 <div class="col">
-                
+                    @if (editProfileinfo == true)
+                    {
+                        <button class="btn btn-danger deleteProfileBtn" @onclick="deleteConfirmationModal">Delete profile and all user infomation</button>
+                        @if (deleteConfirmation == true)
+                        {
+                            <div class="modal" tabindex="-1" style="display:block;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Confirm your choice</h5>
+
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you wish to delete your profile and all of your information?</p>
+                                            <p class="warning"> WARNING:</p>
+                                            <p class="warning">You will NOT be able to undo your decision!</p>
+                                            <div id="buttonContainer">
+                                                <button type="button" id="yesbtn" class="btn btn-danger" @onclick="DeleteUserAndItsItems">Yes</button>
+                                                <button type="button" id="Listed" class="btn btn-dark" @onclick="closeDeleteConfirmationModal">No</button>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-dark" @onclick="closeDeleteConfirmationModal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
             <div class="row">
@@ -61,6 +110,16 @@
 
     bool favlistexpandable = false;
 
+    bool editProfileinfo = false;
+
+    bool deleteConfirmation = false;
+
+    public string updatedName;
+    public string updatedPhoneNumber;
+    public string updatedEmail;
+    public string updatedCity;
+    public string updatedPassword;
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -88,6 +147,8 @@
         {
             Listexpandable = true;
             favlistexpandable = false;
+            editProfileinfo = false;
+
         }
         else
         {
@@ -101,10 +162,64 @@
         {
             favlistexpandable = true;
             Listexpandable = false;
+            editProfileinfo = false;
         }
         else
         {
             favlistexpandable = false;
         }
     }
+
+    public void editProfile()
+    {
+        if (editProfileinfo == false)
+        {
+            editProfileinfo = true;
+            Listexpandable = false;
+            favlistexpandable = false;
+        }
+    }
+
+    public void saveInfo()
+    {
+        // Opdater brugerens information i databasen
+        DB.UpdateUserInDatabase(userToShow.userID, updatedName, updatedEmail, updatedPassword, updatedPhoneNumber, updatedCity);
+
+        // Opdater brugerens information i komponenten
+        userToShow.name = updatedName;
+        userToShow.phoneNumber = updatedPhoneNumber;
+        userToShow.email = updatedEmail;
+        userToShow.city = updatedCity;
+
+        // Skift til visningsmodus
+        editProfileinfo = false;
+    }
+
+    public void cancelsaveInfo()
+    {
+        editProfileinfo = false;
+    }
+
+    public void deleteConfirmationModal()
+    {
+        deleteConfirmation = true;
+    }
+
+    public void closeDeleteConfirmationModal()
+    {
+        deleteConfirmation = false;
+    }
+
+    public async Task DeleteUserAndItsItems()
+    {
+        // Valider brugerinput eller sikkerhed før sletning
+        // For eksempel: Bekræft, at brugeren virkelig ønsker at slette sin profil
+
+        // Slet brugeren og deres spil
+        DB.DeleteUserAndItsItems(userToShow.userID);
+
+        AuthenticationService.Logout();
+        NavigationManager.NavigateTo("/login");
+    }
+}
 }
