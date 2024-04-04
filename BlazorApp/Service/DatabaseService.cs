@@ -357,7 +357,6 @@ namespace Service
                 }
             }
         }
-
         public void UpdateUserInDatabase(int userID, string name, string email, string password, string phoneNumber, string city)
         {
             using var connection = new NpgsqlConnection(connectionString);
@@ -380,7 +379,6 @@ namespace Service
                 cmd.ExecuteNonQuery();
             }
         }
-
         public void DeleteUserAndItsItems(int userID)
         {
             using var connection = new NpgsqlConnection(connectionString);
@@ -396,6 +394,18 @@ namespace Service
                 cmd.ExecuteNonQuery();
             }
         }
+        public void AddItemToFavoriteInUsers(int userid, int itemid)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
 
+            using (var cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = connection;
+                string insertFav = $"UPDATE users SET favorites = favorites || ARRAY[{itemid}] WHERE id = {userid}";
+                cmd.CommandText = insertFav;
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }
