@@ -6,7 +6,6 @@
     position: relative;
     align-items: center;
     padding: 2%;
-
 }
 
 .left-colum {
@@ -54,4 +53,9 @@
 .btn-dark:hover {
     transform: scale(1.05);
     transition: transform 0.3s ease-in-out;
+}
+
+.carousel-container {
+    display: flex;
+    justify-content: center;
 }
