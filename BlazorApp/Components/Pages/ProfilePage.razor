@@ -36,9 +36,13 @@
                                 <p>City: @userToShow.city</p>
                                 <button class="btn btn-dark editProfileBtn" @onclick="editProfile">Edit Profile</button>
                             }
+
                             </div>
+
                     </div>
+
                 </div>
+
                 <div class="col-2">
                 </div>
                 <div class="col">
@@ -73,6 +77,8 @@
                     }
                 </div>
             </div>
+            <hr> <!-- Horisontal linje under knappen -->
+
             <div class="row">
                 <div class="col">
 
@@ -80,6 +86,7 @@
                 <div class="col-8">
                     <button class="btn btn-dark" @onclick="expandListin">See your listings here</button>
                     <button class="btn btn-dark" @onclick="expandFavListin">See your favorites here</button>
+
                     @if (Listexpandable == true)
                     {
                         <Listing Games="itemsForUserToShow"></Listing>
