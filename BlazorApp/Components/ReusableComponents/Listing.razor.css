@@ -12,9 +12,22 @@
     transition: transform 0.3s ease-in-out;
 }
 
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    gap: 3rem;
+    padding: 1rem;
+}
+
+.game-grid .row {
+    background-color: #b3b3b3;
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
 .col-1 {
     position: relative;
-    min-width: auto;
+    min-height: auto;
     min-width: 7rem;
     margin: 0.3rem 0 0rem 0;
     display: flex;
@@ -41,11 +54,10 @@
 }
 
 .text-right {
-    text-align: right;
+    text-align: left;
 }
 
 .image-container {
-    display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -92,26 +104,24 @@
 .col-2 {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Justerer indholdet til venstre langs krydseraksen */
-    justify-content: flex-start; /* Justerer indholdet til venstre langs hovedaksen */
-    padding: 0.3rem 0 0.3rem 0;
-    margin: 0;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 0.1rem 0 0.1rem 0;
+    margin: 0.3rem 0 0 0;
+    width: 100%;
 }
-
-
-.col-2 > * {
-    margin-left: auto;
-
-}
-
-
 
 .game-price {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
+    color: deepskyblue;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    margin-top: auto;
 }
 
 .game-condition {
-    font-size: 1rem;
+    font-size: 1.5rem;
+    align-items: left;
+    padding: 0.2rem;
 }
 
 .game-image:hover {
@@ -121,6 +131,9 @@
 
 /* Media query for mindre skærme */
 @media (max-width: 768px) {
+    .game-grid {
+        grid-template-columns: repeat(auto-fill, minmax(40%, 0.5fr)); /* Juster min-width for at passe ind i mindre skærme */
+    }
     .col-1 {
         min-width: 5rem;
     }

@@ -1,0 +1,28 @@
+﻿<PageTitle>Gamers Lounge: Your Favorites</PageTitle>
+
+<h3 class="text">Your Favorites</h3>
+<div class="container">
+	<Listing Games="favGames"></Listing>
+</div>
+
+@code {
+    public List<Item> favGames = new List<Item>();
+
+    [Parameter]
+    public int userID { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        
+        List<int> favorites = DB.GetFavoritesByUserID(userID);
+
+        foreach ( var item in DB.allItems)
+        {
+            if (favorites.Contains(item.itemID))
+            {
+                favGames.Add(item);
+            }
+        }
+    }
+}

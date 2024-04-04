@@ -11,7 +11,7 @@
 					<div class="carousel-item @(currentIndexPC == i ? "active" : "")">
 						<div class="card-body-bottom" @onclick="@( () => HandleCardClick(pcGamesToShow[localIndex].itemID))">
 							<h4>PC</h4>
-							<img src="@path" alt="image @i" />
+							<img src="@path" alt="image @i" class="image"/>
 							<h4 class="game-name">@pcGamesToShow[localIndex].gameName</h4>
 							<p class="game-genre">@pcGamesToShow[localIndex].genre</p>
 							<p class="game-price">€ @pcGamesToShow[localIndex].price</p>
@@ -59,13 +59,13 @@
 
 @code {
 	[Parameter]
-	public List<PC_Game> pcGamesToShow { get; set; }
+	public List<Item> pcGamesToShow { get; set; }
 
 	[Parameter]
-	public List<XBOX_Game> xboxGamesToShow { get; set; }
+	public List<Item> xboxGamesToShow { get; set; }
 
 	[Parameter]
-	public List<PS_Game> psGamesToShow { get; set; }
+	public List<Item> psGamesToShow { get; set; }
 	private string[] images = new string[] { "ac", "skyrim", "ac", "skyrim", "ac", "skyrim", "ac", "skyrim", "ac", "skyrim", "ac", "skyrim" };
 
 

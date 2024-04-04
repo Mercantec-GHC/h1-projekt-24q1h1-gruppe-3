@@ -1,16 +1,60 @@
 ﻿@inherits LayoutComponentBase
+@using Service
+@inject AuthenticationService AuthenticationService
 
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+@*     <div class="sidebar">
+        <NavMenu/>
+    </div> *@
 
 
     <main style="background-color:#212529;">
-        <div class="top-row px-4" style="background-color:#212529;">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="navcontainer">
+                <img class="Logo" src="/logo.png" style="max-height: 35px; max-width: 40px;">
+                <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+                    <div class="textColor">
+                        <ul class="navbar-nav flex-grow-1" id="new-navbar-menu">
+                            <li class="nav-item-show">
+                                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                                    <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                                </NavLink>
+                            </li>
+                            <li class="nav-item-show">
+                                <NavLink class="nav-link" href="productlist">
+                                    <span id="navlink" class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Product list
+                                </NavLink>
+                            </li>
+                            <li class="nav-item-show">
+                                <NavLink class="nav-link" href="SalesListing">
+                                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> List for sale
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+					<div class="top-row">
+
+						@if (AuthenticationService.IsAuthenticated)
+						{
+							<button class="btn btn-link" @onclick="profilePage">Logget ind som: @AuthenticationService.CurrentUser.name</button>
+							<button type="button" class="btn btn-link" @onclick="logout">Log Out</button>
+						}
+						else
+						{
+							<a href="login">LogIn</a>
+
+							<a href="register">Register</a>
+						}
+
+					</div>
+            </div>
+        </nav>
+        
 
         <article class="content px-4" id="bodybackground">
             @Body
@@ -23,3 +67,28 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+@code {
+    bool collapseNavMenu = false;
+
+    string baseMenuClass = "navbar-collapse d-sm-inline-flex flex-sm-row-reverse";
+
+    string NavMenuCssClass => baseMenuClass + (collapseNavMenu ? " collapse" : "");
+
+    void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+
+    private void logout()
+    {
+        AuthenticationService.Logout();
+        NavigationManager.NavigateTo("/");
+    }
+
+    private void profilePage()
+    {
+        NavigationManager.NavigateTo($"/profilepage/{@AuthenticationService.CurrentUser.userID}");
+    }
+}

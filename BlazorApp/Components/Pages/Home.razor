@@ -2,68 +2,32 @@
 
 <PageTitle>Gamers Lounge</PageTitle>
 
-<div class="section">
-	<div class="container text-center">
-		<div class="row">
-			<div class="left-colum">
-				<h2 class="header-top-section">Buy and Sell Used Video Games</h2>
-				<p>Discover a wide selection of pre-owned video games and console. Start buying or selling today.</p>
-				<a href="" class="btn btn-dark">Start</a>
-				<a href="" class="btn btn-dark">Learn More</a>
-			</div>
-			<div class="right-colum">
-				<img src="./Picture/Temp_Picture.jpg" alt="" class="colum-image" />
+<div class="body">
+	<div class="section">
+		<div class="container text-center">
+			<div class="row">
+				<div class="left-colum">
+					<h2 class="header-top-section">Buy and Sell Used Video Games</h2>
+					<p>Discover a wide selection of pre-owned video games and console. Start buying or selling today.</p>
+					<a href="/productlist" class="btn btn-dark">Browse sales</a>
+					<a href="/login" class="btn btn-dark">LogIn</a>
+					<a href="/register" class="btn btn-dark">Register</a>
+				</div>
+				<div class="right-colum">
+					<img src="./Picture/Front.jpg" alt="" class="colum-image" />
+				</div>
 			</div>
 		</div>
+	</div>
+	<div class="carousel-container">
+		<CarouselProductCard pcGamesToShow="@pcGameToShow" psGamesToShow="@psGameToShow" xboxGamesToShow="@xboxGameToShow"></CarouselProductCard>
 	</div>
 </div>
-
-<div class="section">
-	<h2 class="text">Find Your Favorite Games at Great Prices</h2>
-	<p class="text">
-		Our platform offers a wide selection af used video games, ensuring you can find your favorite
-		titles at affordable prices. With secure payment options and user rating, you can buy with confidence.
-	</p>
-
-	<div class="card-container">
-
-		<div class="card-middle-section">
-			<div class="card-body">
-				<img src="favicon.png" class="logo" />
-				<h3 class="card-title">Wide Game Selection</h3>
-				<p class="card-text">Browse through a vast collection of games.</p>
-			</div>
-		</div>
-		<div class="card-middle-section">
-			<div class="card-body">
-				<img src="favicon.png" class="logo" />
-				<h3 class="card-title">Secure Payment</h3>
-				<p class="card-text">Shop with peace of mind knowing your transactions are secure.</p>
-			</div>
-		</div>
-		<div class="card-middle-section">
-			<div class="card-body">
-				<img src="favicon.png" class="logo" />
-				<h3 class="card-title">User Ratings</h3>
-				<p class="card-text">Make informed purchasing decisions with ratings and reviews.</p>
-			</div>
-		</div>
-	</div>
-	<div class="button-container-middle-section">
-		<a href="" class="btn btn-dark">Learn More</a>
-		&nbsp; @*Gives a standard space between the anchors*@
-		<a href="" class="btn btn-dark">Sign Up</a>
-	</div>
-</div>
-
-<CarouselProductCard pcGamesToShow="@pcGameToShow" psGamesToShow="@psGameToShow" xboxGamesToShow="@xboxGameToShow"></CarouselProductCard>
-
 
 @code {
-	public List<PC_Game> pcGameToShow;
-	public List<XBOX_Game> xboxGameToShow;
-	public List<PS_Game> psGameToShow;
-
+	public List<Item> pcGameToShow;
+	public List<Item> xboxGameToShow;
+	public List<Item> psGameToShow;
 
 	protected override void OnInitialized()
 	{

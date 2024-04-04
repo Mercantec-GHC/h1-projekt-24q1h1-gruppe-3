@@ -3,9 +3,65 @@
     display: flex;
     flex-direction: column;
 }
+.Logo{
+    margin: 0 1rem 0 1rem;
+}
 
 main {
     flex: 1;
+    min-height: auto;
+}
+
+
+.mb-3 {
+    background-color: #212529 !important;
+}
+
+.navbar, .navbar * {
+    font-size: 1rem;
+    background: rgb(159,36,255);
+    background: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+::deep .nav-link {
+    
+    font-size: 1rem;
+    margin: 0 0.5rem 0 0.5rem;
+}
+
+::deep .nav-link.active {
+    font-weight: bold;
+    font-size: 1rem;
+    border-bottom: 3px solid white;
+    border-radius: 12px;
+}
+
+.textColor {
+    background: rgb(159,36,255);
+    background: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.navcontainer {
+    background-color: #212529;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-direction: row;
+}
+
+#new-navbar-menu-user{
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.nav-item-show {
+    justify-content: space-between;
 }
 
 .sidebar {
@@ -13,12 +69,8 @@ main {
 }
 
 .top-row {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-end;
-    height: 3.5rem;
-    display: flex;
     align-items: center;
+
 }
 
     .top-row ::deep a, .top-row ::deep .btn-link {
@@ -37,8 +89,12 @@ main {
     }
 
 @media (max-width: 640.98px) {
+    .navcontainer {
+        flex-direction: column;
+    }
+
     .top-row {
-        justify-content: space-between;
+        order: 2;
     }
 
     .top-row ::deep a, .top-row ::deep .btn-link {
@@ -73,6 +129,13 @@ main {
     .top-row, article {
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
+    }
+}
+
+/* Move Icon & Home, product list & list for sale to left in nav */
+@media (min-width: 576px) {
+    .flex-sm-row-reverse {
+        flex-direction: row !important;
     }
 }
 
