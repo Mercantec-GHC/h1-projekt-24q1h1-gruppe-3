@@ -34,7 +34,10 @@
                                 <p>Phone number: @userToShow.phoneNumber</p>
                                 <p>Email: @userToShow.email</p>
                                 <p>City: @userToShow.city</p>
-                                <button class="btn btn-dark editProfileBtn" @onclick="editProfile">Edit Profile</button>
+                                @if (AuthenticationService.IsAuthenticated)
+                                {
+                                    <button class="btn btn-dark editProfileBtn" @onclick="editProfile">Edit Profile</button>
+                                }
                             }
 
                             </div>
@@ -84,8 +87,11 @@
 
                 </div>
                 <div class="col-8">
-                    <button class="btn btn-dark" @onclick="expandListin">See your listings here</button>
-                    <button class="btn btn-dark" @onclick="expandFavListin">See your favorites here</button>
+                    @if (AuthenticationService.IsAuthenticated)
+                    {
+                        <button class="btn btn-dark" @onclick="expandListin">See your listings here</button>
+                        <button class="btn btn-dark" @onclick="expandFavListin">See your favorites here</button>
+                    }
 
                     @if (Listexpandable == true)
                     {
