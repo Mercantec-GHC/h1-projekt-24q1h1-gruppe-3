@@ -11,6 +11,7 @@
 .map {
     margin-right: 1rem;
     margin-bottom: 1.5rem;
+    border-radius: 10px;
 }
 
 .container .row:first-child {

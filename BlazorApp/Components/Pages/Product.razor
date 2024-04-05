@@ -168,7 +168,6 @@
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"API Response: {json}");
 
                 // Brug JsonDocument til at navigere i JSON-svaret
                 using (JsonDocument document = JsonDocument.Parse(json))
@@ -184,7 +183,6 @@
                                 double longitude = coordinatesElement[0].GetDouble();
                                 double latitude = coordinatesElement[1].GetDouble();
                                 mapUrl = $"https://api.maptiler.com/maps/basic-v2/?key=i6USPWEOkGRsTGhqqqrb#13.0/{latitude.ToString().Replace(',', '.')}/{longitude.ToString().Replace(',', '.')}";
-                                Console.WriteLine($"Updated mapUrl: {mapUrl}");
                                 break; // Stop efter den første match
                             }
                         }
@@ -193,9 +191,7 @@
             }
             else
             {
-                Console.WriteLine($"API Request Failed: {response.StatusCode}");
                 string errorContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Error Content: {errorContent}");
             }
         }
     }
