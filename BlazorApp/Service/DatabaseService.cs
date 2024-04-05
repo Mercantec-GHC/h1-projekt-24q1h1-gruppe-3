@@ -368,7 +368,7 @@ namespace Service
                     {
                         while (reader.Read())
                         {
-                            foreach (var item in reader["favorites"].ToString().Split(','))
+                            foreach (var item in reader["favorites"].ToString().Split(',').Where(s => !string.IsNullOrWhiteSpace(s)))
                             {
                                 favorites.Add(Convert.ToInt32(item));
                             }
