@@ -94,7 +94,7 @@
     [Parameter]
     public string itemID { get; set; }
 
-    public string mapUrl = $"https://api.maptiler.com/maps/basic-v2/?key=i6USPWEOkGRsTGhqqqrb#10.0/0/0";
+    public string mapUrl = $"https://api.maptiler.com/maps/basic-v2/?key=i6USPWEOkGRsTGhqqqrb#12.0/0/0";
 
 
     protected override async Task OnInitializedAsync()
@@ -109,7 +109,7 @@
                 gameToShow = item;
             }
         }
-        await UpdateMap("Viborg");
+        await UpdateMap("Holstebro");
     }
 
     void DeleteGame()
@@ -145,19 +145,24 @@
                 string json = await response.Content.ReadAsStringAsync();
                 Console.WriteLine($"API Response: {json}");
 
-                // Deserialisering af JSON-svaret
-                GeocodingResult result = JsonSerializer.Deserialize<GeocodingResult>(json);
-                if (result.Features != null && result.Features.Count > 0)
+                // Brug JsonDocument til at navigere i JSON-svaret
+                using (JsonDocument document = JsonDocument.Parse(json))
                 {
-                    Feature feature = result.Features[0]; // Antager, at det første feature er det mest relevante
-                    if (feature.Center != null && feature.Center.Count == 2)
+                    JsonElement root = document.RootElement;
+                    if (root.TryGetProperty("features", out JsonElement featuresElement) && featuresElement.ValueKind == JsonValueKind.Array)
                     {
-                        // Opdatering af mapUrl med de nye koordinater
-                        double latitude = feature.Center[1];
-                        double longitude = feature.Center[0];
-                        mapUrl = $"https://api.maptiler.com/maps/basic-v2/?key=i6USPWEOkGRsTGhqqqrb#10.0/{latitude}/{longitude}";
-                        Console.Clear();
-                        Console.WriteLine($"Updated mapUrl: {mapUrl}");
+                        foreach (JsonElement featureElement in featuresElement.EnumerateArray())
+                        {
+                            if (featureElement.TryGetProperty("geometry", out JsonElement geometryElement) && geometryElement.TryGetProperty("coordinates", out JsonElement coordinatesElement))
+                            {
+                                // Antager, at koordinaterne er en liste med længdegrad og breddegrad
+                                double longitude = coordinatesElement[0].GetDouble();
+                                double latitude = coordinatesElement[1].GetDouble();
+                                mapUrl = $"https://api.maptiler.com/maps/basic-v2/?key=i6USPWEOkGRsTGhqqqrb#12.0/{latitude.ToString().Replace(',', '.')}/{longitude.ToString().Replace(',', '.')}";
+                                Console.WriteLine($"Updated mapUrl: {mapUrl}");
+                                break; // Stop efter den første match
+                            }
+                        }
                     }
                 }
             }
@@ -182,6 +187,7 @@
     {
         public List<double> Center { get; set; }
     }
+
 }
 
 }
