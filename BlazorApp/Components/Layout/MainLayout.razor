@@ -12,7 +12,9 @@
     <main style="background-color:#212529;">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="navcontainer">
-                <img class="Logo" src="/logo.png" style="max-height: 35px; max-width: 40px;">
+                <NavLink href="" Match="NavLinkMatch.All">
+                    <img class="Logo" src="/logo.png" style="max-height: 35px; max-width: 40px;">
+                </NavLink>
                 <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -21,7 +23,7 @@
                         <ul class="navbar-nav flex-grow-1" id="new-navbar-menu">
                             <li class="nav-item-show">
                                 <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                                    <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                                    <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Gamers Lounge
                                 </NavLink>
                             </li>
                             <li class="nav-item-show">

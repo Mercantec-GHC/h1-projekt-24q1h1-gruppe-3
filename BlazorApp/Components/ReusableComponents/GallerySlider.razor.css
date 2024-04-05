@@ -3,6 +3,10 @@
     margin-bottom: 2%;
 }
 
+.image {
+    border-radius: 10px;
+}
+
 .btns {
     width: 100%;
     margin-bottom: 2%;
