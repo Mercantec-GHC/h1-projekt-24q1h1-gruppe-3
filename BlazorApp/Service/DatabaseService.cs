@@ -415,7 +415,7 @@ namespace Service
                 cmd.ExecuteNonQuery();
             }
         }
-        public void AddItemToFavoriteInUsers(int userid, int itemid, List<int> a)
+        public void AddItemToFavoriteInUsers(int userid, int itemid)
         {
             using var connection = new NpgsqlConnection(connectionString);
             connection.Open();
@@ -423,14 +423,26 @@ namespace Service
             using (var cmd = new NpgsqlCommand())
             {
                 cmd.Connection = connection;
-                string insertFav = $"UPDATE users SET favorites = favorites || ARRAY[{itemid}] WHERE id = {userid}";
+                string insertFav = $@"UPDATE users
+                                      SET favorites = favorites || ARRAY[{itemid}]
+                                      WHERE id = {userid}";
                 cmd.CommandText = insertFav;
                 cmd.ExecuteNonQuery();
             }
+        }
+        public void DeleteItemFromFavorites(int userid, int itemid)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
 
-            foreach (var item in a)
+            using (var cmd = new NpgsqlCommand())
             {
-                Console.WriteLine(item);
+                cmd.Connection = connection;
+                string insertFav = $@"UPDATE users
+                                      SET favorites = array_remove(favorites, {itemid})
+                                      WHERE id = {userid}";
+                cmd.CommandText = insertFav;
+                cmd.ExecuteNonQuery();
             }
         }
     }

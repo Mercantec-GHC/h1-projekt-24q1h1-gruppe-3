@@ -119,12 +119,13 @@
         if (!favoriteGames.Contains(game.itemID))
         {
             favoriteGames.Add(game.itemID);
-            await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er tilføjet til favoritter");
-            DB.AddItemToFavoriteInUsers(AuthenticationService.CurrentUser.userID, game.itemID, favoriteGames);
+            await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, will be added to your favorites list.");
+            DB.AddItemToFavoriteInUsers(AuthenticationService.CurrentUser.userID, game.itemID);
         }
         else
         {
-            await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er allerede tilføjet til favoritter");
+            await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, is already on your favorites list, and will be deleted. If you do not wish to remove it from your favorites list, press the star again.");
+            DB.DeleteItemFromFavorites(AuthenticationService.CurrentUser.userID, game.itemID);
         }
     }
 

@@ -1,9 +1,6 @@
 ﻿@page "/productlist"
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
-@using Service
-@inject AuthenticationService AuthenticationService
-
 
 <PageTitle>Gamers Lounge: Product List</PageTitle>
 
@@ -84,7 +81,7 @@
 
 <!-- Show the products -->
 <div class="container">
-    <Listing Games="gamesToShow" OnAddToFavorites="AddToFavorites"></Listing>
+    <Listing Games="gamesToShow"></Listing>
 </div>
 
 <!--   Page  -->
@@ -95,7 +92,6 @@
 </div>
 
 @code {
-    public List<int> favoriteGames = new List<int>();
     public List<Item> gamesToShow;
     public string platform;
     public string price;
@@ -155,21 +151,5 @@
         }
 
         StateHasChanged();
-    }
-
-    // Add to favorites
-    private async Task AddToFavorites(Item game)
-    {
-        favoriteGames = (DB.GetFavoritesByUserID(AuthenticationService.CurrentUser.userID));        
-        if (!favoriteGames.Contains(game.itemID))
-        {
-            favoriteGames.Add(game.itemID);
-            await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er tilføjet til favoritter");
-            DB.AddItemToFavoriteInUsers(AuthenticationService.CurrentUser.userID, game.itemID, favoriteGames);
-        }
-        else
-        {
-            await JSRuntime.InvokeVoidAsync("alert", $"{game.gameName}, er allerede tilføjet til favoritter");
-        }
     }
 }
