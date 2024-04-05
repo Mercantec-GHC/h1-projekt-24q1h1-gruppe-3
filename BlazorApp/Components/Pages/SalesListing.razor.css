@@ -70,3 +70,14 @@
 #buttonContainer .btn {
     margin: 0 5px;
 }
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Dette sikrer, at der er en lille mellemrum mellem knapperne */
+}
+
+.btn {
+    flex: 1; /* Dette sikrer, at knapperne fylder op i tilgængelig plads */
+    margin: 0; /* Fjerner margin, så knapperne er tættere på hinanden */
+}

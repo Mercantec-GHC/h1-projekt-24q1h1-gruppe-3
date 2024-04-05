@@ -224,8 +224,10 @@ else{
                 <p>You need to log in, to create a new sale</p>
             </div>
             <div class="card-body">
-                <button class="btn btn-dark" @onclick="navlogin">Login</button>
-                <button class="btn btn-dark" @onclick="navregister">Register</button>
+                <div class="btn-group">
+                    <button class="btn btn-dark loginbtn" @onclick="navlogin">Login</button>
+                    <button class="btn btn-dark registerbtn" @onclick="navregister">Register</button>
+                </div>
             </div>
         </div>
     </div>
