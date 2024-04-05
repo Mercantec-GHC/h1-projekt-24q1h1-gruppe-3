@@ -23,14 +23,15 @@ main {
 
 
 ::deep .nav-link {
-    
-    font-size: 1rem;
+    font-weight: bold;
+    font-size: 1.2rem;
     margin: 0 0.5rem 0 0.5rem;
+    font-family: 'Bradley Hand ITC';
 }
 
 ::deep .nav-link.active {
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 1.3rem;
     border-bottom: 3px solid white;
     border-radius: 12px;
     justify-content: center;
@@ -69,11 +70,13 @@ main {
 
 .top-row {
     align-items: center;
-    font-size: 1rem;
+    font-size: 1.2rem;
     background: rgb(159,36,255);
     background: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-family: 'Bradley Hand ITC';
+    font-weight: bold;
 }
 
     .top-row ::deep a, .top-row ::deep .btn-link {
