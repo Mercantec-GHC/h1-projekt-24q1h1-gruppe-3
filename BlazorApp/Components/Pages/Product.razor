@@ -1,6 +1,7 @@
 ﻿@page "/product/{itemID}"
 @using Service
 @inject AuthenticationService AuthenticationService
+@using System.Text.Json
 
 <PageTitle>Gamers lounge: @gameToShow.gameName</PageTitle>
 
@@ -56,6 +57,7 @@
             <div class="col">
                 <div class="sellerLocation">
                     <p><SellerDetails userID="gameToShow.userID" ShowOnlyLocation="true"></SellerDetails> </p>
+                    <iframe width="500" height="300" src="@mapUrl"></iframe>
                 </div>
             </div>
         </div>
@@ -92,8 +94,10 @@
     [Parameter]
     public string itemID { get; set; }
 
+    public string mapUrl = $"https://api.maptiler.com/maps/basic-v2/?key=i6USPWEOkGRsTGhqqqrb#10.0/0/0";
 
-    protected override void OnInitialized()
+
+    protected override async Task OnInitializedAsync()
     {
         CurrentUserID = AuthenticationService.CurrentUserID;
 
@@ -105,6 +109,7 @@
                 gameToShow = item;
             }
         }
+        await UpdateMap("Viborg");
     }
 
     void DeleteGame()
@@ -125,4 +130,58 @@
     {
         ShowModal = false;
     }
+
+    
+
+    public async Task UpdateMap(string address)
+    {
+        string geocodingUrl = $"https://api.maptiler.com/geocoding/{Uri.EscapeDataString(address)}.json?proximity=ip&autocomplete=false&fuzzyMatch=true&key=i6USPWEOkGRsTGhqqqrb";
+
+        using (HttpClient client = new HttpClient())
+        {
+            HttpResponseMessage response = await client.GetAsync(geocodingUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"API Response: {json}");
+
+                // Deserialisering af JSON-svaret
+                GeocodingResult result = JsonSerializer.Deserialize<GeocodingResult>(json);
+                if (result.Features != null && result.Features.Count > 0)
+                {
+                    Feature feature = result.Features[0]; // Antager, at det første feature er det mest relevante
+                    if (feature.Center != null && feature.Center.Count == 2)
+                    {
+                        // Opdatering af mapUrl med de nye koordinater
+                        double latitude = feature.Center[1];
+                        double longitude = feature.Center[0];
+                        mapUrl = $"https://api.maptiler.com/maps/basic-v2/?key=i6USPWEOkGRsTGhqqqrb#10.0/{latitude}/{longitude}";
+                        Console.Clear();
+                        Console.WriteLine($"Updated mapUrl: {mapUrl}");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine($"API Request Failed: {response.StatusCode}");
+                string errorContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Error Content: {errorContent}");
+            }
+        }
+    }
+
+
+
+    // Klasse til at deserialisere geocoding-resultatet
+    public class GeocodingResult
+    {
+        public List<Feature> Features { get; set; }
+    }
+
+    public class Feature
+    {
+        public List<double> Center { get; set; }
+    }
+}
+
 }
