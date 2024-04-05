@@ -94,11 +94,17 @@
     <button class="pageBtn" @onclick="() => { currentPage = currentPage + 1; UpdatePage(currentPage); }" disabled="@(currentPage >= totalPages)"> ► </button>
 </div>
 
+
+
 @code {
     public List<int> favoriteGames = new List<int>();
     public List<Item> gamesToShow;
     public string platform;
     public string price;
+
+    // Modal
+    bool ShowModal { get; set; }
+
 
     // Switch between pages variables
     private int currentPage = 1;

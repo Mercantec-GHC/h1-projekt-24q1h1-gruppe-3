@@ -117,7 +117,7 @@
     background: linear-gradient(to right, #9F24FF 0%, #009EFF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-top: auto;
+    margin: 0;
 }
 
 .game-condition {
