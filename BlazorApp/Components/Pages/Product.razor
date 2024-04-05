@@ -2,6 +2,7 @@
 @inject IJSRuntime JSRuntime
 @using Service
 @inject AuthenticationService AuthenticationService
+@using System.Text.Json
 
 <PageTitle>Gamers lounge: @gameToShow.gameName</PageTitle>
 
@@ -60,7 +61,8 @@
             </div>
             <div class="col">
                 <div class="sellerLocation">
-                    <p><SellerDetails userID="gameToShow.userID" ShowOnlyLocation="true"></SellerDetails> </p>
+                    <h5 class="location">Location:</h5>
+                    <iframe class="map" width="400" height="300" src="@mapUrl"></iframe>
                 </div>
             </div>
         </div>
@@ -99,7 +101,10 @@
     public string itemID { get; set; }
 
 
-    protected override void OnInitialized()
+    public string mapUrl = $"https://api.maptiler.com/maps/basic-v2/?key=i6USPWEOkGRsTGhqqqrb#13.0/0/0";
+
+
+    protected override async Task OnInitializedAsync()
     {
         CurrentUserID = AuthenticationService.CurrentUserID;
 
@@ -111,6 +116,9 @@
                 gameToShow = item;
             }
         }
+
+        var sellerDetails = DB.GetSellerDetailsFromUsers(gameToShow.userID).FirstOrDefault()?.city;
+        await UpdateMap(sellerDetails);
     }
 
     private async Task AddToFavorites(Item game)
@@ -147,4 +155,64 @@
     {
         ShowModal = false;
     }
+
+    
+
+    public async Task UpdateMap(string address)
+    {
+        string geocodingUrl = $"https://api.maptiler.com/geocoding/{Uri.EscapeDataString(address)}.json?proximity=ip&autocomplete=false&fuzzyMatch=true&key=i6USPWEOkGRsTGhqqqrb";
+
+        using (HttpClient client = new HttpClient())
+        {
+            HttpResponseMessage response = await client.GetAsync(geocodingUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"API Response: {json}");
+
+                // Brug JsonDocument til at navigere i JSON-svaret
+                using (JsonDocument document = JsonDocument.Parse(json))
+                {
+                    JsonElement root = document.RootElement;
+                    if (root.TryGetProperty("features", out JsonElement featuresElement) && featuresElement.ValueKind == JsonValueKind.Array)
+                    {
+                        foreach (JsonElement featureElement in featuresElement.EnumerateArray())
+                        {
+                            if (featureElement.TryGetProperty("geometry", out JsonElement geometryElement) && geometryElement.TryGetProperty("coordinates", out JsonElement coordinatesElement))
+                            {
+                                // Antager, at koordinaterne er en liste med længdegrad og breddegrad
+                                double longitude = coordinatesElement[0].GetDouble();
+                                double latitude = coordinatesElement[1].GetDouble();
+                                mapUrl = $"https://api.maptiler.com/maps/basic-v2/?key=i6USPWEOkGRsTGhqqqrb#13.0/{latitude.ToString().Replace(',', '.')}/{longitude.ToString().Replace(',', '.')}";
+                                Console.WriteLine($"Updated mapUrl: {mapUrl}");
+                                break; // Stop efter den første match
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine($"API Request Failed: {response.StatusCode}");
+                string errorContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Error Content: {errorContent}");
+            }
+        }
+    }
+
+
+
+    // Klasse til at deserialisere geocoding-resultatet
+    public class GeocodingResult
+    {
+        public List<Feature> Features { get; set; }
+    }
+
+    public class Feature
+    {
+        public List<double> Center { get; set; }
+    }
+
+}
+
 }

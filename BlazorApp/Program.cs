@@ -1,5 +1,6 @@
 using BlazorApp.Components;
 using DomainModels;
+using Microsoft.AspNetCore.Components;
 using Service;
 
 
@@ -15,6 +16,7 @@ namespace BlazorApp
             var connectionString = Configuration.GetConnectionString("DefaultConnection") ?? Environment.GetEnvironmentVariable("DefaultConnection");
             builder.Services.AddSingleton<DatabaseService>(sp => new DatabaseService(connectionString));
             builder.Services.AddSingleton<FiltreTypes>(sp => new FiltreTypes());
+            
 
             builder.Services.AddScoped<AuthenticationService>();
 

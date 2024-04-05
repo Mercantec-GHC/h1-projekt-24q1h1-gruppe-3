@@ -2,6 +2,17 @@
     min-height: 100vh;
 }
 
+.location {
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.map {
+    margin-right: 1rem;
+    margin-bottom: 1.5rem;
+}
+
 .container .row:first-child {
     box-shadow: 5px 5px;
     background-color: #b3b3b3;

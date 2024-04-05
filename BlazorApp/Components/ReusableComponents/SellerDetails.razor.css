@@ -20,3 +20,11 @@
 .col .itemsold {
     margin-bottom: 0px;
 }
+
+.compact-p {
+    margin-bottom: 0.2rem !important;
+}
+
+p {
+    margin-bottom: 0.2rem !important;
+}
