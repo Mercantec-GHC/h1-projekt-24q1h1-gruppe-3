@@ -43,8 +43,8 @@
 
 						@if (AuthenticationService.IsAuthenticated)
 						{
-                        <button class="btn btn-link" @onclick="profilePage" style="font-family: 'Bradley Hand ITC';">Logget ind som: @AuthenticationService.CurrentUser.name</button>
-                        <button type="button" class="btn btn-link" @onclick="logout" style="font-family: 'Bradley Hand ITC';">Log Out</button>
+                        <button class="btn btn-link" @onclick="profilePage" style="font-family: 'Bradley Hand ITC'; font-size: 1.2rem; font-weight:bold;">Logget ind som: @AuthenticationService.CurrentUser.name</button>
+                        <button type="button" class="btn btn-link" @onclick="logout" style="font-family: 'Bradley Hand ITC'; font-size: 1.2rem; font-weight:bold;">Log Out</button>
 						}
 						else
 						{
