@@ -56,8 +56,8 @@
             </div>
             <div class="col">
                 <div class="sellerLocation">
-                    <p><SellerDetails userID="gameToShow.userID" ShowOnlyLocation="true"></SellerDetails> </p>
-                    <iframe width="500" height="300" src="@mapUrl"></iframe>
+                    <h5 class="location">Location:</h5>
+                    <iframe class="map" width="400" height="300" src="@mapUrl"></iframe>
                 </div>
             </div>
         </div>
@@ -94,7 +94,8 @@
     [Parameter]
     public string itemID { get; set; }
 
-    public string mapUrl = $"https://api.maptiler.com/maps/basic-v2/?key=i6USPWEOkGRsTGhqqqrb#12.0/0/0";
+
+    public string mapUrl = $"https://api.maptiler.com/maps/basic-v2/?key=i6USPWEOkGRsTGhqqqrb#13.0/0/0";
 
 
     protected override async Task OnInitializedAsync()
@@ -109,7 +110,9 @@
                 gameToShow = item;
             }
         }
-        await UpdateMap("Holstebro");
+
+        var sellerDetails = DB.GetSellerDetailsFromUsers(gameToShow.userID).FirstOrDefault()?.city;
+        await UpdateMap(sellerDetails);
     }
 
     void DeleteGame()
@@ -158,7 +161,7 @@
                                 // Antager, at koordinaterne er en liste med længdegrad og breddegrad
                                 double longitude = coordinatesElement[0].GetDouble();
                                 double latitude = coordinatesElement[1].GetDouble();
-                                mapUrl = $"https://api.maptiler.com/maps/basic-v2/?key=i6USPWEOkGRsTGhqqqrb#12.0/{latitude.ToString().Replace(',', '.')}/{longitude.ToString().Replace(',', '.')}";
+                                mapUrl = $"https://api.maptiler.com/maps/basic-v2/?key=i6USPWEOkGRsTGhqqqrb#13.0/{latitude.ToString().Replace(',', '.')}/{longitude.ToString().Replace(',', '.')}";
                                 Console.WriteLine($"Updated mapUrl: {mapUrl}");
                                 break; // Stop efter den første match
                             }
