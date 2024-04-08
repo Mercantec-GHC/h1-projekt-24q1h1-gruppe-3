@@ -15,7 +15,8 @@ namespace Service
         public string connectionString;
         public List<Item> allItems;
         public string CurrentUserID { get; private set; }
-
+        public List<User> allUsers;
+        public DatabaseService(string connectionString) { this.connectionString = connectionString; this.allItems = GetAllData(); this.allUsers = GetAllUser(); }
 
         public void SetCurrentUserID(string userID)
         {
@@ -24,7 +25,6 @@ namespace Service
 
         //er det smart at den beder om alle bruger ved opstart??
 
-        public DatabaseService(string connectionString) { this.connectionString = connectionString; this.allItems = GetAllData(); this.allUsers = GetAllUser(); }
         public List<Item> GetAllData()
         {
             List<Item> allData = new List<Item>();
@@ -41,8 +41,8 @@ namespace Service
                     {
                         while (reader.Read())
                         {
-                            var type = reader["type"].ToString().ToUpper();
-                            if (type == "PC")
+                            var Type = reader["type"].ToString().ToUpper();
+                            if (Type == "PC")
                             {
                                 allData.Add(new PC_Game()
                                 {
@@ -53,10 +53,11 @@ namespace Service
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
                                     description = reader["description"].ToString(),
-                                    userID = Convert.ToInt32(reader["userid"])
+                                    userID = Convert.ToInt32(reader["userid"]),
+                                    type = reader["type"].ToString()
                                 });
                             }
-                            else if (type == "PS")
+                            else if (Type == "PS")
                             {
                                 allData.Add(new PS_Game()
                                 {
@@ -67,10 +68,11 @@ namespace Service
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
                                     description = reader["description"].ToString(),
-                                    userID = Convert.ToInt32(reader["userid"])
+                                    userID = Convert.ToInt32(reader["userid"]),
+                                    type = reader["type"].ToString()
                                 });
                             }
-                            else if (type == "XBOX")
+                            else if (Type == "XBOX")
                             {
                                 allData.Add(new XBOX_Game()
                                 {
@@ -81,7 +83,8 @@ namespace Service
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
                                     description = reader["description"].ToString(),
-                                    userID = Convert.ToInt32(reader["userid"])
+                                    userID = Convert.ToInt32(reader["userid"]),
+                                    type = reader["type"].ToString()
                                 });
                             }
                         }
@@ -90,7 +93,6 @@ namespace Service
                 }
             }
         }
-        public List<User> allUsers;
         public List<User> GetAllUser()
         {
             List<User> allUser = new List<User>();
@@ -315,7 +317,6 @@ namespace Service
             // Optionally, update the allItems list to reflect the deletion
             this.allItems = GetAllData();
         }
-
 
         public List<User> GetSellerDetailsFromUsers(int userID)
         {

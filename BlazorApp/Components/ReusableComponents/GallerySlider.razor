@@ -1,14 +1,41 @@
-﻿
-<div class="carousel">
-    @for (var i = 0; i < images.Length; i++)
-    {
-        var path = $"/Picture/{images[i]}.png";
-        <div class="carousel-item @(currentIndex == i ? "active" : "")">
-            <img src="@path" alt="Image @i" class="image"/>
-        </div>
+﻿@if (type == "PC")
+{
+    <div class="carousel">
+        @for (var i = 0; i < imagesPC.Length; i++)
+        {
+            var path = $"/Picture/{imagesPC[i]}";
+            <div class="carousel-item @(currentIndex == i ? "active" : "")">
+                <img src="@path" alt="Image @i" class="image"/>
+            </div>
 
-    }
-</div>
+        }
+    </div>
+}
+else if (type == "PS")
+{
+    <div class="carousel">
+        @for (var i = 0; i < imagesPS.Length; i++)
+        {
+            var path = $"/Picture/{imagesPS[i]}";
+            <div class="carousel-item @(currentIndex == i ? "active" : "")">
+                <img src="@path" alt="Image @i" class="image"/>
+            </div>
+
+        }
+    </div>
+}else if (type == "XBOX")
+{
+    <div class="carousel">
+        @for (var i = 0; i < imagesXBOX.Length; i++)
+        {
+            var path = $"/Picture/{imagesXBOX[i]}";
+            <div class="carousel-item @(currentIndex == i ? "active" : "")">
+                <img src="@path" alt="Image @i" class="image"/>
+            </div>
+
+        }
+    </div>
+}
 
 <div class="btns">
     <a class="prevbtn" @onclick="PreviousImage">
@@ -25,17 +52,25 @@
 
 
 @code {
+    [Parameter]
+    public string type { get; set; }
     private int index = 0;
     private int currentIndex = 0;
-    private string[] images = new string[] { "ac", "skyrim"};
+    private string[] imagesPC = new string[] { "PC_1.jpg", "PC_2.webp"};
+    private string[] imagesPS = new string[] { "PS_1.jpg", "PS_2.webp"};
+    private string[] imagesXBOX = new string[] { "XBOX_1.jpg", "XBOX_2.jpg" };
 
     private void NextImage()
     {
-        currentIndex = (currentIndex + 1) % images.Length;
+        currentIndex = (currentIndex + 1) % imagesPC.Length;
+        currentIndex = (currentIndex + 1) % imagesPS.Length;
+        currentIndex = (currentIndex + 1) % imagesXBOX.Length;
     }
 
     private void PreviousImage()
     {
-        currentIndex = (currentIndex - 1 + images.Length) % images.Length;
+        currentIndex = (currentIndex - 1 + imagesPC.Length) % imagesPC.Length;
+        currentIndex = (currentIndex - 1 + imagesPS.Length) % imagesPS.Length;
+        currentIndex = (currentIndex - 1 + imagesXBOX.Length) % imagesXBOX.Length;
     }
 }

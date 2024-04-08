@@ -18,6 +18,7 @@ namespace DomainModels
         public string manufacture;
         public bool addToFaverite;
         public string description;
+        public string type;
 
         public int userID { get; set; }
 
