@@ -1,0 +1,25 @@
+﻿
+@if (ShowPopup)
+{
+    <div class="search-popup">
+        @foreach (var game in Games)
+        {
+            <div class="game-item" @onclick="() => NavigateToGame(game)">
+                @game.gameName
+            </div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public bool ShowPopup { get; set; }
+
+    [Parameter]
+    public List<Item> Games { get; set; }
+
+    public void NavigateToGame(Item game)
+    {
+        NavigationManager.NavigateTo($"/product/{game.itemID}", forceLoad: true);
+    }
+}

@@ -316,6 +316,74 @@ namespace Service
             this.allItems = GetAllData();
         }
 
+        public List<Item> SearchProducts(string searchText)
+        {
+            List<Item> filteredItems = new List<Item>();
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string sql = "SELECT * FROM items WHERE LOWER(gamename) LIKE LOWER(@SearchText)";
+                using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@SearchText", $"%{searchText}%");
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var type = reader["type"].ToString().ToUpper();
+                            if (type == "PC")
+                            {
+                                filteredItems.Add(new PC_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString(),
+                                    userID = Convert.ToInt32(reader["userid"])
+                                });
+                            }
+                            else if (type == "PS")
+                            {
+                                filteredItems.Add(new PS_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString(),
+                                    userID = Convert.ToInt32(reader["userid"])
+                                });
+                            }
+                            else if (type == "XBOX")
+                            {
+                                filteredItems.Add(new XBOX_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString(),
+                                    userID = Convert.ToInt32(reader["userid"])
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+
+            return filteredItems;
+        }
+
+
+
 
         public List<User> GetSellerDetailsFromUsers(int userID)
         {

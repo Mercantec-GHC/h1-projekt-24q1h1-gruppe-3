@@ -1,8 +1,5 @@
 ﻿
-@if (showSearch)
-{
-    <input type="text" @bind-value="searchText" @oninput="ValueChanged" placeholder="Search games..." />
-}
+<input type="text" @bind-value="searchText" @oninput="ValueChanged" placeholder="Search games..." />
 
 @code {
     [Parameter]
@@ -12,7 +9,7 @@
     [Parameter]
     public bool showSearch { get; set; }
     [Parameter]
-    public string searchText { get; set; } // Sørg for, at dette er en parameter
+    public string searchText { get; set; }
 
     private async Task ValueChanged(ChangeEventArgs e)
     {
