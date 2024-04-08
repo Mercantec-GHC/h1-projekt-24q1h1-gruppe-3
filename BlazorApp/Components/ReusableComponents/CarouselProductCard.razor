@@ -6,7 +6,7 @@
 			<div class="carousel">
 				@for (var i = 0; i < pcGamesToShow.Count; i++)
 				{
-					var path = $"/Picture/{images[i]}.png";
+					var path = $"/Picture/{imagesPC[i]}";
 					var localIndex = i;
 					<div class="carousel-item @(currentIndexPC == i ? "active" : "")">
 						<div class="card-body-bottom" @onclick="@( () => HandleCardClick(pcGamesToShow[localIndex].itemID))">
@@ -24,11 +24,12 @@
 			<div class="carousel">
 				@for (var i = 0; i < psGamesToShow.Count; i++)
 				{
+					var path = $"/Picture/{imagesPS[i]}";
 					var localIndex = i;
 					<div class="carousel-item @(currentIndexPS == i ? "active" : "")">
 						<div class="card-body-bottom" @onclick="@( () => HandleCardClick(psGamesToShow[localIndex].itemID))">
 							<h4>PS</h4>
-							<img src="./Picture/skyrim.png" class="image" />
+							<img src="@path" class="image" />
 							<h4 class="game-name">@psGamesToShow[localIndex].gameName</h4>
 							<p class="game-genre">@psGamesToShow[localIndex].genre</p>
 							<p class="game-price">€ @psGamesToShow[localIndex].price</p>
@@ -41,11 +42,12 @@
 			<div class="carousel">
 				@for (var i = 0; i < xboxGamesToShow.Count; i++)
 				{
+					var path = $"/Picture/{imagesXBOX[i]}";
 					var localIndex = i;
 					<div class="carousel-item @(currentIndexXBOX == i ? "active" : "")">
 						<div class="card-body-bottom" @onclick="@( () => HandleCardClick(xboxGamesToShow[localIndex].itemID))">
 							<h4>XBOX</h4>
-							<img src="./Picture/Temp_Picture.jpg" class="image" />
+							<img src="@path" class="image" />
 							<h4 class="game-name">@xboxGamesToShow[localIndex].gameName</h4>
 							<p class="game-genre">@xboxGamesToShow[localIndex].genre</p>
 							<p class="game-price">€ @xboxGamesToShow[localIndex].price</p>
@@ -66,8 +68,9 @@
 
 	[Parameter]
 	public List<Item> psGamesToShow { get; set; }
-	private string[] images = new string[] { "ac", "skyrim", "ac", "skyrim", "ac", "skyrim", "ac", "skyrim", "ac", "skyrim", "ac", "skyrim" };
-
+	private string[] imagesPC = new string[] { "PC_1.jpg", "PC_2.webp", "PC_1.jpg", "PC_2.webp", "PC_1.jpg", "PC_2.webp", "PC_1.jpg", "PC_2.webp", "PC_1.jpg", "PC_2.webp", "PC_1.jpg", "PC_2.webp", "PC_1.jpg", "PC_2.webp", "PC_1.jpg", "PC_2.webp", "PC_1.jpg", "PC_2.webp", "PC_1.jpg", "PC_2.webp" };
+	private string[] imagesPS = new string[] { "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp" };
+	private string[] imagesXBOX = new string[] { "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg"};
 
 	public int currentIndexPC = 0;
 	public int currentIndexPS = 0;
@@ -96,6 +99,6 @@
 		currentIndexPC = (currentIndexPC + 1) % pcGamesToShow.Count;
 		currentIndexPS = (currentIndexPS + 1) % psGamesToShow.Count;
 		currentIndexXBOX = (currentIndexXBOX + 1) % xboxGamesToShow.Count;
-		currentIndexImages = (currentIndexImages + 1) % images.Length;
+		currentIndexImages = (currentIndexImages + 1) % imagesPC.Length;
 	}
 }
