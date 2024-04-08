@@ -120,5 +120,14 @@
         }
     }
 
+    private void ClearSearchText(FocusEventArgs e)
+    {
+        // Slet teksten i inputfeltet, hvis det er tomt
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            searchText = "";
+        }
+    }
+
 
 }
