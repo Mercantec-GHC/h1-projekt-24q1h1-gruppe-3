@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="searchInputContainer">
-                    <input @bind="searchText" @oninput="HandleSearch" placeholder="Search..." />
+                    <input type="text" class="searchInput" data-placeholder="Search..." @bind="searchText" @oninput="HandleSearch" placeholder="Search...">
                     <SearchPopup ShowPopup="@showSearchPopup" Games="@foundGames"></SearchPopup>
                 </div>
 					<div class="top-row">
