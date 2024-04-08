@@ -15,8 +15,7 @@ namespace Service
         public string connectionString;
         public List<Item> allItems;
         public string CurrentUserID { get; private set; }
-        public List<User> allUsers;
-        public DatabaseService(string connectionString) { this.connectionString = connectionString; this.allItems = GetAllData(); this.allUsers = GetAllUser(); }
+
 
         public void SetCurrentUserID(string userID)
         {
@@ -25,6 +24,7 @@ namespace Service
 
         //er det smart at den beder om alle bruger ved opstart??
 
+        public DatabaseService(string connectionString) { this.connectionString = connectionString; this.allItems = GetAllData(); this.allUsers = GetAllUser(); }
         public List<Item> GetAllData()
         {
             List<Item> allData = new List<Item>();
@@ -41,8 +41,8 @@ namespace Service
                     {
                         while (reader.Read())
                         {
-                            var Type = reader["type"].ToString().ToUpper();
-                            if (Type == "PC")
+                            var type = reader["type"].ToString().ToUpper();
+                            if (type == "PC")
                             {
                                 allData.Add(new PC_Game()
                                 {
@@ -53,11 +53,10 @@ namespace Service
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
                                     description = reader["description"].ToString(),
-                                    userID = Convert.ToInt32(reader["userid"]),
-                                    type = reader["type"].ToString()
+                                    userID = Convert.ToInt32(reader["userid"])
                                 });
                             }
-                            else if (Type == "PS")
+                            else if (type == "PS")
                             {
                                 allData.Add(new PS_Game()
                                 {
@@ -68,11 +67,10 @@ namespace Service
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
                                     description = reader["description"].ToString(),
-                                    userID = Convert.ToInt32(reader["userid"]),
-                                    type = reader["type"].ToString()
+                                    userID = Convert.ToInt32(reader["userid"])
                                 });
                             }
-                            else if (Type == "XBOX")
+                            else if (type == "XBOX")
                             {
                                 allData.Add(new XBOX_Game()
                                 {
@@ -83,8 +81,7 @@ namespace Service
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
                                     description = reader["description"].ToString(),
-                                    userID = Convert.ToInt32(reader["userid"]),
-                                    type = reader["type"].ToString()
+                                    userID = Convert.ToInt32(reader["userid"])
                                 });
                             }
                         }
@@ -93,6 +90,7 @@ namespace Service
                 }
             }
         }
+        public List<User> allUsers;
         public List<User> GetAllUser()
         {
             List<User> allUser = new List<User>();
@@ -317,6 +315,75 @@ namespace Service
             // Optionally, update the allItems list to reflect the deletion
             this.allItems = GetAllData();
         }
+
+        public List<Item> SearchProducts(string searchText)
+        {
+            List<Item> filteredItems = new List<Item>();
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string sql = "SELECT * FROM items WHERE LOWER(gamename) LIKE LOWER(@SearchText)";
+                using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@SearchText", $"%{searchText}%");
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var type = reader["type"].ToString().ToUpper();
+                            if (type == "PC")
+                            {
+                                filteredItems.Add(new PC_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString(),
+                                    userID = Convert.ToInt32(reader["userid"])
+                                });
+                            }
+                            else if (type == "PS")
+                            {
+                                filteredItems.Add(new PS_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString(),
+                                    userID = Convert.ToInt32(reader["userid"])
+                                });
+                            }
+                            else if (type == "XBOX")
+                            {
+                                filteredItems.Add(new XBOX_Game()
+                                {
+                                    itemID = Convert.ToInt32(reader["itemid"]),
+                                    gameName = reader["gamename"].ToString(),
+                                    genre = reader["genre"].ToString(),
+                                    price = Convert.ToInt32(reader["price"]),
+                                    manufacture = reader["manufacture"].ToString(),
+                                    condition = reader["condition"].ToString(),
+                                    description = reader["description"].ToString(),
+                                    userID = Convert.ToInt32(reader["userid"])
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+
+            return filteredItems;
+        }
+
+
+
 
         public List<User> GetSellerDetailsFromUsers(int userID)
         {
