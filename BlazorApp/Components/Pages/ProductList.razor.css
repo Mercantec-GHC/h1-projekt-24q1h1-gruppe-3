@@ -1,11 +1,30 @@
 ﻿.ProductListTop {
     color: white;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    position: relative;
     background-color: transparent;
     background-clip: content-box;
 }
+
+.ProductListSearch {
+    display:inline;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.searchBtn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.searchInputContainer {
+
+}
+
 
 .textColor {
     background: #9F24FF;
@@ -14,15 +33,10 @@
     -webkit-text-fill-color: transparent;
 }
 
-.searchBtn {
-    background-color: transparent; /* Fjerner baggrunden fra knappen */
-    border: none; /* Fjerner knappens standardramme */
-    padding: 0; /* Fjerner eventuel padding */
-    cursor: pointer; /* Sørger for, at cursoren ændrer sig til en peger, når den er over knappen */
-}
 
 .searchBtn svg {
-    fill: white; /* Sørger for, at SVG-ikonet bruger den samme farve som tekst i knappen */
+    justify-content: right;
+    fill: white;
 }
 
 

@@ -7,12 +7,6 @@
 <!-- Search funktion and btn -->
 <div class="ProductListTop">
     <h3 class="ProductListTitle">ProductList</h3>
-    <button class="searchBtn" @onclick="ToggleSearch">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-        </svg>
-    </button>
-    <Search OnSearch="HandleSearch" showSearch="@showSearch" searchText="@searchText"></Search>
 </div>
 
 <!-- Show amount of products -->
@@ -103,18 +97,10 @@
 
 
     // Switch between pages variables
-    private int currentPage = 1;
-    private const int itemsPerPage = 9;
-    private int totalPages;
+    public int currentPage = 1;
+    public const int itemsPerPage = 9;
+    public int totalPages;
 
-    // Search variables
-    public bool showSearch = false;
-    public string searchText = "";
-
-    public void ToggleSearch()
-    {
-        showSearch = !showSearch;
-    }
 
     protected override void OnInitialized()
     {
@@ -136,26 +122,5 @@
         StateHasChanged();
     }
 
-    // Search funktion
-    private void HandleSearch(string searchText)
-    {
-        currentPage = 1;
-
-        if (string.IsNullOrWhiteSpace(searchText))
-        {
-            gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
-            totalPages = (int)Math.Ceiling((double)DB.allItems.Count / itemsPerPage);
-        }
-        else
-        {
-            gamesToShow = DB.allItems
-            .Where(game => game.gameName.ToLower().Contains(searchText.ToLower()))
-            .OrderBy(game => game.gameName)
-            .ToList();
-
-            totalPages = (int)Math.Ceiling((double)gamesToShow.Count / itemsPerPage);
-        }
-
-        StateHasChanged();
-    }
+   
 }

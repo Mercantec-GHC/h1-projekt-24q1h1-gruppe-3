@@ -1,7 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @using Service
 @inject AuthenticationService AuthenticationService
-
+@using ReusableComponents
 
 <div class="page">
 @*     <div class="sidebar">
@@ -38,6 +38,10 @@
                             </li>
                         </ul>
                     </div>
+                </div>
+                <div class="searchInputContainer">
+                    <input @bind="searchText" @oninput="HandleSearch" placeholder="Search..." />
+                    <SearchPopup ShowPopup="@showSearchPopup" Games="@foundGames"></SearchPopup>
                 </div>
 					<div class="top-row">
 
@@ -76,6 +80,9 @@
     string baseMenuClass = "navbar-collapse d-sm-inline-flex flex-sm-row-reverse";
 
     string NavMenuCssClass => baseMenuClass + (collapseNavMenu ? " collapse" : "");
+    [Parameter]
+    public string searchText {get; set;}
+
 
     void ToggleNavMenu()
     {
@@ -93,4 +100,25 @@
     {
         NavigationManager.NavigateTo($"/profilepage/{@AuthenticationService.CurrentUser.userID}");
     }
+
+
+    // Search funktion
+    bool showSearchPopup = false;
+    List<Item> foundGames = new List<Item>();
+
+    private void HandleSearch(ChangeEventArgs e)
+    {
+        searchText = e.Value.ToString();
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            foundGames = DB.SearchProducts(searchText);
+            showSearchPopup = true;
+        }
+        else
+        {
+            showSearchPopup = false;
+        }
+    }
+
+
 }
