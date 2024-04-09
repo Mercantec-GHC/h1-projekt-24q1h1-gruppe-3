@@ -4,33 +4,38 @@
 @using ReusableComponents
 
 <div class="page">
-@*     <div class="sidebar">
-        <NavMenu/>
-    </div> *@
-
-
+    <!-- Ændre baggrundsfarven for siden-->
     <main style="background-color:#212529;">
+        <!-- Opretter en navigationsbar med et logo og en liste over links -->
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="navcontainer">
+                <!-- Indsætter logo -->
                 <NavLink href="" Match="NavLinkMatch.All">
                     <img class="Logo" src="/logo.png" style="max-height: 35px; max-width: 40px;">
                 </NavLink>
+                <!-- Knap til visning af navigationmenu når skærmen er for lille -->
                 <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <!-- Container for navigationsmenuen, der kan skifte visning -->
                 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+                    <!-- Skifter tekst farven -->
                     <div class="textColor">
+                        <!-- Liste over links -->
                         <ul class="navbar-nav flex-grow-1" id="new-navbar-menu">
+                            <!-- Knap til at navigerer til hjem siden -->
                             <li class="nav-item-show">
                                 <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                                     <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true" style="font-family: 'Bradley Hand ITC';"></span> Gamers Lounge
                                 </NavLink>
                             </li>
+                            <!-- Knap til at navigerer til produkt list siden siden -->
                             <li class="nav-item-show">
                                 <NavLink class="nav-link" href="productlist">
                                     <span id="navlink" class="bi bi-list-nested-nav-menu" aria-hidden="true" style="font-family: 'Bradley Hand ITC';"></span> Product list
                                 </NavLink>
                             </li>
+                            <!-- Knap til at navigerer til sales Listing siden -->
                             <li class="nav-item-show">
                                 <NavLink class="nav-link" href="SalesListing">
                                     <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true" style="font-family: 'Bradley Hand ITC';"></span> List for sale
@@ -39,12 +44,14 @@
                         </ul>
                     </div>
                 </div>
+                <!-- Søgefeltet, til at søge efter spil -->
                 <div class="searchInputContainer">
                     <input type="text" class="searchInput" data-placeholder="Search..." @bind="searchText" @oninput="HandleSearch" placeholder="Search...">
                     <SearchPopup ShowPopup="@showSearchPopup" Games="@foundGames"></SearchPopup>
                 </div>
+                <!-- Visning af registrering og login links -->
 					<div class="top-row">
-
+                        <!-- Tjekker efter om man er logget ind (Ændre login tekst)-->
 						@if (AuthenticationService.IsAuthenticated)
 						{
                         <button class="btn btn-link" @onclick="profilePage" style="font-family: 'Bradley Hand ITC'; font-size: 1.2rem; font-weight:bold;">Logget ind som: @AuthenticationService.CurrentUser.name</button>
@@ -67,7 +74,7 @@
         </article>
     </main>
 </div>
-
+<!-- Håndtere fejl -->
 <div id="blazor-error-ui">
     An unhandled error has occurred.
     <a href="" class="reload">Reload</a>
@@ -75,37 +82,44 @@
 </div>
 
 @code {
+    // Variabel til at styre visning af navigationsmenuen.
     bool collapseNavMenu = false;
 
+    // Basis CSS-klasse for navigationsmenuen.
     string baseMenuClass = "navbar-collapse d-sm-inline-flex flex-sm-row-reverse";
 
+    // Dynamisk CSS-klasse for navigationsmenuen baseret på collapseNavMenu.
     string NavMenuCssClass => baseMenuClass + (collapseNavMenu ? " collapse" : "");
+
+    // Parameter for at modtage søgetekst.
     [Parameter]
     public string searchText {get; set;}
 
-
+    // Metode til at skifte visning af navigationsmenuen.
     void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
 
-
+    // Metode til at logge brugeren ud og navigere til hjemmesiden.
     private void logout()
     {
         AuthenticationService.Logout();
         NavigationManager.NavigateTo("/");
     }
 
+    // Navigerer til profil siden
     private void profilePage()
     {
         NavigationManager.NavigateTo($"/profilepage/{@AuthenticationService.CurrentUser.userID}");
     }
 
 
-    // Search funktion
+    // Søgefunktion
     bool showSearchPopup = false;
     List<Item> foundGames = new List<Item>();
 
+    // Metode til at håndtere søgning
     private void HandleSearch(ChangeEventArgs e)
     {
         searchText = e.Value.ToString();
@@ -119,7 +133,7 @@
             showSearchPopup = false;
         }
     }
-
+    // Metode til at rydde søgetekst, hvis det er tomt.
     private void ClearSearchText(FocusEventArgs e)
     {
         // Slet teksten i inputfeltet, hvis det er tomt
