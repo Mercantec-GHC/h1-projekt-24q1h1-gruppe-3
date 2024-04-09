@@ -1,4 +1,5 @@
-﻿
+﻿<!-- Komponent til visning af en popup med klikbare spilnavne for navigation til produktsider. 
+Visning styres af ShowPopup-parameteren. -->
 @if (ShowPopup)
 {
     <div class="search-popup">
@@ -12,9 +13,11 @@
 }
 
 @code {
+        // Parameter for at kontrollere, om popup'en skal vises.
+
     [Parameter]
     public bool ShowPopup { get; set; }
-
+    // Parameter for at modtage en liste over spilobjekter, der skal vises i popup'en.
     [Parameter]
     public List<Item> Games { get; set; }
 
