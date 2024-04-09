@@ -1,4 +1,5 @@
-﻿@if (type == "PC")
+﻿@*En billede viser for typen PC.*@
+@if (type == "PC")
 {
     <div class="carousel">
         @for (var i = 0; i < imagesPC.Length; i++)
@@ -11,6 +12,7 @@
         }
     </div>
 }
+@*En billede viser for type PS.*@
 else if (type == "PS")
 {
     <div class="carousel">
@@ -23,7 +25,9 @@ else if (type == "PS")
 
         }
     </div>
-}else if (type == "XBOX")
+}
+@*En billede viser for typen XBOX.*@
+else if (type == "XBOX")
 {
     <div class="carousel">
         @for (var i = 0; i < imagesXBOX.Length; i++)
@@ -37,6 +41,7 @@ else if (type == "PS")
     </div>
 }
 
+@*Knapperne for at skifte imellem billederne.*@
 <div class="btns">
     <a class="prevbtn" @onclick="PreviousImage">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#212529" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
@@ -56,10 +61,13 @@ else if (type == "PS")
     public string type { get; set; }
     private int index = 0;
     private int currentIndex = 0;
+
+    //Billede arrays for de forskellige typer.
     private string[] imagesPC = new string[] { "PC_1.jpg", "PC_2.jpg"};
     private string[] imagesPS = new string[] { "PS_1.jpg", "PS_2.webp"};
     private string[] imagesXBOX = new string[] { "XBOX_1.jpg", "XBOX_2.jpg" };
 
+    //Logikken bag knappe for næste billede.
     private void NextImage()
     {
         currentIndex = (currentIndex + 1) % imagesPC.Length;
@@ -67,6 +75,7 @@ else if (type == "PS")
         currentIndex = (currentIndex + 1) % imagesXBOX.Length;
     }
 
+    //Logikken bag knappen for tidligere billede.
     private void PreviousImage()
     {
         currentIndex = (currentIndex - 1 + imagesPC.Length) % imagesPC.Length;

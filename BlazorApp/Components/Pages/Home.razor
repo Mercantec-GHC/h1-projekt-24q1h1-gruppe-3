@@ -1,7 +1,7 @@
 ﻿@page "/"
 
 <PageTitle>Gamers Lounge</PageTitle>
-
+@*Top sektionen af home poge, opdelt i 2 kolonner.*@
 <div class="body">
 	<div class="section">
 		<div class="container text-center">
@@ -19,25 +19,23 @@
 			</div>
 		</div>
 	</div>
+	@*kalder på CarouselProductCard importer de 3 type bestemte lister ind i filen.*@
 	<div class="carousel-container">
 		<CarouselProductCard pcGamesToShow="@pcGameToShow" psGamesToShow="@psGameToShow" xboxGamesToShow="@xboxGameToShow"></CarouselProductCard>
 	</div>
 </div>
 
 @code {
+
 	public List<Item> pcGameToShow;
 	public List<Item> xboxGameToShow;
 	public List<Item> psGameToShow;
-
+	//Det som koden skal gøre når siden først bliver loaded.
 	protected override void OnInitialized()
 	{
+		//FT er en file navigering til den class der indeholder den funktion der bliver brugt. 
 		pcGameToShow = FT.FiltreToPC_Games(DB.allItems);
 		psGameToShow = FT.FiltreToPS_Games(DB.allItems);
 		xboxGameToShow = FT.FiltreToXBOX_Games(DB.allItems);
-	}
-
-	private void HandleCardClick(int gameID)
-	{
-		NavigationManager.NavigateTo($"/product/{gameID}");
 	}
 }
