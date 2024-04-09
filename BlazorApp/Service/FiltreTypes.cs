@@ -4,6 +4,7 @@ namespace Service
 {
     public class FiltreTypes
     {
+        //Filtrer til PC spil.
         public List<Item> FiltreToPC_Games(List<Item> games)
         {
             List<Item> Games = new List<Item>();
@@ -17,7 +18,9 @@ namespace Service
             }
             return Games;
         }
-        public List<Item> FiltreToPS_Games(List<Item> games)
+
+		//Filtrer til PS spil.
+		public List<Item> FiltreToPS_Games(List<Item> games)
         {
             List<Item> Games = new List<Item>();
 
@@ -30,7 +33,9 @@ namespace Service
             }
             return Games;
         }
-        public List<Item> FiltreToXBOX_Games(List<Item> games)
+
+		//Filtrer til XBOX spil.
+		public List<Item> FiltreToXBOX_Games(List<Item> games)
         {
             List<Item> Games = new List<Item>();
 

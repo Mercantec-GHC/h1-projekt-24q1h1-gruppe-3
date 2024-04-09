@@ -14,9 +14,10 @@ namespace Service
     {
         public string connectionString;
         public List<Item> allItems;
+        public List<User> allUsers;
         public string CurrentUserID { get; private set; }
 
-
+        //Gemmer et CurrentUserID, som er det id på personen som er loggetin.
         public void SetCurrentUserID(string userID)
         {
             CurrentUserID = userID;
@@ -24,27 +25,39 @@ namespace Service
 
         //er det smart at den beder om alle bruger ved opstart??
 
+        //Bruger funktionerne der henter alle produkter og alle bruger fra databasen.
         public DatabaseService(string connectionString) { this.connectionString = connectionString; this.allItems = GetAllData(); this.allUsers = GetAllUser(); }
+
+        //Henter informationen fra alle produkterne i databasen og gemmer dem som objekter i listen "allData".
         public List<Item> GetAllData()
         {
             List<Item> allData = new List<Item>();
 
+            //Denne using tager kontakt til PostgresSQL databasen.
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
 
+                //SQL kommando for valget af den information jeg skal bruger og fra hvilken liste, informationen skal trækkes fra.
                 string sql = "SELECT * FROM items";
 
+                //Denne using laver et object, der repræsenter en SQL kommando/funktion der skal udføres mod PostgresSQL databasen.
                 using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                 {
+                    //Denne using udføre SQL kommandoen mod databasen og henter resultatet. SQL kommandoen er defineret i using ovenover.
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
+                        //Loop der læser informationen på databasen. Vil læse alle objekterne et af gangen, til den har været igennem dem alle sammen.
                         while (reader.Read())
                         {
+                            //Henter spillets type, converter data til en string og lave det til stort. Brugers for at gøre det sorter bare gennem klassen af objektet der tilføjes til listen
                             var Type = reader["type"].ToString().ToUpper();
+
+                            //Vis spillet er af typen "PC" skal den gemme spillet med klassen "PC_Game".
                             if (Type == "PC")
                             {
-                                allData.Add(new PC_Game()
+								//Læser, converter og gemmer informationen fra et spil på databasen som et object på listen "allData".
+								allData.Add(new PC_Game()
                                 {
                                     itemID = Convert.ToInt32(reader["itemid"]),
                                     gameName = reader["gamename"].ToString(),
@@ -57,9 +70,12 @@ namespace Service
                                     type = reader["type"].ToString()
                                 });
                             }
-                            else if (Type == "PS")
+
+							//Vis spillet er af typen "PS" skal den gemme spillet med klassen "PS_Game".
+							else if (Type == "PS")
                             {
-                                allData.Add(new PS_Game()
+								//Læser, converter og gemmer informationen fra et spil på databasen som et object på listen "allData".
+								allData.Add(new PS_Game()
                                 {
                                     itemID = Convert.ToInt32(reader["itemid"]),
                                     gameName = reader["gamename"].ToString(),
@@ -72,9 +88,12 @@ namespace Service
                                     type = reader["type"].ToString()
                                 });
                             }
-                            else if (Type == "XBOX")
+
+							//Vis spillet er af typen "XBOX" skal den gemme spillet med klassen "XBOX_Game".
+							else if (Type == "XBOX")
                             {
-                                allData.Add(new XBOX_Game()
+								//Læser, converter og gemmer informationen fra et spil på databasen som et object på listen "allData".
+								allData.Add(new XBOX_Game()
                                 {
                                     itemID = Convert.ToInt32(reader["itemid"]),
                                     gameName = reader["gamename"].ToString(),
@@ -93,24 +112,25 @@ namespace Service
                 }
             }
         }
-        public List<User> allUsers;
+
+        //Henter informationen for alle brugerne i databasen og gemmer dem som objekter i listen "allUser". 
         public List<User> GetAllUser()
         {
             List<User> allUser = new List<User>();
 
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+			using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
 
-                string sql = "SELECT * FROM users";
+				string sql = "SELECT * FROM users";
 
-                using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
+				using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                 {
-                    using (NpgsqlDataReader reader = command.ExecuteReader())
+					using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+						while (reader.Read())
                         {
-                            allUser.Add(new User()
+							allUser.Add(new User()
                             {
                                 name = reader["name"].ToString(),
                                 userID = Convert.ToInt32(reader["id"]),
@@ -126,122 +146,142 @@ namespace Service
             }
         }
 
+        //Tilføjer et PC spil til databasen.
         public int AddPCGameToDatabase(PC_Game pcGameToBeCreated)
         {
-            int newItemId = -1; // Initialize newItemId to -1 (or any default value)
+			// Initialiser newItemId til -1 (eller enhver standardværdi)
+			int newItemId = -1; 
 
             int useridToInsert = Convert.ToInt32(CurrentUserID);
 
-            using var connection = new NpgsqlConnection(connectionString);
-
-
-
-
-            connection.Open();
-
-            using (var cmd = new NpgsqlCommand())
+			//Denne using tager kontakt til PostgresSQL databasen.
+			using var connection = new NpgsqlConnection(connectionString);
             {
-                cmd.Connection = connection;
-                if (pcGameToBeCreated is PC_Game pcGame)
+                connection.Open();
+
+                //Denne using laver et object, der ikke har en SQL kommando og en forbindelse.
+                using (var cmd = new NpgsqlCommand())
                 {
-                    string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description, userid)
+                    //Tildeler forbindelsen til vores NpgSQL objekt.
+                    cmd.Connection = connection;
+
+                    //if statement tjekker om spillet der bliver tilføjet er et objekt af klassen PC_Game.
+                    if (pcGameToBeCreated is PC_Game pcGame)
+                    {
+                        //SQL kommandoen der skal køres mod Postgres databasen gemt i en variable.
+                        string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description, userid)
                                     VALUES('PC', '{pcGame.gameName}','{pcGame.genre}','{pcGame.price}','{pcGame.manufacture}','{pcGame.condition}','{pcGame.description}','{useridToInsert}')
-                                    RETURNING itemid"; // Include RETURNING id to get the ID of the newly inserted row
-                    cmd.CommandText = insertCommand;
-                    newItemId = (int)cmd.ExecuteScalar(); // ExecuteScalar to get the ID of the newly inserted row
-                    this.allItems = GetAllData(); // You may or may not need to update allItems
+                                    RETURNING itemid"; //Inkluder RETURNING id for at få ID'et af den nyligt indsatte række.
+
+                        //Sætter SQL kommandoen til NpgSQL objektet, der skal køres mod databasen.
+						cmd.CommandText = insertCommand;
+
+						//Brug ExecuteScalar til at få ID'et af den nyligt indsatte række.
+						newItemId = (int)cmd.ExecuteScalar();
+
+						//Du kan eller måske ikke have brug for at opdatere allItems.
+						this.allItems = GetAllData(); 
+                    }
                 }
             }
-
-            return newItemId; // Return the ID of the newly added item
+            return newItemId;
         }
-        public int AddPSGameToDatabase(PS_Game psGameToBeCreated)
+
+		//Tilføjer et PS spil til databasen.
+		public int AddPSGameToDatabase(PS_Game psGameToBeCreated)
         {
             int newItemId = -1;
 
             int useridToInsert = Convert.ToInt32(CurrentUserID);
 
             using var connection = new NpgsqlConnection(connectionString);
-
-            connection.Open();
-
-            using (var cmd = new NpgsqlCommand())
             {
-                cmd.Connection = connection;
-                if (psGameToBeCreated is PS_Game psGame)
+                connection.Open();
+
+                using (var cmd = new NpgsqlCommand())
                 {
-                    string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description, userid)
+                    cmd.Connection = connection;
+                    if (psGameToBeCreated is PS_Game psGame)
+                    {
+                        string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description, userid)
                                             VALUES('PS', '{psGame.gameName}','{psGame.genre}','{psGame.price}','{psGame.manufacture}','{psGame.condition}','{psGame.description}','{useridToInsert}')
                                             RETURNING itemid";
-                    cmd.CommandText = insertCommand;
-                    newItemId = (int)cmd.ExecuteScalar(); // ExecuteScalar to get the ID of the newly inserted row
-                    this.allItems = GetAllData();
-
+                        cmd.CommandText = insertCommand;
+                        newItemId = (int)cmd.ExecuteScalar();
+                        this.allItems = GetAllData();
+                    }
                 }
             }
             return newItemId;
         }
-        public int AddXboxGameToDatabase(XBOX_Game XboxGameToBeCreated)
+
+		//Tilføjer et PS spil til databasen.
+		public int AddXboxGameToDatabase(XBOX_Game XboxGameToBeCreated)
         {
             int newItemId = -1;
 
             int useridToInsert = Convert.ToInt32(CurrentUserID);
 
             using var connection = new NpgsqlConnection(connectionString);
-
-            connection.Open();
-
-            using (var cmd = new NpgsqlCommand())
             {
-                cmd.Connection = connection;
-                if (XboxGameToBeCreated is XBOX_Game XboxGame)
+                connection.Open();
+
+                using (var cmd = new NpgsqlCommand())
                 {
-                    string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description, userid)
+                    cmd.Connection = connection;
+                    if (XboxGameToBeCreated is XBOX_Game XboxGame)
+                    {
+                        string insertCommand = $@"INSERT INTO items(type, gamename, genre, price, manufacture, condition, description, userid)
                                             VALUES('XBOX', '{XboxGame.gameName}','{XboxGame.genre}','{XboxGame.price}','{XboxGame.manufacture}','{XboxGame.condition}','{XboxGame.description}','{useridToInsert}')
                                             RETURNING itemid";
-                    cmd.CommandText = insertCommand;
-                    newItemId = (int)cmd.ExecuteScalar(); // ExecuteScalar to get the ID of the newly inserted row
-                    this.allItems = GetAllData();
+                        cmd.CommandText = insertCommand;
+                        newItemId = (int)cmd.ExecuteScalar();
+                        this.allItems = GetAllData();
+                    }
                 }
             }
             return newItemId;
         }
 
+        //Tilføjer en bruger til databasen.
         public void AddUserToDatabase(string name, string email, string password, string phonenumber, string city)
         {
             using var connection = new NpgsqlConnection(connectionString);
-
-            connection.Open();
-
-            using (var cmd = new NpgsqlCommand())
             {
-                cmd.Connection = connection;
-                string insertCommand = @"INSERT INTO users(name, email, password, phonenumber, city, favorites)
+                connection.Open();
+
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = connection;
+                    string insertCommand = @"INSERT INTO users(name, email, password, phonenumber, city, favorites)
                                 VALUES(@Name, @Email, @Password, @phonenumber,@City, ARRAY[]::integer[])";
-                cmd.CommandText = insertCommand;
+                    cmd.CommandText = insertCommand;
 
-                cmd.Parameters.AddWithValue("@Name", name);
-                cmd.Parameters.AddWithValue("@Email", email);
-                cmd.Parameters.AddWithValue("@Password", password);
-                cmd.Parameters.AddWithValue("@Phonenumber", phonenumber);
-                cmd.Parameters.AddWithValue("@City", city);
+                    //Er en måde og tilføje værdierne til "VALUES" i SQL kommandoen. 
+                    cmd.Parameters.AddWithValue("@Name", name);
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@Password", password);
+                    cmd.Parameters.AddWithValue("@Phonenumber", phonenumber);
+                    cmd.Parameters.AddWithValue("@City", city);
 
-                cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
+        //Henter alle produkter fra databasen der er oprettet af en bestemt bruger.
         public List<Item> GetListedSalesForUser(int userID)
         {
-
             List<Item> itemsForUser = new List<Item>();
 
             using (var connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
+
                 string sql = $@"SELECT * FROM items WHERE userid = {userID}";
+
                 using (var command = new NpgsqlCommand(sql, connection))
                 {
-                    //command.Parameters.AddWithValue("@UserID", userID);
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -258,8 +298,6 @@ namespace Service
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
                                     description = reader["description"].ToString()
-                                    // Assuming a 'userID' field exists linking the item to a user
-                                    // user = Convert.ToInt32(reader["userid"])
                                 });
                             }
                             else if (type == "PS")
@@ -287,10 +325,8 @@ namespace Service
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
                                     description = reader["description"].ToString()
-                                    // user = Convert.ToInt32(reader["userid"])
                                 });
                             }
-                            // Add additional cases for other item types as necessary
                         }
                     }
                 }
@@ -298,27 +334,28 @@ namespace Service
             return itemsForUser;
         }
 
+        //Sletter produkt med bestemt itemID.
         public void DeleteItem(int itemID)
         {
             using var connection = new NpgsqlConnection(connectionString);
-            connection.Open();
-
-            // Prepare the SQL command to delete the item with the specified ID
-            string deleteItemCommand = @"DELETE FROM items WHERE itemid = @ItemID";
-
-            using (var cmd = new NpgsqlCommand(deleteItemCommand, connection))
             {
-                // Add the item ID parameter to the command
-                cmd.Parameters.AddWithValue("@ItemID", itemID);
+                connection.Open();
 
-                // Execute the command to delete the item
-                cmd.ExecuteNonQuery();
+                //Laver SQL kommandoen for at slette et produkt fra listen "items" med et bestemt "itemid".
+                string deleteItemCommand = @"DELETE FROM items WHERE itemid = @ItemID";
+
+                using (var cmd = new NpgsqlCommand(deleteItemCommand, connection))
+                {
+                    //Tilføje værdien af "itemid" til SQL kommandoen.
+                    cmd.Parameters.AddWithValue("@ItemID", itemID);
+                    cmd.ExecuteNonQuery();
+                }
+                //Valgmulighed, opdater listen "allItems", for at fjerne det slettede objekt.
+                this.allItems = GetAllData();
             }
-
-            // Optionally, update the allItems list to reflect the deletion
-            this.allItems = GetAllData();
         }
 
+        //Søgefunktionen igennem databasen, den søger kun igennem title.
         public List<Item> SearchProducts(string searchText)
         {
             List<Item> filteredItems = new List<Item>();
@@ -381,13 +418,10 @@ namespace Service
                     }
                 }
             }
-
             return filteredItems;
         }
 
-
-
-
+        //Henter bruger detaljerne fra databasen ud fra et bestemt ID.
         public List<User> GetSellerDetailsFromUsers(int userID)
         {
             List<User> seller = new List<User>();
@@ -404,7 +438,6 @@ namespace Service
                     {
                         while (reader.Read())
                         {
-
                             seller.Add(new User()
                             {
                                 name = reader["name"].ToString(),
@@ -418,9 +451,9 @@ namespace Service
                     }
                 }
             }
-
         }
 
+        //Henter brugerens favoriseret produkter gennem bestemt bruger ID.
         public List<int> GetFavoritesByUserID(int id)
         {
             List<int> favorites = new List<int>();
@@ -449,43 +482,51 @@ namespace Service
                 }
             }
         }
+
+        //Opdater bruger information på databasen, ud fra et bestemt bruger ID.
         public void UpdateUserInDatabase(int userID, string name, string email, string password, string phoneNumber, string city)
         {
             using var connection = new NpgsqlConnection(connectionString);
-
-            connection.Open();
-
-            using (var cmd = new NpgsqlCommand())
             {
-                cmd.Connection = connection;
-                string updateCommand = @"UPDATE users SET name = @Name, email = @Email, password = @password, phonenumber = @PhoneNumber, city = @City WHERE id = @UserID";
-                cmd.CommandText = updateCommand;
+                connection.Open();
 
-                cmd.Parameters.Add(new NpgsqlParameter("@Name", NpgsqlDbType.Text) { Value = name });
-                cmd.Parameters.Add(new NpgsqlParameter("@Email", NpgsqlDbType.Text) { Value = email });
-                cmd.Parameters.Add(new NpgsqlParameter("@password", NpgsqlDbType.Text) { Value = password });
-                cmd.Parameters.Add(new NpgsqlParameter("@PhoneNumber", NpgsqlDbType.Text) { Value = phoneNumber });
-                cmd.Parameters.Add(new NpgsqlParameter("@City", NpgsqlDbType.Text) { Value = city });
-                cmd.Parameters.Add(new NpgsqlParameter("@UserID", NpgsqlDbType.Integer) { Value = userID });
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = connection;
+                    string updateCommand = @"UPDATE users SET name = @Name, email = @Email, password = @password, phonenumber = @PhoneNumber, city = @City WHERE id = @UserID";
+                    cmd.CommandText = updateCommand;
 
-                cmd.ExecuteNonQuery();
+                    cmd.Parameters.Add(new NpgsqlParameter("@Name", NpgsqlDbType.Text) { Value = name });
+                    cmd.Parameters.Add(new NpgsqlParameter("@Email", NpgsqlDbType.Text) { Value = email });
+                    cmd.Parameters.Add(new NpgsqlParameter("@password", NpgsqlDbType.Text) { Value = password });
+                    cmd.Parameters.Add(new NpgsqlParameter("@PhoneNumber", NpgsqlDbType.Text) { Value = phoneNumber });
+                    cmd.Parameters.Add(new NpgsqlParameter("@City", NpgsqlDbType.Text) { Value = city });
+                    cmd.Parameters.Add(new NpgsqlParameter("@UserID", NpgsqlDbType.Integer) { Value = userID });
+
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
+
+        //Sletter brugeren på databasen ud fra et bestemt bruger ID. Produkter der er oprettet af denne bruger, bliver automatisk slettet på databasen pga reference nøglen har en "ON DELETE CASCADE" kommando.
         public void DeleteUserAndItsItems(int userID)
         {
             using var connection = new NpgsqlConnection(connectionString);
-            connection.Open();
-
-            // Dernæst slet brugeren selv
-            using (var cmd = new NpgsqlCommand())
             {
-                cmd.Connection = connection;
-                string deleteUserCommand = @"DELETE FROM users WHERE id = @UserID";
-                cmd.CommandText = deleteUserCommand;
-                cmd.Parameters.AddWithValue("@UserID", userID);
-                cmd.ExecuteNonQuery();
+                connection.Open();
+
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = connection;
+                    string deleteUserCommand = @"DELETE FROM users WHERE id = @UserID";
+                    cmd.CommandText = deleteUserCommand;
+                    cmd.Parameters.AddWithValue("@UserID", userID);
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
+
+        //Tilføje produktets "itemid" til brugerens favorite liste, ud fra et bestemt bruger ID.
         public void AddItemToFavoriteInUsers(int userid, int itemid)
         {
             using var connection = new NpgsqlConnection(connectionString);
@@ -501,6 +542,8 @@ namespace Service
                 cmd.ExecuteNonQuery();
             }
         }
+
+        //Sletter produkt "itemid" fra brugerens favorite liste, ud fra et bestemt bruger ID.
         public void DeleteItemFromFavorites(int userid, int itemid)
         {
             using var connection = new NpgsqlConnection(connectionString);
