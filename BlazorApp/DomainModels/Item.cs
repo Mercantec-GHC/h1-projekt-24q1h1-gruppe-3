@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DomainModels
 {
-    public abstract class Item //: User
+    public abstract class Item
     {
         public int itemID;
         public string gameName;
@@ -21,11 +21,6 @@ namespace DomainModels
         public string type;
 
         public int userID { get; set; }
-
-        //Remove addtofavorite and insert into user
-
-        //private User userID;
-
 
         void SetItem() { }
         void AddItem() { }
