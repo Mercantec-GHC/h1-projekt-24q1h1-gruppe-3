@@ -2,8 +2,10 @@
 	<h2 class="text">Featured</h2>
 	<p class="text">Explore our current list of trending games.</p>
 	<div class="card-container">
+		@*Produkt kort til PC spil.*@
 		<div class="card-bottom-section">
 			<div class="carousel">
+				@*Køre for loopede igennem og fremviser alle PC spil der er gemt i Databasen.*@
 				@for (var i = 0; i < pcGamesToShow.Count; i++)
 				{
 					var path = $"/Picture/{imagesPC[i]}";
@@ -20,8 +22,10 @@
 				}
 			</div>
 		</div>
+		@*Produkt kort til PS spil.*@
 		<div class="card-bottom-section">
 			<div class="carousel">
+				@*Køre for loopede igennem og fremviser alle PS spil der er gemt i Databasen.*@
 				@for (var i = 0; i < psGamesToShow.Count; i++)
 				{
 					var path = $"/Picture/{imagesPS[i]}";
@@ -38,8 +42,10 @@
 				}
 			</div>
 		</div>
+		@*Produkt kort til XBOX spil.*@
 		<div class="card-bottom-section">
 			<div class="carousel">
+				@*Køre for loopede igennem og fremviser alle XBOX spil der er gemt i Databasen.*@
 				@for (var i = 0; i < xboxGamesToShow.Count; i++)
 				{
 					var path = $"/Picture/{imagesXBOX[i]}";
@@ -60,14 +66,15 @@
 </div>
 
 @code {
+	//De lister der skal importeres ind i filen, når den bliver kaldt på.
 	[Parameter]
 	public List<Item> pcGamesToShow { get; set; }
-
 	[Parameter]
 	public List<Item> xboxGamesToShow { get; set; }
-
 	[Parameter]
 	public List<Item> psGamesToShow { get; set; }
+
+	//Arrays af det indeholder navn på billederne der passer til deres kategori.
 	private string[] imagesPC = new string[] { "PC_1.jpg", "PC_2.jpg", "PC_1.jpg", "PC_2.jpg", "PC_1.jpg", "PC_2.jpg", "PC_1.jpg", "PC_2.jpg", "PC_1.jpg", "PC_2.jpg", "PC_1.jpg", "PC_2.jpg", "PC_1.jpg", "PC_2.jpg", "PC_1.jpg", "PC_2.jpg", "PC_1.jpg", "PC_2.jpg", "PC_1.jpg", "PC_2.jpg" };
 	private string[] imagesPS = new string[] { "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp", "PS_1.jpg", "PS_2.webp" };
 	private string[] imagesXBOX = new string[] { "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg", "XBOX_1.jpg", "XBOX_2.jpg"};
@@ -76,24 +83,33 @@
 	public int currentIndexPS = 0;
 	public int currentIndexXBOX = 0;
 	public int currentIndexImages = 0;
+
+	//Laver en variable der håndter tid.
 	private System.Timers.Timer timer;
 
+	//En funktion der køre ligeså snart det siden bliver loaded.
 	protected override void OnInitialized()
 	{
+		//Håndter tiden for funktionen "TimerElapsed".
 		timer = new System.Timers.Timer(8000);
 		timer.Elapsed += TimerElapsed;
 		timer.Start();
 	}
+
+	//Håndtere navigationen af @onclick på produkt kortet.
 	private void HandleCardClick(int gameID)
 	{
 		NavigationManager.NavigateTo($"/product/{gameID}");
 	}
+
+	//Indeholder hvad der skal ske når tiden er gået.
 	private void TimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
 	{
 		NextGame();
 		InvokeAsync(StateHasChanged);
 	}
 
+	//Funktionen indeholder logikken, for at gå til næste billede, når det er tid til der bliver skiftet produkt.
 	private void NextGame()
 	{
 		currentIndexPC = (currentIndexPC + 1) % pcGamesToShow.Count;
