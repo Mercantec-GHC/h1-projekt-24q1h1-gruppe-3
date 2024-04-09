@@ -1,5 +1,6 @@
 ﻿@using Service
 @inject AuthenticationService AuthenticationService
+@inject IJSRuntime JSRuntime
 @page "/login"
 <PageTitle>Gamers lounge: Login</PageTitle>
 
@@ -11,6 +12,7 @@
                     Login
                 </div>
                 <div class="card-body">
+                    @*Felter til at indtaste brugernavn og adgangskode*@
                     <form>
                         <div class="form-group">
                             <label for="username" class="label">Username</label>
@@ -30,32 +32,43 @@
 
 
 @code {
+    //Gemmer brugerens indtastede brugernavn og adgangskode
     private string username;
     private string password;
 
+    //Parameter til at hente userID
     [Parameter]
     public int userID { get; set; }
 
+    //Liste over alle bruger til at tjekke om oplysningerne stemmer overens
     public List<User> allusers = new List<User>();
 
     protected override void OnInitialized()
     {
+        //henter alle brugere fra databasen og gemmer den i listen allusers
         allusers = DB.GetAllUser();
     }
 
-    private void HandleLogin()
+    //Metode til at håndtere login
+    private async void HandleLogin()
     {
+        //Find den bruger der matcher med Brugernavn og adgangkoden som er indtastet
         User user = allusers.FirstOrDefault(u => u.name == username && u.password == password);
 
+        //hvis der bliver fundet en bruger
         if (user != null)
         {
+            //Bruger metoden fra AuthenticationService til at logge brugeren ind og gemmer det sammetid i cookies
             AuthenticationService.Login(user);
+            //Navigere til profil siden for brugeren
             NavigationManager.NavigateTo($"/profilepage/{user.userID}");
-            Console.WriteLine("Bruger findes");
+            
         }
         else
         {
-            Console.WriteLine("Findes ikke");
+            //Browser alert det fortæller at brugen ikke findes
+            await JSRuntime.InvokeVoidAsync("alert", "Brugeren blev ikke fundet. Prøv igen.");
+            Console.WriteLine("Brugeren Findes ikke");
         }
     }
 }

@@ -20,11 +20,6 @@ namespace DomainModels
         public List<Item> ListedSales { get; set; } = new List<Item>();
         public int CurrentUserID { get; set; }
 
-
-        bool LoginAction()
-        { return true; }
-        bool LogoutAction()
-        { return false; }
-        void CreateAccount() { }
+        
     }
 }

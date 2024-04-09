@@ -10,11 +10,11 @@
 
 <PageTitle>Gamers Lounge: Create New Sales</PageTitle>
 
+@*Hvis Brugeren er logget ind vises sagerene til at oprette et opslag*@
 @if (AuthenticationService.IsAuthenticated){
     <div class="container text-center">
         <div class="row">
             <div class="col">
-                @* <button @onclick="ShowModal">Åpne Modal</button> *@
             </div>
             <div class="col-6">
                 <div class="card">
@@ -28,7 +28,7 @@
                                     <option value="Xbox">Xbox</option>
                                 </select>
                             </div>
-                
+                        @*Hvis der er valgt PC som platform*@
                         @if (platform == "PC")
                         {
                     
@@ -80,6 +80,7 @@
 
                                 <button type="button" class="btn btn-dark" @onclick="SubmitFormPC">Submit</button>
                         }
+                        @*ellers hvis der er valgt PS som platform*@
                         else if (platform == "PS")
                             {
                     
@@ -131,6 +132,7 @@
 
                                 <button type="button" class="btn btn-dark" @onclick="SubmitFormPS">Submit</button>
                         }
+                        @*ellers hvis der er valgt Xbox som platform*@
                         else if (platform == "Xbox")
                         {
                                 <div class="mb-3 gameTitle">
@@ -184,6 +186,7 @@
                         }
                   </form>
 
+                    @*Når submit knappen trykkes på uanset platform*@
                     @if (showModal == true)
                     {
                         <div class="modal" tabindex="-1" style="display:block;">
@@ -217,6 +220,7 @@
         </div>
     </div>
 }
+@*hvis man ikke er logget ind vises der at man skal logge ind først*@
 else{
     <div class="container">
         <div class="card">
@@ -234,38 +238,47 @@ else{
 
 
 @code {
+    //Indhenter parameter for om Brugeren er logget ind
     [Parameter]
     public bool IsAuthenticated{ get; set; }
 
+    // Variabler til at gemme valgte platform og visning af modal dialog
     string platform = "";
     bool showModal = false;
     int itemId;
 
+    //Objekter til at gemme oplysninger om de spil der skal oprettes
     PC_Game pcGameToBeCreated = new PC_Game();
     PS_Game psGameToBeCreated = new PS_Game();
     XBOX_Game xboxGameToBeCreated = new XBOX_Game();
 
 
-
+    //Metoder til at sende Spillet ind til databasen alt efter platform
     public void SubmitFormPC()
     {
+        //Bruger metoden LoadFromLocalStorage som tjekker cokkies for om Brugeren stadig er logget ind
         AuthenticationService.LoadFromLocalStorage();
+        // Tilføjer det oprettede PC-spil til databasen pcGameToBeCreated indeholder alle de oplysninger, der er indtastet i input felterne
         itemId = DB.AddPCGameToDatabase(pcGameToBeCreated);
+        //Kalder på metoder der åbner modalen
         ShowModal();
     }
 
     public void SubmitFormPS()
     {
+        AuthenticationService.LoadFromLocalStorage();
         itemId = DB.AddPSGameToDatabase(psGameToBeCreated);
         ShowModal();
     }
 
     public void SubmitFormXBOX()
     {
+        AuthenticationService.LoadFromLocalStorage();
         itemId = DB.AddXboxGameToDatabase(xboxGameToBeCreated);
         ShowModal();
     }
 
+    //Åbner og lukker modal
     void ShowModal()
     {
         showModal = true;
@@ -276,23 +289,27 @@ else{
         showModal = false;
     }
 
+    //Metode til at Refresh siden uden at Cookies ryddes og man bliver logget ud
     public void Refresh()
     {
         CloseModal();
         NavigationManager.NavigateTo($"/SalesListing", forceLoad: true);
     }
 
+    //Metode til at få vist seneste tilføjet Spil hvis nej knappen trykkes på
     public void Listed(int itemId)
     {
         CloseModal();
         NavigationManager.NavigateTo($"/product/{itemId}");
     }
 
+    //Navigere til login siden
     public void navlogin()
     {
         NavigationManager.NavigateTo($"/login");
     }
 
+    //Navigere til ragister siden
     public void navregister()
     {
         NavigationManager.NavigateTo($"/register");
