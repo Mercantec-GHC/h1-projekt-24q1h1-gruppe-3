@@ -297,7 +297,8 @@ namespace Service
                                     price = Convert.ToInt32(reader["price"]),
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
-                                    description = reader["description"].ToString()
+                                    description = reader["description"].ToString(),
+                                    type = reader["type"].ToString()
                                 });
                             }
                             else if (type == "PS")
@@ -310,8 +311,8 @@ namespace Service
                                     price = Convert.ToInt32(reader["price"]),
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
-                                    description = reader["description"].ToString()
-                                    // user = Convert.ToInt32(reader["userid"])
+                                    description = reader["description"].ToString(),
+                                    type = reader["type"].ToString()
                                 });
                             }
                             else if (type == "XBOX")
@@ -324,7 +325,8 @@ namespace Service
                                     price = Convert.ToInt32(reader["price"]),
                                     manufacture = reader["manufacture"].ToString(),
                                     condition = reader["condition"].ToString(),
-                                    description = reader["description"].ToString()
+                                    description = reader["description"].ToString(),
+                                    type = reader["type"].ToString()
                                 });
                             }
                         }
