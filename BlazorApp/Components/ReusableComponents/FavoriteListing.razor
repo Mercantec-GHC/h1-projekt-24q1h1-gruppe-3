@@ -1,10 +1,5 @@
-﻿<PageTitle>Gamers Lounge: Your Favorites</PageTitle>
-
-<h3 class="text">Your Favorites</h3>
-<div class="container">
-    @*Kalder på siden "Listing Games" for at opsætte produkterne på samme måde som på "ProductList".*@
-	<Listing Games="favGames"></Listing>
-</div>
+﻿@*Kalder på siden "Listing Games" for at opsætte produkterne på samme måde som på "ProductList".*@
+<Listing Games="favGames"></Listing>
 
 @code {
     public List<Item> favGames = new List<Item>();
