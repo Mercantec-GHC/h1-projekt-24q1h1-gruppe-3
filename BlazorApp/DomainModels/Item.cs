@@ -22,9 +22,6 @@ namespace DomainModels
 
         public int userID { get; set; }
 
-
-
-
         void SetItem() { }
         void AddItem() { }
         void RemoveItem() { }

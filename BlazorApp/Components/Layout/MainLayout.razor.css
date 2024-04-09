@@ -8,9 +8,8 @@
     margin: 0 1rem 0 1rem;
 }
 
-.searchInput gradient-text{
-    background-color: #b3b3b3 !important;
-
+input[type="text"] {
+    border-radius: 10px;
 }
 
 
@@ -20,31 +19,31 @@ input[type="text"].gradient-text {
     -webkit-background-clip: text;
 }
 
-    input[type="text"].gradient-text::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%); /* Gradientfarve */
-        -webkit-background-clip: text;
-        border: 2px solid;
-        border-image: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%) 1;
-        pointer-events: none;
-    }
+input[type="text"].gradient-text::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%); /* Gradientfarve */
+    -webkit-background-clip: text;
+    border: 2px solid;
+    border-image: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%) 1;
+    pointer-events: none;
+}
 
 .searchInput {
     background: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    border: 2px solid;
+    border: 2px solid transparent;
     border-image: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%) 1;
+    border-radius: 10px !important;
+
 }
 
-
-
 .searchInput.gradient-text::before {
-    content: attr(placeholder); /* Brug placeholder teksten som indhold */
+    content: attr(placeholder);
     position: absolute;
     top: 0;
     left: 0;
@@ -53,7 +52,7 @@ input[type="text"].gradient-text {
     background: linear-gradient(90deg, rgba(159,36,255,1) 48%, rgba(0,158,255,1) 56%); /* Gradientfarve */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    pointer-events: none; /* Gør pseudo-elementet ikke-interaktivt */
+    pointer-events: none;
 }
 
 main {

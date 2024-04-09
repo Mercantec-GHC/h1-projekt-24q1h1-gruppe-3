@@ -4,15 +4,15 @@
 
 <PageTitle>Gamers Lounge: Product List</PageTitle>
 
-<!-- Search funktion and btn -->
+<!-- Title på produkt siden  -->
 <div class="ProductListTop">
     <h3 class="ProductListTitle">ProductList</h3>
 </div>
 
-<!-- Show amount of products -->
+<!-- Viser antallet af produkter -->
 <h5 class="productsCount">Total products: <b class="textColor">@DB.allItems.Count</b></h5>
 
-<!-- Filter: Select platform and choose between highest or lowest price order -->
+<!-- Opretter en sektion for at filtrere produkter baseret på platform og prisstigning-->
 <div>
     <label>
         <select @bind="platform">
@@ -35,6 +35,7 @@
     </label>
 </div>
 
+<!-- Hvis platform er valgt, filtrerer listen over spil baseret på platform-->
 @if (platform is not null)
 {
     if (platform == "All")
@@ -54,7 +55,7 @@
         gamesToShow = FT.FiltreToXBOX_Games(DB.allItems).Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList(); ;
     }
 }
-
+<!-- Hvis pris er valgt, filtrerer listen over spil baseret på pris -->
 @if (price is not null)
 {
     if (price == "High")
@@ -73,12 +74,12 @@
     }
 }
 
-<!-- Show the products -->
+<!-- Vis produkterne -->
 <div class="container">
     <Listing Games="gamesToShow"></Listing>
 </div>
 
-<!--   Page  -->
+<!--   Sider, gør det muligt at skifte side  -->
 <div class="pagination">
     <button class="pageBtn" @onclick="() => { currentPage = currentPage - 1; UpdatePage(currentPage); }" disabled="@(currentPage == 1)"> ◄ </button>
     <span class="pageBtnText">Page @currentPage - @totalPages</span>
@@ -88,37 +89,44 @@
 
 
 @code {
+    // Liste til at gemme de spil, der skal vises
     public List<Item> gamesToShow;
+
     public string platform;
     public string price;
 
-    // Modal
+    // Boolean showModal
     bool ShowModal { get; set; }
 
 
-    // Switch between pages variables
+    // Variabler til sideskift
     public int currentPage = 1;
     public const int itemsPerPage = 9;
     public int totalPages;
 
-
+    // Initialiserer siden og beregner de spil, der skal vises.
     protected override void OnInitialized()
     {
-        // Calculate items to show based on current page
+        // Beregner spil der vises baseret på nuværende side
         gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
-        // Calculate total pages
+        // Beregner total antal sider
         totalPages = (int)Math.Ceiling((double)DB.allItems.Count / itemsPerPage);
     }
 
+    // Opdatere listen over spil baseret på valgt filtre og side
     private void UpdatePage(int page)
     {
+        // Tjekker, om den angivne side er gyldig 
+        // (mellem 1 og det samlede antal sider).
         if (page < 1 || page > totalPages)
         {
             return;
         }
-
+        // Opdaterer den aktuelle side.
         currentPage = page;
+        // Opdaterer listen over spil, der skal vises, baseret på den valgte side
         gamesToShow = DB.allItems.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+        // Opdaterer komponentens tilstand for at reflektere ændringerne
         StateHasChanged();
     }
 
