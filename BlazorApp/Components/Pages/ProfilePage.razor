@@ -1,5 +1,6 @@
 ﻿@using Service
 @inject AuthenticationService AuthenticationService
+@inject IJSRuntime JSRuntime
 
 @page "/profilepage/{userID}"
 
@@ -220,19 +221,29 @@
     }
 
     //Metode til at gemme oplysningerne hvis man har ændret sine profil oplysningerne
-    public void saveInfo()
+    public async void saveInfo()
     {
-        // Opdater brugerens information i databasen
-        DB.UpdateUserInDatabase(userToShow.userID, updatedName, updatedEmail, updatedPassword, updatedPhoneNumber, updatedCity);
 
-        // Opdater brugerens information i komponenten
-        userToShow.name = updatedName;
-        userToShow.phoneNumber = updatedPhoneNumber;
-        userToShow.email = updatedEmail;
-        userToShow.city = updatedCity;
+        try
+        {
+            // Opdater brugerens information i databasen
+            DB.UpdateUserInDatabase(userToShow.userID, updatedName, updatedEmail, updatedPassword, updatedPhoneNumber, updatedCity);
 
-        //Lukker muligheden for at ændre i profilen igen efter oplysningerne er gemt
-        editProfileinfo = false;
+            // Opdater brugerens information i komponenten
+            userToShow.name = updatedName;
+            userToShow.phoneNumber = updatedPhoneNumber;
+            userToShow.email = updatedEmail;
+            userToShow.city = updatedCity;
+
+            //Lukker muligheden for at ændre i profilen igen efter oplysningerne er gemt
+            editProfileinfo = false;
+        }
+        //Hvis det fejler viser den en browser alert
+        catch
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "You need to fill out all the fields again!");
+        }
+
     }
 
     //Lukker muligheden for at ændre i profilen igen efter oplysningerne er gemt
