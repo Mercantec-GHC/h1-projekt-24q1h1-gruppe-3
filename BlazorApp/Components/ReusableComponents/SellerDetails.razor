@@ -9,7 +9,6 @@
     }
 </div>
 
-
 @code {
    //Parameter til at hente userID
     [Parameter]
@@ -23,5 +22,4 @@
         //Henter Sælger oplysningerne fra databasen ud fra UserID og gemmer i SellerDetails
         sellerDetails = DB.GetSellerDetailsFromUsers(userID);
     }
-
 }
