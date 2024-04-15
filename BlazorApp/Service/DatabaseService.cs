@@ -116,20 +116,28 @@ namespace Service
         //Henter informationen for alle brugerne i databasen og gemmer dem som objekter i listen "allUser". 
         public List<User> GetAllUser()
         {
+            // Opretter en tom liste til at gemme brugerdata
             List<User> allUser = new List<User>();
 
+            //Oprette forbindelse til databasen via NPGSQL
 			using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
+                //Starter Forbindelsen
                 connection.Open();
 
+                //Gemmer sql kommandoen i en variabel
 				string sql = "SELECT * FROM users";
 
+                //Med forbindelsen til databasen indsætter vi kommandoen
 				using (NpgsqlCommand command = new NpgsqlCommand(sql, connection))
                 {
+                    //Med NPGSQL læser vi dataen fra Users table'et
 					using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
+                        //Mens Readern læser
 						while (reader.Read())
                         {
+                            //Her tilføjer vi Brugeren som er hentet fra databasen til listen med strukturen neden under
 							allUser.Add(new User()
                             {
                                 name = reader["name"].ToString(),
@@ -140,6 +148,7 @@ namespace Service
                                 city = reader["city"].ToString()
                             });
                         }
+                        //Returner dataen til allUser
                         return allUser;
                     }
                 }

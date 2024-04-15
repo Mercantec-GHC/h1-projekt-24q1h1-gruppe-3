@@ -14,10 +14,6 @@ namespace Service
         {
             _jsRuntime = jsRuntime;
             _databaseService = databaseService;
-            //indlæser fra LocaStorage i Browseren (Cookies)
-            LoadFromLocalStorage();
-            //Sletter alle Cookies Når siden lukkes
-            ClearLocalStorageOnPageExit();
         }
 
         //Henter variablerne for at de kan bruges i den her fil
@@ -33,7 +29,7 @@ namespace Service
             CurrentUser = user;
             //Konverterer brugerens ID til en streng og gemmer det i CurrentUserID
             CurrentUserID = user.userID.ToString();
-            //Her fortæller vi databasen hvilken UserID brugeren har
+            //Her fortæller vi hvad variable CurrentUserId som ligger i databaseservice hvilken UserID brugeren har
             _databaseService.SetCurrentUserID(CurrentUserID); 
             //gemmer Brugerens status i Cokkies
             await SaveToLocalStorage();
@@ -58,7 +54,7 @@ namespace Service
         {
             await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "IsAuthenticated", IsAuthenticated.ToString());
             await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "CurrentUser", CurrentUser != null ? CurrentUser.name : "");
-            await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "CurrentUserId", CurrentUserID); // Gem CurrentUserID korrekt
+            await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "CurrentUserId", CurrentUserID); 
         }
 
 
@@ -98,7 +94,7 @@ namespace Service
         //den her funktion sletter Cookies når siden lukkes
         private async Task ClearLocalStorageOnPageExit()
         {
-                await _jsRuntime.InvokeVoidAsync("eval", @"window.addEventListener('beforeunload'', 
+            await _jsRuntime.InvokeVoidAsync("eval", @"window.addEventListener('beforeunload'', 
                 function() {localStorage.clear();});");
         }
     }
