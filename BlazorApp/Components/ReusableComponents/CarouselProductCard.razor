@@ -82,7 +82,6 @@
 	public int currentIndexPC = 0;
 	public int currentIndexPS = 0;
 	public int currentIndexXBOX = 0;
-	public int currentIndexImages = 0;
 
 	//Laver en variable der håndter tid.
 	private System.Timers.Timer timer;
@@ -90,7 +89,7 @@
 	//En funktion der køre ligeså snart det siden bliver loaded.
 	protected override void OnInitialized()
 	{
-		//Håndter tiden for funktionen "TimerElapsed".
+		//Håndter tiden for funktionen "TimerElapsed()".
 		timer = new System.Timers.Timer(8000);
 		timer.Elapsed += TimerElapsed;
 		timer.Start();
@@ -106,6 +105,7 @@
 	private void TimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
 	{
 		NextGame();
+		//Blazors auto refresh a siden
 		InvokeAsync(StateHasChanged);
 	}
 
@@ -115,6 +115,5 @@
 		currentIndexPC = (currentIndexPC + 1) % pcGamesToShow.Count;
 		currentIndexPS = (currentIndexPS + 1) % psGamesToShow.Count;
 		currentIndexXBOX = (currentIndexXBOX + 1) % xboxGamesToShow.Count;
-		currentIndexImages = (currentIndexImages + 1) % imagesPC.Length;
 	}
 }
